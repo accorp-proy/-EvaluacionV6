@@ -33,6 +33,7 @@ public enum EnumNaming {
 	IRolMenuAccesoDao("RolMenuAccesoDao"),
 	INivelEsfuerzoDao("NivelEsfuerzoDao"),
 	IProcesoDetalleDao("ProcesoDetalleDao"),
+	ITipoInventarioDao("TipoInventarioDao"),
 	INotificacionService("SrvNotificacion"),
 	INivelEvaluacionDao("NivelEvaluacionDao"),
 	IFrecuenciaVisitaDao("FrecuenciaVisitaDao"),

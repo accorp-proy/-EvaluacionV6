@@ -32,8 +32,10 @@ import com.primax.srv.idao.ICantonDao;
 import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.IFrecuenciaVisitaDao;
 import com.primax.srv.idao.IKPICriticoDao;
+import com.primax.srv.idao.INivelColorDao;
 import com.primax.srv.idao.INivelEvaluacionDao;
 import com.primax.srv.idao.IParametrolGeneralDao;
+import com.primax.srv.idao.IPlanificacionInventarioDao;
 import com.primax.srv.idao.IProcesoDao;
 import com.primax.srv.idao.IProvinciaDao;
 import com.primax.srv.idao.IReporteEvaluacionConsolidadoDao;
@@ -42,7 +44,9 @@ import com.primax.srv.idao.IReporteEvaluacionPlanificacionDao;
 import com.primax.srv.idao.IReporteEvaluacionPuntajeDao;
 import com.primax.srv.idao.IReporteEvaluacionVariacionDao;
 import com.primax.srv.idao.IReportePlanificacionInventarioDao;
+import com.primax.srv.idao.IReporteTipoEvaluacionConsolidadoDao;
 import com.primax.srv.idao.IReporteTipoEvaluacionDao;
+import com.primax.srv.idao.IReporteTipoInventarioDao;
 import com.primax.srv.idao.ITipoCargoDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.ITipoInventarioDao;
@@ -73,6 +77,8 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	@EJB
 	private ITipoCargoDao iTipoCargoDao;
 	@EJB
+	private INivelColorDao iNivelColorDao;
+	@EJB
 	private IKPICriticoDao iKPICriticoDao;
 	@EJB
 	private IEvaluacionDao iEvaluacionDao;
@@ -87,7 +93,11 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	@EJB
 	private IParametrolGeneralDao iParametrolGeneralDao;
 	@EJB
+	private IReporteTipoInventarioDao iReporteTipoInventarioDao;
+	@EJB
 	private IReporteTipoEvaluacionDao iReporteTipoEvaluacionDao;
+	@EJB
+	private IPlanificacionInventarioDao iPlanificacionInventarioDao;
 	@EJB
 	private IReporteEvaluacionPuntajeDao iReporteEvaluacionPuntajeDao;
 	@EJB
@@ -100,6 +110,8 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	private IReporteEvaluacionPlanificacionDao iReporteEvaluacionPlanificacionDao;
 	@EJB
 	private IReportePlanificacionInventarioDao iReportePlanificacionInventarioDao;
+	@EJB
+	private IReporteTipoEvaluacionConsolidadoDao iReporteTipoEvaluacionConsolidadoDao;
 
 	private ZonaEt zonaSeleccionada;
 	private AgenciaEt estacionSeleccionada;
@@ -217,6 +229,28 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		try {
 			if (anioSeleccionado != null) {
 				generar07(Integer.parseInt(anioSeleccionado.getValorLista()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generarReporte " + " " + e.getMessage());
+		}
+	}
+
+	public void generarReporte08() {
+		try {
+			if (anioSeleccionado != null) {
+				generar08(Integer.parseInt(anioSeleccionado.getValorLista()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generarReporte " + " " + e.getMessage());
+		}
+	}
+
+	public void generarReporte09() {
+		try {
+			if (anioSeleccionado != null) {
+				generar09(Integer.parseInt(anioSeleccionado.getValorLista()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -460,6 +494,61 @@ public class BusquedaBean extends BaseBean implements Serializable {
 				Date fechaDesde = getFechaDesde(mes, anio);
 				Date fechaHasta = getFechaHasta(mes, anio);
 				iReportePlanificacionInventarioDao.generar(fechaDesde, fechaHasta, idZona, idEstacion, idTipoInventario,
+						usuario.getIdUsuario());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generar " + " " + e.getMessage());
+		}
+	}
+
+	public void generar08(int anio) {
+		Long idZona = 0L;
+		Long idEstacion = 0L;
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			iNivelColorDao.limpiarReporte(usuario.getIdUsuario());
+			if (zonaSeleccionada != null) {
+				idZona = zonaSeleccionada.getIdZona();
+			}
+			if (estacionSeleccionada != null) {
+				idEstacion = estacionSeleccionada.getIdAgencia();
+			}
+			for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
+				int mes = Integer.parseInt(parametrosGenerales.getValorLista());
+				Date fechaDesde = getFechaDesde(mes, anio);
+				Date fechaHasta = getFechaHasta(mes, anio);
+				iReporteTipoEvaluacionConsolidadoDao.generar(fechaDesde, fechaHasta, idZona, idEstacion,
+						usuario.getIdUsuario());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generar " + " " + e.getMessage());
+		}
+	}
+
+	public void generar09(int anio) {
+		Long idZona = 0L;
+		Long idAgencia = 0L;
+		Long idTipoInventario = 0L;
+		try {
+			// jema21
+			UsuarioEt usuario = appMain.getUsuario();
+			iPlanificacionInventarioDao.limpiarReporte(usuario.getIdUsuario());
+			if (zonaSeleccionada != null) {
+				idZona = zonaSeleccionada.getIdZona();
+			}
+			if (tipoInventarioSeleccionado != null) {
+				idTipoInventario = tipoInventarioSeleccionado.getIdTipoInventario();
+			}
+			if (estacionSeleccionada != null) {
+				idAgencia = estacionSeleccionada.getIdAgencia();
+			}
+			for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
+				int mes = Integer.parseInt(parametrosGenerales.getValorLista());
+				Date fechaDesde = getFechaDesde(mes, anio);
+				Date fechaHasta = getFechaHasta(mes, anio);
+				iReporteTipoInventarioDao.generar(fechaDesde, fechaHasta, idZona, idTipoInventario, idAgencia,
 						usuario.getIdUsuario());
 			}
 		} catch (Exception e) {
@@ -753,18 +842,23 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		iAgenciaDao.remove();
 		iProvinciaDao.remove();
 		iTipoCargoDao.remove();
+		iNivelColorDao.remove();
 		iEvaluacionDao.remove();
 		iKPICriticoDao.remove();
 		iTipoChecKListDao.remove();
 		iTipoInventarioDao.remove();
 		iParametrolGeneralDao.remove();
+		iReporteTipoInventarioDao.remove();
 		iReporteTipoEvaluacionDao.remove();
+		iPlanificacionInventarioDao.remove();
 		iReporteEvaluacionPuntajeDao.remove();
 		iReporteEvaluacionVariacionDao.remove();
 		iReporteEvaluacionNivelRiesgoDao.remove();
 		iReporteEvaluacionConsolidadoDao.remove();
 		iReporteEvaluacionPlanificacionDao.remove();
 		iReportePlanificacionInventarioDao.remove();
+		iReporteTipoEvaluacionConsolidadoDao.remove();
+
 	}
 
 }

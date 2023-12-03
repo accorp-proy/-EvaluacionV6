@@ -12,6 +12,8 @@ public interface IFrecuenciaVisitaDao extends IGenericDao<FrecuenciaVisitaEt, Lo
 
 	public void remove();
 
+	public String limpiarReporte(Long idUsuario);
+
 	public FrecuenciaVisitaEt getFrecuenciaVisitaById(long id);
 
 	public List<FrecuenciaVisitaEt> getFrecuenciaVisitaList(String condicion) throws EntidadNoEncontradaException;

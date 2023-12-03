@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -10,6 +11,7 @@ import javax.ejb.StatefulTimeout;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import com.primax.enm.gen.ActionAuditedEnum;
@@ -44,13 +46,19 @@ public class PlanAccionAnioDao extends GenericDao<PlanAccionAnioEt, Long> implem
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public String generar(Long idUsuario) {
+	public String generar(Long anio, Date fechaDesde, Date fechaHasta, Long idZona, Long idEstacion, Long idEvaluacion, Long idUsuario) {
 		StoredProcedureQuery query = this.em.createNamedStoredProcedureQuery("getGenerarOrgPlnAnio");
+		query.setParameter("idAnio", anio);
+		query.setParameter("fechaDesde", fechaDesde, TemporalType.DATE);
+		query.setParameter("fechaHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("idZona", idZona);
+		query.setParameter("idEstacion", idEstacion);
+		query.setParameter("idEvaluacion", idEvaluacion);
 		query.setParameter("idUsuario", idUsuario);
 		String respuesta = (String) query.getOutputParameterValue("respuesta");
 		return respuesta;
+
 	}
-	
 	@Override
 	public List<PlanAccionAnioEt> getPlanAccionAnioList() {
 		sql = new StringBuilder("FROM PlanAccionAnioEt o ");

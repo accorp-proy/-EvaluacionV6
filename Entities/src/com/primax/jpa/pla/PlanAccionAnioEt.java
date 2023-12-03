@@ -24,6 +24,12 @@ import com.primax.jpa.sec.UsuarioEt;
 @Table(name = "PLAN_ACCION_ANIO_ET")
 
 @NamedStoredProcedureQuery(name = "getGenerarOrgPlnAnio", procedureName = "fun_generar_org_pln_anio", resultClasses = PlanAccionAnioEt.class, parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idAnio"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaDesde"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaHasta"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idZona"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idEstacion"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idEvaluacion"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
 		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
 

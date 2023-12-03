@@ -13,6 +13,8 @@ public interface IPlanificacionInventarioDao extends IGenericDao<PlanificacionIn
 
 	public void remove();
 
+	public String limpiarReporte(Long idUsuario);
+
 	public PlanificacionInventarioEt getPlanificacionInventarioById(long id);
 
 	public List<PlanificacionInventarioEt> getPlanificacionInventarioList(Date fechaDesde, Date fechaHasta) throws EntidadNoEncontradaException;

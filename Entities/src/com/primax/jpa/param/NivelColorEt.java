@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -17,6 +20,11 @@ import com.primax.jpa.sec.UsuarioEt;
 @Entity
 @Table(name = "NIVEL_COLOR_ET")
 @Audited
+
+@NamedStoredProcedureQuery(name = "getReporteTipoEvaluacionCons", procedureName = "fun_limpiar_rpt_tipo_evaluacion_consolidado", resultClasses = ProcesoDetalleEt.class, parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
+		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
+
 
 public class NivelColorEt extends EntityBase {
 

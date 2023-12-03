@@ -16,6 +16,8 @@ public interface ITipoInventarioDao extends IGenericDao<TipoInventarioEt, Long> 
 
 	public TipoInventarioEt getTipoInventario(long id);
 
+	public TipoInventarioEt getTipoInventarioById(long id);
+
 	public List<TipoInventarioEt> getTipoInventarioList(String condicion) throws EntidadNoEncontradaException;
 
 	public void guardarTipoInventario(TipoInventarioEt tipoInventario, UsuarioEt usuario) throws EntidadNoGrabadaException;

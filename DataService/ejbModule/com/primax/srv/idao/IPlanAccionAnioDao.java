@@ -1,5 +1,6 @@
 package com.primax.srv.idao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.primax.exc.gen.EntidadNoGrabadaException;
@@ -11,10 +12,10 @@ public interface IPlanAccionAnioDao extends IGenericDao<PlanAccionAnioEt, Long> 
 
 	public void remove();
 
-	public String generar(Long idUsuario);
-
 	public List<PlanAccionAnioEt> getPlanAccionAnioList();
 
 	public void guardarPlanAccionAnio(PlanAccionAnioEt planAccionAnio, UsuarioEt usuario) throws EntidadNoGrabadaException;
+
+	public String generar(Long anio, Date fechaDesde, Date fechaHasta, Long idZona, Long idEstacion, Long idEvaluacion, Long idUsuario);
 
 }

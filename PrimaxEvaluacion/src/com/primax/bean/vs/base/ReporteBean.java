@@ -25,6 +25,8 @@ import com.primax.bean.maker.ReporteGrupalPlanificacionInventario;
 import com.primax.bean.maker.ReporteGrupalProcesoConsolidado;
 import com.primax.bean.maker.ReporteGrupalTableroControl;
 import com.primax.bean.maker.ReporteGrupalTipoEvaluacion;
+import com.primax.bean.maker.ReporteGrupalTipoEvaluacionCons;
+import com.primax.bean.maker.ReporteGrupalTipoInventario;
 import com.primax.bean.maker.ReporteIndividualArqueoCajaChicaGeneral;
 import com.primax.bean.maker.ReporteIndividualArqueoCajaFondoSuelto;
 import com.primax.bean.maker.ReporteIndividualArqueoCajaPT;
@@ -375,6 +377,28 @@ public class ReporteBean extends BaseBean implements Serializable {
 					exportIt(reporteGrupalPlanificacionInventario.getReport(params,
 							WebAppUtil.getServletContext().getRealPath(reportPath), WebAppUtil.getServletContext(),
 							excel), "Reporte_Planificacion_Inventario");
+				} catch (NumberFormatException | EntidadNoEncontradaException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "27":
+				/* Reporte Tipo Evaluación Consolidado */
+				ReporteGrupalTipoEvaluacionCons reporteGrupalTipoEvaluacionCons = new ReporteGrupalTipoEvaluacionCons();
+				try {
+					exportIt(reporteGrupalTipoEvaluacionCons.getReport(params,
+							WebAppUtil.getServletContext().getRealPath(reportPath), WebAppUtil.getServletContext(),
+							excel), "Reporte_Evaluacion_Consolidado");
+				} catch (NumberFormatException | EntidadNoEncontradaException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "28":
+				/* Reporte Tipo Inventario */
+				ReporteGrupalTipoInventario reporteGrupalTipoInventario = new ReporteGrupalTipoInventario();
+				try {
+					exportIt(reporteGrupalTipoInventario.getReport(params,
+							WebAppUtil.getServletContext().getRealPath(reportPath), WebAppUtil.getServletContext(),
+							excel), "Reporte_Tipo_Iventario");
 				} catch (NumberFormatException | EntidadNoEncontradaException e) {
 					e.printStackTrace();
 				}

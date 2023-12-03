@@ -74,6 +74,18 @@ public class TipoInventarioDao extends GenericDao<TipoInventarioEt, Long> implem
 		String respuesta = (String) query.getOutputParameterValue("respuesta");
 		return respuesta;
 	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public TipoInventarioEt getTipoInventarioById(long id) {
+		try {
+			TipoInventarioEt tipoInventario = recuperar(id);
+			return tipoInventario;
+		} catch (EntidadNoEncontradaException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Remove
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

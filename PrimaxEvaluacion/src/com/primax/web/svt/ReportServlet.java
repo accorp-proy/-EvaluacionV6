@@ -20,6 +20,8 @@ import com.primax.bean.maker.ReporteGrupalEvaluacionVariacion;
 import com.primax.bean.maker.ReporteGrupalPlanificacionInventario;
 import com.primax.bean.maker.ReporteGrupalProcesoConsolidado;
 import com.primax.bean.maker.ReporteGrupalTipoEvaluacion;
+import com.primax.bean.maker.ReporteGrupalTipoEvaluacionCons;
+import com.primax.bean.maker.ReporteGrupalTipoInventario;
 import com.primax.bean.maker.ReporteIndividualArqueoCajaPT;
 import com.primax.bean.maker.ReporteIndividualInformeDinamico;
 import com.primax.bean.maker.ReporteIndividualInformeEjecucion;
@@ -178,6 +180,26 @@ public class ReportServlet extends HttpServlet {
 				try {
 					ReporteGrupalPlanificacionInventario reporteGrupalPlanificacionInv = new ReporteGrupalPlanificacionInventario();
 					exportIt(reporteGrupalPlanificacionInv.getReport(params, path, getServletContext(), false),
+							response);
+				} catch (Exception e) {
+					response.sendError(HttpServletResponse.SC_NOT_FOUND);
+					e.printStackTrace();
+				}
+				break;
+			case "27":
+				try {
+					ReporteGrupalTipoEvaluacionCons reporteGrupalTipoEvaluacionCons = new ReporteGrupalTipoEvaluacionCons();
+					exportIt(reporteGrupalTipoEvaluacionCons.getReport(params, path, getServletContext(), false),
+							response);
+				} catch (Exception e) {
+					response.sendError(HttpServletResponse.SC_NOT_FOUND);
+					e.printStackTrace();
+				}
+				break;
+			case "28":
+				try {
+					ReporteGrupalTipoInventario reporteGrupalTipoInventario = new ReporteGrupalTipoInventario();
+					exportIt(reporteGrupalTipoInventario.getReport(params, path, getServletContext(), false),
 							response);
 				} catch (Exception e) {
 					response.sendError(HttpServletResponse.SC_NOT_FOUND);

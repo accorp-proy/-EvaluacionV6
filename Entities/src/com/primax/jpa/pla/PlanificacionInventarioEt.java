@@ -15,9 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.ParameterMode;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,12 +33,18 @@ import com.primax.enm.gen.ActionAuditedEnum;
 import com.primax.jpa.base.EntityBase;
 import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
+import com.primax.jpa.param.ProcesoDetalleEt;
 import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.sec.UsuarioEt;
 
 @Entity
 @Table(name = "PLANIFICACION_INVENTARIO_ET")
 @Audited
+
+@NamedStoredProcedureQuery(name = "getReporteTipoInventario", procedureName = "fun_limpiar_rpt_tipo_inventario", resultClasses = ProcesoDetalleEt.class, parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
+		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
+
 public class PlanificacionInventarioEt extends EntityBase implements Serializable {
 
 	private static final long serialVersionUID = -3318332355036766787L;

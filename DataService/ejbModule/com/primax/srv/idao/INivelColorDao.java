@@ -12,6 +12,8 @@ public interface INivelColorDao extends IGenericDao<NivelColorEt, Long> {
 
 	public void remove();
 
+	public String limpiarReporte(Long idUsuario);
+
 	public NivelColorEt getNivelColorById(long id);
 
 	public List<NivelColorEt> getNivelColorList(String condicion) throws EntidadNoEncontradaException;
