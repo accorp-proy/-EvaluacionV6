@@ -35,6 +35,8 @@ public interface ICheckListEjecucionDao extends IGenericDao<CheckListEjecucionEt
 
 	public List<CheckListEjecucionEt> getCheckListIngresandoPlanAccion(AgenciaEt agencia) throws EntidadNoEncontradaException;
 
+	public CheckListEjecucionEt getCheckListEjecucionPlanAccion(Long idCheckListEjecucion) throws EntidadNoEncontradaException;
+
 	public CheckListEjecucionEt getCheckListEjecucionPlanAccion(TipoCheckListEnum tipoCheckList, AgenciaEt agencia)
 			throws EntidadNoEncontradaException;
 

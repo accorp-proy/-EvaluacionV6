@@ -71,7 +71,7 @@ public class CheckListKpiEjecucionEt extends EntityBase implements Serializable 
 
 	@Column(name = "comentario_plan_accion", length = 500)
 	private String comentarioPlanAccion;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_check_list_criterio_detalle_seleccionado")
 	private CheckListCriterioDetalleEt checkListCriterioDetalle;
@@ -91,7 +91,7 @@ public class CheckListKpiEjecucionEt extends EntityBase implements Serializable 
 	@ManyToOne
 	@JoinColumn(name = "id_criterio_evaluacion")
 	private CriterioEvaluacionEt criterioEvaluacion;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_check_list_criterio")
 	private CheckListCriterioEt checkListCriterio;
@@ -183,6 +183,11 @@ public class CheckListKpiEjecucionEt extends EntityBase implements Serializable 
 	@Where(clause = "estado = 'ACT'")
 	private List<CheckListKpiEjecucionFirmaEt> checkListKpiEjecucionFirma;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "checkListKpiEjecucion", fetch = FetchType.LAZY)
+	@OrderBy("idCheckListKpiEjecucionAdjunto")
+	@Where(clause = "estado = 'ACT'")
+	private List<CheckListKpiEjecucionAdjuntoEt> checkListKpiEjecucionAdjunto;
+
 	public CheckListKpiEjecucionEt() {
 		this.turno = 0L;
 		this.seccion = "";
@@ -202,7 +207,7 @@ public class CheckListKpiEjecucionEt extends EntityBase implements Serializable 
 		this.fechaArqueo = new Date();
 		this.visualizarReporte = false;
 		this.comentarioPlanAccion = "";
-		
+
 	}
 
 	public Long getIdCheckListKpiEjecucion() {
@@ -507,6 +512,14 @@ public class CheckListKpiEjecucionEt extends EntityBase implements Serializable 
 
 	public void setCheckListCriterio(CheckListCriterioEt checkListCriterio) {
 		this.checkListCriterio = checkListCriterio;
+	}
+
+	public List<CheckListKpiEjecucionAdjuntoEt> getCheckListKpiEjecucionAdjunto() {
+		return checkListKpiEjecucionAdjunto;
+	}
+
+	public void setCheckListKpiEjecucionAdjunto(List<CheckListKpiEjecucionAdjuntoEt> checkListKpiEjecucionAdjunto) {
+		this.checkListKpiEjecucionAdjunto = checkListKpiEjecucionAdjunto;
 	}
 
 	@Override

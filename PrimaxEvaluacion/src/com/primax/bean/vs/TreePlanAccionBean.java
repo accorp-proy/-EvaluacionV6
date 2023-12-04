@@ -23,7 +23,11 @@ import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.ParametrosGeneralesEt;
 import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
+import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.pla.CheckListEjecucionPlnAdjuntoEt;
+import com.primax.jpa.pla.CheckListKpiEjecucionAdjuntoEt;
+import com.primax.jpa.pla.CheckListKpiEjecucionEt;
+import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
 import com.primax.jpa.pla.PlanAccionAnioEt;
 import com.primax.jpa.pla.PlanAccionChekListEt;
 import com.primax.jpa.pla.PlanAccionEstacionEt;
@@ -31,6 +35,7 @@ import com.primax.jpa.pla.PlanAccionMesEt;
 import com.primax.jpa.pla.PlanAccionZonaEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.IAgenciaDao;
+import com.primax.srv.idao.ICheckListEjecucionDao;
 import com.primax.srv.idao.ICheckListEjecucionPlnAdjuntoDao;
 import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.IFrecuenciaVisitaDao;
@@ -71,6 +76,8 @@ public class TreePlanAccionBean extends BaseBean implements Serializable {
 	@EJB
 	private IParametrolGeneralDao iParametrolGeneralDao;
 	@EJB
+	private ICheckListEjecucionDao iCheckListEjecucionDao;
+	@EJB
 	private IPlanAccionEstacionDao iPlanAccionEstacionDao;
 	@EJB
 	private IPlanAccionChekListDao iPlanAccionChekListDao;
@@ -86,7 +93,9 @@ public class TreePlanAccionBean extends BaseBean implements Serializable {
 	private AgenciaEt estacionSeleccionada;
 	private EvaluacionEt evaluacionSeleccionada;
 	private ParametrosGeneralesEt anioSeleccionado;
+	private CheckListEjecucionEt checkListEjecucion;
 	private List<ParametrosGeneralesEt> mesesSeleccionados;
+	private List<CheckListKpiEjecucionAdjuntoEt> checkListKpis;
 	private PlanAccionOrganizacion planAccionOrganizacionSelect;
 
 	@Override
@@ -215,6 +224,24 @@ public class TreePlanAccionBean extends BaseBean implements Serializable {
 			e.printStackTrace();
 			System.out.println("Error :Método disenarTree " + " " + e.getMessage());
 		}
+	}
+
+	public void adjuntoKPI(Long id) {
+		try {
+			checkListKpis = new ArrayList<>();
+			checkListEjecucion = iCheckListEjecucionDao.getCheckListEjecucionPlanAccion(id);
+			for (CheckListProcesoEjecucionEt proceso : checkListEjecucion.getCheckListProcesoEjecucion()) {
+				for (CheckListKpiEjecucionEt kpi : proceso.getCheckListKpiEjecucion()) {
+					for (CheckListKpiEjecucionAdjuntoEt adjunto : kpi.getCheckListKpiEjecucionAdjunto()) {
+						checkListKpis.add(adjunto);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método adjuntoKPI " + " " + e.getMessage());
+		}
+
 	}
 
 	public void nodeSelect(PlanAccionOrganizacion planAccionOrganizacion) {
@@ -398,6 +425,22 @@ public class TreePlanAccionBean extends BaseBean implements Serializable {
 		this.estacionSeleccionada = estacionSeleccionada;
 	}
 
+	public CheckListEjecucionEt getCheckListEjecucion() {
+		return checkListEjecucion;
+	}
+
+	public void setCheckListEjecucion(CheckListEjecucionEt checkListEjecucion) {
+		this.checkListEjecucion = checkListEjecucion;
+	}
+
+	public List<CheckListKpiEjecucionAdjuntoEt> getCheckListKpis() {
+		return checkListKpis;
+	}
+
+	public void setCheckListKpis(List<CheckListKpiEjecucionAdjuntoEt> checkListKpis) {
+		this.checkListKpis = checkListKpis;
+	}
+
 	@Override
 	protected void onDestroy() {
 		iZonaDao.remove();
@@ -410,8 +453,8 @@ public class TreePlanAccionBean extends BaseBean implements Serializable {
 		iParametrolGeneralDao.remove();
 		iPlanAccionChekListDao.remove();
 		iPlanAccionEstacionDao.remove();
+		iCheckListEjecucionDao.remove();
 		iCheckListEjecucionPlnAdjuntoDao.remove();
 	}
-
 
 }

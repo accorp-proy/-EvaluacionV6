@@ -127,12 +127,17 @@
 									actionListener="#{ReporteBn.imprimirExcel(20,'1',document.id0.toString(),document.id1.toString(),null,null,null,null,null,null,null,false)}">
 									<p:fileDownload value="#{appMain.download}" />
 								</p:commandButton>
+								<p:commandButton rendered="#{document.tipo eq 'Plan'}"
+									value="#{TreePlanAccionBn.adjuntoKPI(document.id0)}"
+									oncomplete="PF('dlg_par_021_1').show();"
+									update=":frm_par_021_1" icon="fa fa-file-archive-o"></p:commandButton>
 							</div>
 						</p:column>
 
 					</p:treeTable>
 				</div>
 			</h:form>
+			<ui:include src="/pages/parametros/par_021_1.xhtml"></ui:include>
 		</div>
 	</ui:define>
 </ui:composition>

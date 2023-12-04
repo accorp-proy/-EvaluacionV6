@@ -412,6 +412,44 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public CheckListEjecucionEt getCheckListEjecucionPlanAccion(Long idCheckListEjecucion) throws EntidadNoEncontradaException {
+		List<CheckListKpiEjecucionEt> checkListKpiEjecuciones = new ArrayList<CheckListKpiEjecucionEt>();
+		List<CheckListProcesoEjecucionEt> checkListProcesoEjecuciones = new ArrayList<CheckListProcesoEjecucionEt>();
+		sql = new StringBuilder("FROM CheckListEjecucionEt o ");
+		sql.append(" WHERE o.estado  = :estado   ");
+		sql.append(" AND o.estadoCheckList  = :estadoCheckList ");
+		sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
+		sql.append(" AND o.idCheckListEjecucion = :idCheckListEjecucion ");
+		sql.append(" ORDER BY  o.fechaRegistro desc ");
+		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		query.setParameter("idCheckListEjecucion", idCheckListEjecucion);
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		query.setParameter("estadoPlanAccion", EstadoPlanAccionEnum.INGRESADO);
+		List<CheckListEjecucionEt> result = query.getResultList();
+		CheckListEjecucionEt consultado = getUnique(result);
+		if (consultado != null) {
+			consultado.getCheckListProcesoEjecucion().size();
+			for (CheckListProcesoEjecucionEt checkListProcesoEjecucion : consultado.getCheckListProcesoEjecucion()) {
+				checkListProcesoEjecucion.getCheckListKpiEjecucion().size();
+				for (CheckListKpiEjecucionEt checkListKpiEjecucion : checkListProcesoEjecucion.getCheckListKpiEjecucion()) {
+					String color = checkListKpiEjecucion.getCriterioEvaluacionDetalle().getColor();
+					if (color.equals("#8ED21E") || color.equals("#458F32")) {
+						checkListKpiEjecuciones.add(checkListKpiEjecucion);
+					}
+				}
+				checkListProcesoEjecucion.getCheckListKpiEjecucion().removeAll(checkListKpiEjecuciones);
+				if (checkListProcesoEjecucion.getCheckListKpiEjecucion().isEmpty()) {
+					checkListProcesoEjecuciones.add(checkListProcesoEjecucion);
+				}
+			}
+			consultado.getCheckListProcesoEjecucion().removeAll(checkListProcesoEjecuciones);
+
+		}
+		return consultado;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<CheckListEjecucionEt> getCheckEjecutando(UsuarioEt usuario) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o    ");
 		sql.append(" WHERE o.estado        = :estado   ");
