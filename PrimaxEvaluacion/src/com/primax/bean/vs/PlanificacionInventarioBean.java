@@ -147,9 +147,8 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 
 	public void enviarEmail(PlanificacionInventarioEt planificacion) {
 
-		// String email0 = "";
-
-		// StringBuilder recipient = new StringBuilder();
+		String email = "";
+		StringBuilder recipient = new StringBuilder();
 		try {
 			CorreoEt config = iCorreoDao.getCorreoExiste(1L);
 			MessageFactory msg = new MessageFactory(MessageType.MAIL);
@@ -157,22 +156,18 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 			msc.setSubject(planificacion.getAgencia().getNombreAgencia() + " :Visita de Control Interno");
 			msc.setFrom("notificacionControlInterno@atimasa.com.ec");
 			msc.setMessage(mensajeCorreo(planificacion));
-			// email0 = appMain.getUsuario().getPersonaUsuario().getEmail();
-			// for (Planificacio planificacionAuditor :
-			// planificacionSeleccionada.getPlanificacionAuditor()) {
-			// if
-			// (planificacionAuditor.getUsuarioAuditor().getPersonaUsuario().getEmail()
-			// != null) {
-			// email =
-			// planificacionAuditor.getUsuarioAuditor().getPersonaUsuario().getEmail()
-			// + ",";
-			// recipient.append(email);
-			// }
-			// }
-			// email1 = recipient.toString() + email0;
-			// System.out.println(email1);
-			msc.setRecipient("acorrea@accorp.com.ec,jeffersonmaji@hotmail.com");
-			// msc.setRecipient(email1);
+			email = appMain.getUsuario().getPersonaUsuario().getEmail();
+			for (PlanificacionParticipanteEt planificacionParticipante : planificacionSeleccionada
+					.getPlanificacionParticipante()) {
+				if (planificacionParticipante.getUsuarioParticipante().getPersonaUsuario().getEmail() != null) {
+					email = planificacionParticipante.getUsuarioParticipante().getPersonaUsuario().getEmail() + ",";
+					recipient.append(email);
+				}
+			}
+			email = recipient.toString();
+			System.out.println(email);
+			// msc.setRecipient("acorrea@accorp.com.ec,jeffersonmaji@hotmail.com");
+			msc.setRecipient(email);
 			msc.setConfig(config);
 			msc.sendMessage();
 		} catch (Exception e) {
