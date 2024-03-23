@@ -1,7 +1,10 @@
 package com.primax.bean.vs;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +30,7 @@ import com.primax.jpa.pla.TableroInventarioCabeceraEt;
 import com.primax.jpa.pla.TableroInventarioDetalleEt;
 import com.primax.jpa.pla.TableroInventarioEstacionZonaEt;
 import com.primax.jpa.pla.TableroInventarioMesEt;
+import com.primax.jpa.pla.TableroInventarioNegocioEt;
 import com.primax.jpa.pla.TableroInventarioZonaEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.IAgenciaDao;
@@ -36,6 +40,7 @@ import com.primax.srv.idao.ITableroInventarioCabeceraDao;
 import com.primax.srv.idao.ITableroInventarioDetalleDao;
 import com.primax.srv.idao.ITableroInventarioEstacionZonaDao;
 import com.primax.srv.idao.ITableroInventarioMesDao;
+import com.primax.srv.idao.ITableroInventarioNegocioDao;
 import com.primax.srv.idao.ITableroInventarioZonaDao;
 import com.primax.srv.idao.ITipoEstacionDao;
 import com.primax.srv.idao.ITipoInventarioDao;
@@ -68,6 +73,8 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 	@EJB
 	private ITableroInventarioZonaDao iTableroInventarioZonaDao;
 	@EJB
+	private ITableroInventarioNegocioDao iTableroInventarioNegocioDao;
+	@EJB
 	private ITableroInventarioDetalleDao iTableroInventarioDetalleDao;
 	@EJB
 	private ITableroDetalleInvEstacionDao iTableroDetalleInvEstacionDao;
@@ -83,6 +90,9 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 	private Long nivelE = 0L;
 	private Long nivelC = 0L;
 	private Long nivelF = 0L;
+	private Long cantEstT = 0L;
+	private Long cantEstP = 0L;
+	private Long cantEstPT = 0L;
 	private Long nivel01T = 0L;
 	private Long nivel02T = 0L;
 	private Long nivel03T = 0L;
@@ -111,8 +121,14 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 	private String nivel08 = "0";
 	private String nivel09 = "0";
 	private String nivel10 = "0";
+	private Double frecuenciaT = 0D;
+	private Double frecuenciaC = 0D;
+	private Double frecuenciaP = 0D;
 	private String porcentajeC = "";
 	private String porcentajeE = "";
+	private String frecuenciaTS = "";
+	private String frecuenciaCS = "";
+	private String frecuenciaPS = "";
 
 	private AgenciaEt estacionSeleccionada;
 	private List<ZonaEt> zonaSeleccionadas;
@@ -121,6 +137,7 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 	private List<TableroInventarioZonaEt> tabla1;
 	private ParametrosGeneralesEt anioSeleccionado;
 	private List<TableroInventarioDetalleEt> tabla3;
+	private List<TipoInventarioEt> tipoInvSeleccionados;
 	private List<TableroInventarioEstacionZonaEt> tabla2;
 	private List<ParametrosGeneralesEt> mesesSeleccionados;
 	private List<TipoEstacionEt> tipoEstacionSeleccionados;
@@ -151,14 +168,14 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 			List<TipoInventarioEt> tipoInventarios = iTipoInventarioDao.getTipoInventarioList(null);
 			mostrarColumna(tipoInventarios);
 			iTableroInventarioDetalleDao.limpiarTablero(idUsuario);
-			iTableroDetalleInvEstacionDao.generar(primerDiaMes(), ultimoDiaMes(), 0L, 0L, 0L, idUsuario);
+			iTableroDetalleInvEstacionDao.generar(primerDiaMes(), ultimoDiaMes(), 0L, 0L, 0L, 0L, idUsuario);
 			iTableroInventarioZonaDao.generar(idUsuario);
 			tabla1 = iTableroInventarioZonaDao.getTablaList(usuario);
 			tabla2 = iTableroInventarioEstacionZonaDao.getTablaList(usuario);
 			tabla3 = iTableroInventarioDetalleDao.getTablaList(usuario);
 			tabla4 = iTableroInventarioMesDao.getTablaList(usuario);
 			tableroC = iTableroInventarioCabeceraDao.getTablaCabecera(usuario);
-			mostrarTotal(tabla1, tabla2);
+			mostrarTotal(tabla1, tabla2, tableroC);
 			if (tableroC == null) {
 				tableroC = new TableroInventarioCabeceraEt();
 			}
@@ -175,16 +192,16 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		Long idAgencia = 0L;
 		String mensaje = "";
 		Long idTipoEstacion = 0L;
+		Long idTipoInventario = 0L;
 		try {
-			limoiarObj();
+			limpiarObj();
 			UsuarioEt usuario = appMain.getUsuario();
 			idUsuario = usuario.getIdUsuario();
 			mensaje = validarFiltrar();
 			iTableroInventarioDetalleDao.limpiarTablero(idUsuario);
 			if (mensaje.equals("")) {
 				anio = Integer.parseInt((anioSeleccionado.getValorLista()));
-				List<TipoInventarioEt> tipoInventarios = iTipoInventarioDao.getTipoInventarioList(null);
-				mostrarColumna(tipoInventarios);
+
 				if (estacionSeleccionada != null) {
 					idAgencia = estacionSeleccionada.getIdAgencia();
 				}
@@ -192,23 +209,26 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 					idTipoEstacion = tipoEstacion.getIdTipoEstacion();
 					for (ZonaEt zona : zonaSeleccionadas) {
 						idZona = zona.getIdZona();
-						for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
-							int mes = Integer.parseInt(parametrosGenerales.getValorLista());
-							Date fechaDesde = getFechaDesde(mes, anio);
-							Date fechaHasta = getFechaHasta(mes, anio);
-							iTableroDetalleInvEstacionDao.generar(fechaDesde, fechaHasta, idTipoEstacion, idZona,
-									idAgencia, idUsuario);
+						mostrarColumna(tipoInvSeleccionados);
+						for (TipoInventarioEt tipoInventario : tipoInvSeleccionados) {
+							idTipoInventario = tipoInventario.getIdTipoInventario();
+							for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
+								int mes = Integer.parseInt(parametrosGenerales.getValorLista());
+								Date fechaDesde = getFechaDesde(mes, anio);
+								Date fechaHasta = getFechaHasta(mes, anio);
+								iTableroDetalleInvEstacionDao.generar(fechaDesde, fechaHasta, idTipoEstacion, idZona, idAgencia, idTipoInventario, idUsuario);
+							}
 						}
+
 					}
 				}
-
 				iTableroInventarioZonaDao.generar(idUsuario);
 				tabla1 = iTableroInventarioZonaDao.getTablaList(usuario);
 				tabla2 = iTableroInventarioEstacionZonaDao.getTablaList(usuario);
 				tabla3 = iTableroInventarioDetalleDao.getTablaList(usuario);
 				tabla4 = iTableroInventarioMesDao.getTablaList(usuario);
 				tableroC = iTableroInventarioCabeceraDao.getTablaCabecera(usuario);
-				mostrarTotal(tabla1, tabla2);
+				mostrarTotal(tabla1, tabla2, tableroC);
 			} else {
 				showInfo("Notificación", FacesMessage.SEVERITY_INFO, null, mensaje);
 			}
@@ -218,7 +238,21 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		}
 	}
 
-	public void limoiarObj() {
+	public void guardarNegocio(UsuarioEt usuario) {
+		try {
+			TableroInventarioNegocioEt tabInvNegocio = new TableroInventarioNegocioEt();
+			tabInvNegocio.setCantidadPista(cantEstP);
+			tabInvNegocio.setCantidadTienda(cantEstT);
+			tabInvNegocio.setUsuarioRegistra(usuario);
+			tabInvNegocio.setCantidadPistaTienda(cantEstPT);
+			iTableroInventarioNegocioDao.guardarTableroInventarioNegocio(tabInvNegocio, usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardarNegocio " + " " + e.getMessage());
+		}
+	}
+
+	public void limpiarObj() {
 		try {
 			nivel01F = 0L;
 			nivel02F = 0L;
@@ -236,22 +270,34 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 			nivel08 = "0";
 			nivel09 = "0";
 			nivel10 = "0";
+			cantEstT = 0L;
+			cantEstP = 0L;
+			cantEstPT = 0L;
 			porcentajeC = "";
 			porcentajeE = "";
+			frecuenciaTS = "";
+			frecuenciaCS = "";
+			frecuenciaPS = "";
+			frecuenciaT = 0.0D;
+			frecuenciaC = 0.0D;
+			frecuenciaP = 0.0D;
 			tabla1 = new ArrayList<>();
 			tabla2 = new ArrayList<>();
 			tabla3 = new ArrayList<>();
 			tabla4 = new ArrayList<>();
 			tableroC = new TableroInventarioCabeceraEt();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método limoiarObj " + " " + e.getMessage());
 		}
 	}
 
-	public void mostrarTotal(List<TableroInventarioZonaEt> tablaT1, List<TableroInventarioEstacionZonaEt> tablaT2) {
+	public void mostrarTotal(List<TableroInventarioZonaEt> tablaT1, List<TableroInventarioEstacionZonaEt> tablaT2, TableroInventarioCabeceraEt tablaCab) {
 		Double a = 0.0D;
-
+		Double cantidad = 0D;
+		Double frecuencia = 0D;
+		DecimalFormat formateador = new DecimalFormat("0.00");
 		try {
 			nivel01T = tablaT1.stream().mapToLong(p -> p.getNivel01()).sum();
 			nivel02T = tablaT1.stream().mapToLong(p -> p.getNivel02()).sum();
@@ -260,7 +306,32 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 			nivel05T = tablaT1.stream().mapToLong(p -> p.getNivel05()).sum();
 			nivel06T = tablaT1.stream().mapToLong(p -> p.getNivel06()).sum();
 			nivelT = tablaT1.stream().mapToLong(p -> p.getTotal()).sum();
+			if (tablaCab != null) {
+				if (tablaCab.getCantidadTienda() + tablaCab.getCantidadTiendaPista() != 0L) {
+					cantEstT = tablaCab.getCantidadTienda();
+					cantEstPT = tablaCab.getCantidadTiendaPista();
+					cantidad = (double) (cantEstT + cantEstPT);
+					frecuencia = (double) (nivel01T / cantidad);
+					frecuenciaT = new BigDecimal(frecuencia).setScale(2, RoundingMode.HALF_UP).doubleValue();
+					frecuenciaTS = formateador.format(frecuenciaT);
+				}
+				if (tablaCab.getCantidadPista() + tablaCab.getCantidadTiendaPista() != 0L) {
+					cantEstP = tablaCab.getCantidadPista();
+					cantEstPT = tablaCab.getCantidadTiendaPista();
+					cantidad = (double) (cantEstP + cantEstPT);
+					frecuencia = (double) (nivel02T / cantidad);
+					frecuenciaC = new BigDecimal(frecuencia).setScale(2, RoundingMode.HALF_UP).doubleValue();
+					frecuenciaCS = formateador.format(frecuenciaC);
+				}
+				if (tablaCab.getCantidadPista() != 0L) {
+					cantEstP = tablaCab.getCantidadPista();
+					cantidad = cantEstP.doubleValue();
+					frecuencia = (double) (nivel03T / cantidad);
+					frecuenciaP = new BigDecimal(frecuencia).setScale(2, RoundingMode.HALF_UP).doubleValue();
+					frecuenciaPS = formateador.format(frecuenciaP);
+				}
 
+			}
 			nivel01E = tablaT2.stream().mapToLong(p -> p.getNivel01()).sum();
 			nivel02E = tablaT2.stream().mapToLong(p -> p.getNivel02()).sum();
 			nivel03E = tablaT2.stream().mapToLong(p -> p.getNivel03()).sum();
@@ -405,6 +476,17 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		return agencias;
 	}
 
+	public List<TipoInventarioEt> getTipoInvList() {
+		List<TipoInventarioEt> tipoInventarios = new ArrayList<TipoInventarioEt>();
+		try {
+			tipoInventarios = iTipoInventarioDao.getTipoInventarioList(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
+		}
+		return tipoInventarios;
+	}
+
 	public Date getFechaDesde(int mes, int anio) {
 		Calendar calDesd = Calendar.getInstance();
 		calDesd.setTime(new Date());
@@ -467,58 +549,58 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		} catch (Exception ex) {
 		}
 		switch (month) {
-			case 0: {
-				result = "ENERO";
-				break;
-			}
-			case 1: {
-				result = "FEBRERO";
-				break;
-			}
-			case 2: {
-				result = "MARZO";
-				break;
-			}
-			case 3: {
-				result = "ABRIL";
-				break;
-			}
-			case 4: {
-				result = "MAYO";
-				break;
-			}
-			case 5: {
-				result = "JUNIO";
-				break;
-			}
-			case 6: {
-				result = "JULIO";
-				break;
-			}
-			case 7: {
-				result = "AGOSTO";
-				break;
-			}
-			case 8: {
-				result = "SEPTIEMBRE";
-				break;
-			}
-			case 9: {
-				result = "OCTUBRE";
-				break;
-			}
-			case 10: {
-				result = "NOVIEMBRE";
-				break;
-			}
-			case 11: {
-				result = "DICIEMBRE";
-				break;
-			}
-			default: {
-				result = "Error";
-				break;
-			}
+		case 0: {
+			result = "ENERO";
+			break;
+		}
+		case 1: {
+			result = "FEBRERO";
+			break;
+		}
+		case 2: {
+			result = "MARZO";
+			break;
+		}
+		case 3: {
+			result = "ABRIL";
+			break;
+		}
+		case 4: {
+			result = "MAYO";
+			break;
+		}
+		case 5: {
+			result = "JUNIO";
+			break;
+		}
+		case 6: {
+			result = "JULIO";
+			break;
+		}
+		case 7: {
+			result = "AGOSTO";
+			break;
+		}
+		case 8: {
+			result = "SEPTIEMBRE";
+			break;
+		}
+		case 9: {
+			result = "OCTUBRE";
+			break;
+		}
+		case 10: {
+			result = "NOVIEMBRE";
+			break;
+		}
+		case 11: {
+			result = "DICIEMBRE";
+			break;
+		}
+		default: {
+			result = "Error";
+			break;
+		}
 		}
 		return result;
 	}
@@ -916,6 +998,86 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		this.tabla2 = tabla2;
 	}
 
+	public List<TipoInventarioEt> getTipoInvSeleccionados() {
+		return tipoInvSeleccionados;
+	}
+
+	public void setTipoInvSeleccionados(List<TipoInventarioEt> tipoInvSeleccionados) {
+		this.tipoInvSeleccionados = tipoInvSeleccionados;
+	}
+
+	public Long getCantEstT() {
+		return cantEstT;
+	}
+
+	public void setCantEstT(Long cantEstT) {
+		this.cantEstT = cantEstT;
+	}
+
+	public Long getCantEstP() {
+		return cantEstP;
+	}
+
+	public void setCantEstP(Long cantEstP) {
+		this.cantEstP = cantEstP;
+	}
+
+	public Long getCantEstPT() {
+		return cantEstPT;
+	}
+
+	public void setCantEstPT(Long cantEstPT) {
+		this.cantEstPT = cantEstPT;
+	}
+
+	public Double getFrecuenciaT() {
+		return frecuenciaT;
+	}
+
+	public void setFrecuenciaT(Double frecuenciaT) {
+		this.frecuenciaT = frecuenciaT;
+	}
+
+	public Double getFrecuenciaC() {
+		return frecuenciaC;
+	}
+
+	public void setFrecuenciaC(Double frecuenciaC) {
+		this.frecuenciaC = frecuenciaC;
+	}
+
+	public Double getFrecuenciaP() {
+		return frecuenciaP;
+	}
+
+	public void setFrecuenciaP(Double frecuenciaP) {
+		this.frecuenciaP = frecuenciaP;
+	}
+
+	public String getFrecuenciaTS() {
+		return frecuenciaTS;
+	}
+
+	public void setFrecuenciaTS(String frecuenciaTS) {
+		this.frecuenciaTS = frecuenciaTS;
+	}
+
+	public String getFrecuenciaCS() {
+		return frecuenciaCS;
+	}
+
+	public void setFrecuenciaCS(String frecuenciaCS) {
+		this.frecuenciaCS = frecuenciaCS;
+	}
+
+	public String getFrecuenciaPS() {
+		return frecuenciaPS;
+	}
+
+	public void setFrecuenciaPS(String frecuenciaPS) {
+		this.frecuenciaPS = frecuenciaPS;
+	}
+
 	@Override
 	public void onDestroy() {
 		iZonaDao.remove();
@@ -926,6 +1088,7 @@ public class TableroControlInvBean extends BaseBean implements Serializable {
 		iParametrolGeneralDao.remove();
 		iTableroInventarioMesDao.remove();
 		iTableroInventarioZonaDao.remove();
+		iTableroInventarioNegocioDao.remove();
 		iTableroInventarioDetalleDao.remove();
 		iTableroInventarioCabeceraDao.remove();
 		iTableroDetalleInvEstacionDao.remove();

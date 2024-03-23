@@ -437,6 +437,17 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 
 	}
 
+	public void guardarAdj(CheckListEjecucionAdjuntoEt adjunto) {
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			iCheckListEjecucionAdjuntoDao.guardarCheckListEjecucionAdjunto(adjunto, usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardar " + " " + e.getMessage());
+		}
+
+	}
+
 	public void guardarCheckList() {
 		String pagina = "";
 		try {
@@ -1957,6 +1968,8 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 			checkListEjecucionAdjunto.setEstado(EstadoEnum.INA);
 			checkListEjecucionAdjuntoEliminado.add(checkListEjecucionAdjunto);
 			checkListEjecucion.getCheckListEjecucionAdjunto().remove(checkListEjecucionAdjunto);
+			iCheckListEjecucionAdjuntoDao.guardarCheckListEjecucionAdjunto(checkListEjecucionAdjunto,
+					appMain.getUsuario());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método quitarAdjunto " + " " + e.getMessage());
@@ -2543,7 +2556,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 		pro01Frm03List = new ArrayList<>();
 		CheckListProcesoFormularioEt objFrm;
 		CheckListProcesoEjecucionFormularioEt obj;
-		List<CheckListProcesoEjecucionFormularioEt> frms =  new ArrayList<>();
+		List<CheckListProcesoEjecucionFormularioEt> frms = new ArrayList<>();
 		try {
 			frms = iCheckListProEjeFormDao.getFrm(procesoCheckList.getIdCheckListProcesoEjecucion());
 			for (int i = 0; i < frms.size(); i++) {
@@ -2583,7 +2596,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 		pro02Frm03List = new ArrayList<>();
 		CheckListProcesoFormularioEt objFrm;
 		CheckListProcesoEjecucionFormularioEt obj;
-		List<CheckListProcesoEjecucionFormularioEt> frms =  new ArrayList<>();
+		List<CheckListProcesoEjecucionFormularioEt> frms = new ArrayList<>();
 		try {
 			frms = iCheckListProEjeFormDao.getFrm(procesoCheckList.getIdCheckListProcesoEjecucion());
 			for (int i = 0; i < frms.size(); i++) {
@@ -2622,7 +2635,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 		pro03Frm03List = new ArrayList<>();
 		CheckListProcesoFormularioEt objFrm;
 		CheckListProcesoEjecucionFormularioEt obj;
-		List<CheckListProcesoEjecucionFormularioEt> frms =  new ArrayList<>();
+		List<CheckListProcesoEjecucionFormularioEt> frms = new ArrayList<>();
 		try {
 			frms = iCheckListProEjeFormDao.getFrm(procesoCheckList.getIdCheckListProcesoEjecucion());
 			for (int i = 0; i < frms.size(); i++) {
@@ -2661,7 +2674,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 		pro04Frm03List = new ArrayList<>();
 		CheckListProcesoFormularioEt objFrm;
 		CheckListProcesoEjecucionFormularioEt obj;
-		List<CheckListProcesoEjecucionFormularioEt> frms =  new ArrayList<>();
+		List<CheckListProcesoEjecucionFormularioEt> frms = new ArrayList<>();
 		try {
 			frms = iCheckListProEjeFormDao.getFrm(procesoCheckList.getIdCheckListProcesoEjecucion());
 			for (int i = 0; i < frms.size(); i++) {
@@ -2700,7 +2713,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 		pro05Frm03List = new ArrayList<>();
 		CheckListProcesoFormularioEt objFrm;
 		CheckListProcesoEjecucionFormularioEt obj;
-		List<CheckListProcesoEjecucionFormularioEt> frms =  new ArrayList<>();
+		List<CheckListProcesoEjecucionFormularioEt> frms = new ArrayList<>();
 		try {
 			frms = iCheckListProEjeFormDao.getFrm(procesoCheckList.getIdCheckListProcesoEjecucion());
 			for (int i = 0; i < frms.size(); i++) {

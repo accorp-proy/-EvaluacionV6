@@ -71,7 +71,7 @@
 							rendered="#{CheckListEjecutadoBn.checkListEjecucionR.evaluacion.idEvaluacion eq 4}"
 							disabled="#{CheckListEjecutadoBn.checkListEjecucionR.tipoChecKList.generaReporte == false}"
 							icon="fa fa-file-pdf-o" immediate="true" ajax="false"
-							actionListener="#{ReporteBn.imprimirExcel(11,appMain.usuario.nombreUsuario,CheckListEjecutadoBn.checkListEjecucionR.idCheckListEjecucion.toString(),CheckListEjecutadoBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),CheckListEjecutadoBn.checkListEjecucionR.evaluacion.idEvaluacion.toString(),null,null,null,null,null,null,false)}">
+							actionListener="#{ReporteBn.imprimirExcel(11,appMain.usuario.nombreUsuario,CheckListEjecutadoBn.checkListEjecucionR.idCheckListEjecucion.toString(),CheckListEjecutadoBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),CheckListEjecutadoBn.checkListEjecucionR.evaluacion.idEvaluacion.toString(),CheckListEjecutadoBn.checkListEjecucionR.tipoChecKList.idTipoCheckList.toString(),null,null,null,null,null,false)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
 					</p:column>

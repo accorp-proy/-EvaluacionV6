@@ -76,6 +76,22 @@ public class PlanificacionInventarioTipoDao extends GenericDao<PlanificacionInve
 		}
 		return ejecutada;
 	}
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<PlanificacionInventarioTipoEt> getPlanificacionInventarioTipoList(Long idPlaInv, Long idTipoInventario)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM PlanificacionInventarioTipoEt o ");
+		sql.append(" WHERE o.estado  = :estado   ");
+		sql.append(" AND (o.tipoInventario.idTipoInventario = :idTipoInventario OR :idTipoInventario = 0 ) ");
+		sql.append(" AND o.planificacionInventario.idPlanificacionInventario  = :idPlanificacionInventario ");
+		TypedQuery<PlanificacionInventarioTipoEt> query = em.createQuery(sql.toString(), PlanificacionInventarioTipoEt.class);
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("idTipoInventario", idTipoInventario);
+		query.setParameter("idPlanificacionInventario", idPlaInv);
+		List<PlanificacionInventarioTipoEt> result = query.getResultList();
+		return result;
+	}
+
 
 	@Remove
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

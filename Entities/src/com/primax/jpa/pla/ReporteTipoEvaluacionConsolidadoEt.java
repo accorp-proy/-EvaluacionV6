@@ -104,6 +104,78 @@ public class ReporteTipoEvaluacionConsolidadoEt extends EntityBase implements Se
 	@Column(name = "mes_12")
 	private Double mes12;
 
+	@Column(name = "mes_01_a")
+	private Double mes01A;
+
+	@Column(name = "mes_02_a")
+	private Double mes02A;
+
+	@Column(name = "mes_03_a")
+	private Double mes03A;
+
+	@Column(name = "mes_04_a")
+	private Double mes04A;
+
+	@Column(name = "mes_05_a")
+	private Double mes05A;
+
+	@Column(name = "mes_06_a")
+	private Double mes06A;
+
+	@Column(name = "mes_07_a")
+	private Double mes07A;
+
+	@Column(name = "mes_08_a")
+	private Double mes08A;
+
+	@Column(name = "mes_09_a")
+	private Double mes09A;
+
+	@Column(name = "mes_10_a")
+	private Double mes10A;
+
+	@Column(name = "mes_11_a")
+	private Double mes11A;
+
+	@Column(name = "mes_12_a")
+	private Double mes12A;
+
+	@Column(name = "mes_01_t")
+	private Long mes01T;
+
+	@Column(name = "mes_02_t")
+	private Long mes02T;
+
+	@Column(name = "mes_03_t")
+	private Long mes03T;
+
+	@Column(name = "mes_04_t")
+	private Long mes04T;
+
+	@Column(name = "mes_05_t")
+	private Long mes05T;
+
+	@Column(name = "mes_06_t")
+	private Long mes06T;
+
+	@Column(name = "mes_07_t")
+	private Long mes07T;
+
+	@Column(name = "mes_08_t")
+	private Long mes08T;
+
+	@Column(name = "mes_09_t")
+	private Long mes09T;
+
+	@Column(name = "mes_10_t")
+	private Long mes10T;
+
+	@Column(name = "mes_11_t")
+	private Long mes11T;
+
+	@Column(name = "mes_12_t")
+	private Long mes12T;
+
 	@Column(name = "mes_01_c")
 	private String mes01C;
 

@@ -87,9 +87,8 @@
                          </f:facet>
 				<p:columnGroup type="header">
 					<p:row>
-						<p:column headerText="KPI’s" style="width:40px" />
+						<p:column headerText="KPI’s" style="width:50px" />
 						<p:column headerText="Criterio Evaluación" style="width:20px" />
-						<p:column headerText="Adjunto" style="width:10px" />
 						<p:column headerText="Comentario Plan Acción" style="width:30px" />
 					</p:row>
 				</p:columnGroup>
@@ -98,7 +97,6 @@
 					<p:columnGroup type="header">
 						<p:row>
 							<p:column headerText="#{detalle.descripcion}" />
-							<p:column />
 							<p:column />
 							<p:column />
 						</p:row>
@@ -110,16 +108,6 @@
 						<div align="left">
 							<h:outputText
 								value="#{checkListKpi.criterioEvaluacionDetalle.nombre}" />
-						</div>
-					</p:column>
-					<p:column>
-						<div align="center">
-							<p:commandButton
-							oncomplete="PF('dlg_ger_003_1').show();"
-								action="#{GerenciaCriterioEBn.adjuntoKPI(checkListKpi)}"
-								update=":frm_ger_003_1"
-								title="Permite subir archivos Adjuntos al KPI’s"
-								icon="fa fa-file-archive-o"></p:commandButton>
 						</div>
 					</p:column>
 					<p:column>

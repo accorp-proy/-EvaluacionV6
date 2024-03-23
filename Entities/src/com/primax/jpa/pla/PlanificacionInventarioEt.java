@@ -66,6 +66,10 @@ public class PlanificacionInventarioEt extends EntityBase implements Serializabl
 	@Column(name = "fecha_fin")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaFin;
+	
+	@Column(name = "fecha_ejecucion")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaEjecucion;
 
 	@Column(name = "notificacion")
 	private boolean notificacion;
@@ -78,16 +82,11 @@ public class PlanificacionInventarioEt extends EntityBase implements Serializabl
 	@JoinColumn(name = "id_zona")
 	private ZonaEt zona;
 
+	@Column(name = "plan_accion")
+	private boolean planAccion;
+
 	@Transient
 	private boolean eliminada;
-
-	public boolean isEliminada() {
-		return eliminada;
-	}
-
-	public void setEliminada(boolean eliminada) {
-		this.eliminada = eliminada;
-	}
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "estado_inventario")
@@ -198,6 +197,30 @@ public class PlanificacionInventarioEt extends EntityBase implements Serializabl
 
 	public void setPlanificacionInventarioTipo(List<PlanificacionInventarioTipoEt> planificacionInventarioTipo) {
 		this.planificacionInventarioTipo = planificacionInventarioTipo;
+	}
+
+	public boolean isEliminada() {
+		return eliminada;
+	}
+
+	public void setEliminada(boolean eliminada) {
+		this.eliminada = eliminada;
+	}
+
+	public boolean isPlanAccion() {
+		return planAccion;
+	}
+
+	public void setPlanAccion(boolean planAccion) {
+		this.planAccion = planAccion;
+	}
+
+	public Date getFechaEjecucion() {
+		return fechaEjecucion;
+	}
+
+	public void setFechaEjecucion(Date fechaEjecucion) {
+		this.fechaEjecucion = fechaEjecucion;
 	}
 
 	@Override

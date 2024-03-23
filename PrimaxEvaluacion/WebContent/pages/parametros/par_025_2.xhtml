@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog responsive="true" widgetVar="dlg_par_025_2"
+		id="dlg_par_025_2" appendTo="@(body)" resizable="true" width="900px">
+		<f:facet name="header">
+			<h:outputLabel value="Evidencia Plan Acción " />
+			<p:outputLabel value="par_025_2.xhtml"
+				rendered="#{appMain.usuario.idUsuario eq 1}"></p:outputLabel>
+		</f:facet>
+		<h:form id="frm_par_025_2">
+			<p:growl showDetail="false" id="mensajes">
+			</p:growl>
+			<p:panelGrid styleClass="sinborde w100" layout="grid" columns="1"
+				columnClasses="ui-grid-col-12">
+				<p:dataTable id="dtbAdjunto" emptyMessage="sin adjuntos"
+					value="#{TreePlanAccionInvBn.plnAccionCategoriasC}" var="plnInvCat">
+					<p:column headerText="Catergoría">
+						<h:outputText value="#{plnInvCat.categoriaInventario.descripcion}"
+							styleClass="w100" />
+					</p:column>
+					<p:column headerText="Variación">
+						<h:outputText value="#{plnInvCat.valorVariacion}"
+							styleClass="w100" />
+					</p:column>
+					<p:column headerText="Revisión">
+						<h:outputText value="#{plnInvCat.valorRevision}" />
+					</p:column>
+					<p:column headerText="Plan Acción">
+						<h:outputText value="#{plnInvCat.comentarioPlanAccion}" />
+					</p:column>
+					<p:column headerText="Evidencia Plan Acción">
+						<div align="center">
+							<p:commandButton oncomplete="PF('dlg_par_025_4').show();"
+								action="#{TreePlanAccionInvBn.adjuntoKPIAdj(plnInvCat)}"
+								update=":frm_par_025_4" title="Permite subir archivos Adjuntos"
+								icon="fa fa-file-archive-o"></p:commandButton>
+						</div>
+					</p:column>
+					<p:column headerText="Estado">
+						<div align="center">
+							<h:graphicImage value="/resources/images/iconos/cargado.jpg"
+								rendered="#{plnInvCat.planAccionInvCategoriaAdjunto.size() ne 0}" />
+						</div>
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</ui:composition>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteEvaluacionPuntaje" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="1364a67e-f9ee-42f8-a2ec-de8420e77aca">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteEvaluacionPuntaje" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="94d973ce-0fd9-42ef-88a9-4b6f41e71bb2">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -45,8 +45,8 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="ConsultaReporte" uuid="8d39dd25-f2d8-4683-b73c-e909468dc0ab">
-		<parameter name="par_id_check_list_proceso_frm" class="java.lang.Long">
+	<subDataset name="ConsultaTabla_1" uuid="8d39dd25-f2d8-4683-b73c-e909468dc0ab">
+		<parameter name="par_id_check_list_proceso_ejecucion" class="java.lang.Long">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<parameter name="columna_0" class="java.lang.String">
@@ -59,6 +59,48 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<parameter name="columna_3" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="mostrar_0" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="mostrar_1" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="mostrar_2" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="mostrar_3" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="par_id_check_list_proceso_frm" class="java.lang.Long"/>
+		<queryString>
+			<![CDATA[select
+frm.columna_1 as col_1,
+frm.columna_2 as col_2,
+frm.columna_3 as col_3,
+frm.columna_4 as col_4,
+frm.columna_5 as col_5,
+frm.columna_6 as col_6,
+frm.columna_7 as col_7,
+frm.columna_8 as col_8
+from check_list_proceso_ejecucion_formulario_et frm
+where frm.id_check_list_proceso_ejecucion=$P{par_id_check_list_proceso_ejecucion}
+and frm.id_check_list_proceso_formulario = $P{par_id_check_list_proceso_frm}
+and   frm.estado='ACT'
+order by frm.id_check_list_proceso_formulario;]]>
+		</queryString>
+		<field name="col_1" class="java.lang.String"/>
+		<field name="col_2" class="java.lang.Long"/>
+		<field name="col_3" class="java.lang.Double"/>
+		<field name="col_4" class="java.sql.Timestamp"/>
+		<field name="col_5" class="java.lang.String"/>
+		<field name="col_6" class="java.lang.Long"/>
+		<field name="col_7" class="java.lang.Double"/>
+		<field name="col_8" class="java.sql.Timestamp"/>
+	</subDataset>
+	<subDataset name="ConsultaTabla_2" uuid="8d792190-d3ce-4f87-83de-ec955090fa78">
+		<parameter name="par_id_check_list_proceso_ejecucion" class="java.lang.Long">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<parameter name="columna_4" class="java.lang.String">
@@ -85,56 +127,56 @@
 		<parameter name="mostrar_3" class="java.lang.Long">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
+		<parameter name="par_id_check_list_proceso_frm" class="java.lang.Long"/>
 		<queryString>
 			<![CDATA[select
-(CASE WHEN pro.frm_0 = 'true' then 1 else 0 end )::numeric as col_0,
-(CASE WHEN pro.frm_1 = 'true' then 1 else 0 end )::numeric as col_1,
-(CASE WHEN pro.frm_2 = 'true' then 1 else 0 end )::numeric as col_2,
-(CASE WHEN pro.frm_3 = 'true' then 1 else 0 end )::numeric as col_3,
-(CASE WHEN pro.frm_4 = 'true' then 1 else 0 end )::numeric as col_4,
-(CASE WHEN pro.frm_5 = 'true' then 1 else 0 end )::numeric as col_5,
-(CASE WHEN pro.frm_5 = 'true' then 1 else 0 end )::numeric as col_6,
-(CASE WHEN pro.frm_5 = 'true' then 1 else 0 end ::numeric) as col_7
-from check_list_proceso_formulario_et pro
-where pro.id_check_list_proceso_formulario=$P{par_id_check_list_proceso_frm}
-and   pro.estado='ACT'
-order by pro.id_check_list_proceso_formulario;]]>
+frm.columna_5 as col_5,
+frm.columna_6 as col_6,
+frm.columna_7 as col_7,
+frm.columna_8 as col_8
+from check_list_proceso_ejecucion_formulario_et frm
+where frm.id_check_list_proceso_ejecucion=$P{par_id_check_list_proceso_ejecucion}
+and frm.id_check_list_proceso_formulario = $P{par_id_check_list_proceso_frm}
+and   frm.estado='ACT'
+order by frm.id_check_list_proceso_formulario;]]>
 		</queryString>
-		<field name="col_0" class="java.math.BigDecimal"/>
-		<field name="col_1" class="java.math.BigDecimal"/>
-		<field name="col_2" class="java.math.BigDecimal"/>
-		<field name="col_3" class="java.math.BigDecimal"/>
-		<field name="col_4" class="java.math.BigDecimal"/>
-		<field name="col_5" class="java.math.BigDecimal"/>
-		<field name="col_6" class="java.math.BigDecimal"/>
-		<field name="col_7" class="java.math.BigDecimal"/>
+		<field name="col_5" class="java.lang.String"/>
+		<field name="col_6" class="java.lang.Long"/>
+		<field name="col_7" class="java.lang.Double"/>
+		<field name="col_8" class="java.sql.Timestamp"/>
 	</subDataset>
+	<parameter name="par_id_check_list_proceso_ejecucion" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<parameter name="par_id_check_list_proceso_frm" class="java.lang.Long">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select
-pro.nombre_frm as nombre,
-pro.nomb_frm_0 as columna_0,
-pro.nomb_frm_2 as columna_1,
-pro.nomb_frm_4 as columna_2,
-pro.nomb_frm_6 as columna_3,
-pro.nomb_frm_1 as columna_4,
-pro.nomb_frm_3 as columna_5,
-pro.nomb_frm_5 as columna_6,
-pro.nomb_frm_7 as columna_7,
-(CASE WHEN pro.frm_0 = 'true' then 1 else 0 end )::numeric as col_0,
-(CASE WHEN pro.frm_2 = 'true' then 1 else 0 end )::numeric as col_1,
-(CASE WHEN pro.frm_4 = 'true' then 1 else 0 end )::numeric as col_2,
-(CASE WHEN pro.frm_6 = 'true' then 1 else 0 end )::numeric as col_3,
-(CASE WHEN pro.frm_1 = 'true' then 1 else 0 end )::numeric as col_4,
-(CASE WHEN pro.frm_3 = 'true' then 1 else 0 end )::numeric as col_5,
-(CASE WHEN pro.frm_5 = 'true' then 1 else 0 end )::numeric as col_6,
-(CASE WHEN pro.frm_7 = 'true' then 1 else 0 end ::numeric) as col_7
-from check_list_proceso_formulario_et pro
-where pro.id_check_list_proceso_formulario=$P{par_id_check_list_proceso_frm}
-and   pro.estado='ACT'
-order by pro.id_check_list_proceso_formulario;]]>
+frm.nombre_frm as nombre,
+frm.nomb_frm_0 as columna_0,
+frm.nomb_frm_2 as columna_1,
+frm.nomb_frm_4 as columna_2,
+frm.nomb_frm_6 as columna_3,
+frm.nomb_frm_1 as columna_4,
+frm.nomb_frm_3 as columna_5,
+frm.nomb_frm_5 as columna_6,
+frm.nomb_frm_7 as columna_7,
+(CASE WHEN frm.frm_0 = 'true' then 1 else 0 end )::numeric as col_0,
+(CASE WHEN frm.frm_2 = 'true' then 1 else 0 end )::numeric as col_1,
+(CASE WHEN frm.frm_4 = 'true' then 1 else 0 end )::numeric as col_2,
+(CASE WHEN frm.frm_6 = 'true' then 1 else 0 end )::numeric as col_3,
+(CASE WHEN frm.frm_1 = 'true' then 1 else 0 end )::numeric as col_4,
+(CASE WHEN frm.frm_3 = 'true' then 1 else 0 end )::numeric as col_5,
+(CASE WHEN frm.frm_5 = 'true' then 1 else 0 end )::numeric as col_6,
+(CASE WHEN frm.frm_7 = 'true' then 1 else 0 end ::numeric) as col_7
+from check_list_proceso_ejecucion_et pro
+inner join check_list_proceso_formulario_et frm
+on pro.id_check_list_proceso =frm.id_check_list_proceso
+where pro.id_check_list_proceso_ejecucion=$P{par_id_check_list_proceso_ejecucion}
+and frm.id_check_list_proceso_formulario=$P{par_id_check_list_proceso_frm}
+and frm.estado='ACT'
+order by frm.id_check_list_proceso_formulario;]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="columna_0" class="java.lang.String"/>
@@ -175,11 +217,11 @@ order by pro.id_check_list_proceso_formulario;]]>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="15" uuid="f6487fd6-b26e-4f3b-9b50-e8f652ae8a3d"/>
+				<reportElement key="table 1" style="table 1" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="802" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f6487fd6-b26e-4f3b-9b50-e8f652ae8a3d"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ConsultaReporte" uuid="48e2d42f-1fe1-4744-8ecb-9d306de1903c">
-						<datasetParameter name="par_id_check_list_proceso_frm">
-							<datasetParameterExpression><![CDATA[$P{par_id_check_list_proceso_frm}]]></datasetParameterExpression>
+					<datasetRun subDataset="ConsultaTabla_1" uuid="ecb403c2-3a91-461b-b645-00f98d042c37">
+						<datasetParameter name="par_id_check_list_proceso_ejecucion">
+							<datasetParameterExpression><![CDATA[$P{par_id_check_list_proceso_ejecucion}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="columna_0">
 							<datasetParameterExpression><![CDATA[$F{columna_0}]]></datasetParameterExpression>
@@ -192,6 +234,112 @@ order by pro.id_check_list_proceso_formulario;]]>
 						</datasetParameter>
 						<datasetParameter name="columna_3">
 							<datasetParameterExpression><![CDATA[$F{columna_3}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mostrar_0">
+							<datasetParameterExpression><![CDATA[$F{col_0}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="par_id_check_list_proceso_frm">
+							<datasetParameterExpression><![CDATA[$P{par_id_check_list_proceso_frm}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="200" uuid="4db6826d-14cd-4558-8820-8dd162c7993e">
+						<printWhenExpression><![CDATA[$F{col_0} > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15" isRemoveLineWhenBlank="true" uuid="ed155f7b-ff5e-4148-86e9-60de24ca6f4f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{columna_0}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="f87e784d-a219-47b0-8298-8fec638604ac"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{col_1}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="200" uuid="c4da8a91-3e57-4119-9a8a-0adc841478e1">
+						<printWhenExpression><![CDATA[$F{col_1} > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15" isPrintWhenDetailOverflows="true" uuid="0417899f-c0c9-41c7-9e2d-87f3be785a5a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{columna_1}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="200" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="2bc24463-9042-46e5-9932-19217861671f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{col_2}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="200" uuid="066e5648-c474-4b4c-9722-d5c6d011392d">
+						<printWhenExpression><![CDATA[$F{col_2} > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="e2c83052-258e-4652-becb-5f719c831b89"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{columna_2}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="200" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="72502c24-1fbd-4ad8-976b-a16f35d14048"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{col_3}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="201" uuid="79a183dd-e49d-420f-b491-f9a89056bdca">
+						<printWhenExpression><![CDATA[$F{col_3} > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="201" height="15" uuid="0c7f7603-2558-4503-9752-d5f58ea1d578"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{columna_3}]]></textFieldExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement mode="Transparent" x="0" y="0" width="201" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="07989a9b-6376-44ae-ba88-bb996e269c1d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{col_4}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="21">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="6" width="802" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="85f3d74b-ace4-40db-893b-32ccd73e757d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ConsultaTabla_2" uuid="3cf60b58-3f3e-4297-9fc2-bccd582c2777">
+						<datasetParameter name="par_id_check_list_proceso_ejecucion">
+							<datasetParameterExpression><![CDATA[$P{par_id_check_list_proceso_ejecucion}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="columna_4">
 							<datasetParameterExpression><![CDATA[$F{columna_4}]]></datasetParameterExpression>
@@ -208,194 +356,109 @@ order by pro.id_check_list_proceso_formulario;]]>
 						<datasetParameter name="mostrar_0">
 							<datasetParameterExpression><![CDATA[$F{col_0}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="par_id_check_list_proceso_frm">
+							<datasetParameterExpression><![CDATA[$P{par_id_check_list_proceso_frm}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="65" uuid="4db6826d-14cd-4558-8820-8dd162c7993e">
-						<printWhenExpression><![CDATA[$F{col_0} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="ed155f7b-ff5e-4148-86e9-60de24ca6f4f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$P{columna_0}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="62a3395b-1ddc-49c9-bca7-ca2710c6209d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<text><![CDATA[M01]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="65" uuid="c4da8a91-3e57-4119-9a8a-0adc841478e1">
-						<printWhenExpression><![CDATA[$F{col_1} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="0417899f-c0c9-41c7-9e2d-87f3be785a5a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$P{columna_1}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="90fb8ae0-ecd9-48bd-b696-810efa921418"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<text><![CDATA[M02]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="65" uuid="066e5648-c474-4b4c-9722-d5c6d011392d">
-						<printWhenExpression><![CDATA[$F{col_2} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="e2c83052-258e-4652-becb-5f719c831b89"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$P{columna_2}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="de906411-6b5b-4840-bacf-dfdd99d351c3"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<text><![CDATA[M03]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="65" uuid="79a183dd-e49d-420f-b491-f9a89056bdca">
-						<printWhenExpression><![CDATA[$F{col_3} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="0c7f7603-2558-4503-9752-d5f58ea1d578"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$P{columna_3}]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="98ceeb2c-fb51-4a5d-afa1-3d2c5ad6bf53"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<text><![CDATA[M04]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
-					</jr:column>
-					<jr:column width="65" uuid="54f3021e-b9b2-4ebf-b4db-f323f00aabf3">
+					<jr:column width="200" uuid="5b266c32-0bea-47c8-8457-07e7f8e663cc">
 						<printWhenExpression><![CDATA[$F{col_4} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="a4c7c8a8-dcc2-4fac-94ec-7cff61731f9f"/>
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="15" uuid="314e70c2-6a10-4d41-a1d7-8185eb3b51b4"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{columna_4}]]></textFieldExpression>
 							</textField>
 						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="c8f97ccf-58a7-425f-b192-2623553781ee"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="200" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="3c15ef8f-4f7f-4a07-a7c2-da735ea3c9a4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<text><![CDATA[M05]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
+								<textFieldExpression><![CDATA[$F{col_5}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="65" uuid="84557ee1-9002-46aa-98c9-b9cc79f0e169">
+					<jr:column width="200" uuid="d384a405-fcb8-449b-8e20-901f42069f02">
 						<printWhenExpression><![CDATA[$F{col_5} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="99f32dfb-ff5c-4d55-acde-076469ae9ff6"/>
+								<reportElement x="0" y="0" width="200" height="15" uuid="43abac6f-5200-4d2e-9243-db346fc372be"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{columna_5}]]></textFieldExpression>
 							</textField>
 						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="9b75a05d-78db-48c0-be28-dacd61d96e26"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement mode="Transparent" x="0" y="0" width="200" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="54bda9bb-7378-42dc-95d8-53f3304223c3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<text><![CDATA[M06]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
+								<textFieldExpression><![CDATA[$F{col_6}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="65" uuid="d38dc1e9-f38f-4087-8c67-e91e7cb80ee2">
+					<jr:column width="200" uuid="a42fcf7b-cae9-439f-a575-f96266750dd5">
 						<printWhenExpression><![CDATA[$F{col_6} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="70e33ac5-fdea-4e95-bcab-3b020e88c9a4"/>
+								<reportElement x="0" y="0" width="200" height="15" uuid="840bacad-b737-4afb-a086-fa3c63acb15c"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Arial" isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{columna_6}]]></textFieldExpression>
 							</textField>
 						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="0f13fe73-fb59-4cd7-9065-ddd331217097"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement mode="Transparent" x="0" y="0" width="200" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="fe6c0720-e89d-4edf-b58d-8adc4a4ba911"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
 								</textElement>
-								<text><![CDATA[M07]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
+								<textFieldExpression><![CDATA[$F{col_7}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="65" uuid="2028cb91-6719-434e-9fe0-7b23d89edc53">
+					<jr:column width="163" uuid="e9aad3eb-3915-473c-8c1c-9279957b37a5">
 						<printWhenExpression><![CDATA[$F{col_7} > 0L ? true : false]]></printWhenExpression>
-						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="65" height="20" uuid="dfe106c3-8d55-4906-a48a-6cdc6429fb48"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
+						<jr:tableHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement mode="Transparent" x="0" y="0" width="163" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="095c89bf-f79b-4242-ad2c-376e982d3644"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{columna_7}]]></textFieldExpression>
 							</textField>
 						</jr:tableHeader>
-						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="65" height="15" uuid="4a21e4bd-0f9b-4cc7-8ec5-425ef0875a3f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Arial" isBold="true"/>
-								</textElement>
-								<text><![CDATA[M08]]></text>
-							</staticText>
-						</jr:columnHeader>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="0" rowSpan="1"/>
 						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement mode="Transparent" x="0" y="0" width="163" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="42f9a087-f872-48a7-8131-946287908914"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{col_8}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="6" uuid="b25183af-7fba-4fa7-808e-3332d749d5ac"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

@@ -184,20 +184,6 @@ public class GerenciaCriterioEBean extends BaseBean implements Serializable {
 		}
 	}
 
-	public void adjuntoKPI(CheckListKpiEjecucionEt kpi) {
-		try {
-			System.out.println("Prueba Jema");
-			checkListKpiEjecucionSeleccionado = kpi;
-			if (checkListKpiEjecucionSeleccionado.getCheckListKpiEjecucionAdjunto() == null
-					|| checkListKpiEjecucionSeleccionado.getCheckListKpiEjecucionAdjunto().isEmpty()) {
-				checkListKpiEjecucionSeleccionado.setCheckListKpiEjecucionAdjunto(new ArrayList<>());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error :Método adjuntoKPI " + " " + e.getMessage());
-		}
-	}
-
 	public void quitarAdjunto(CheckListKpiEjecucionAdjuntoEt checkListKpiEjecucionAdjunto) {
 		try {
 			Date fechaRegistro = UtilEnum.FECHA_REGISTRO.getValue();

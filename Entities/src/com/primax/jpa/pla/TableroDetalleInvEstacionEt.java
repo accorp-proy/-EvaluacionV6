@@ -32,6 +32,7 @@ import com.primax.jpa.sec.UsuarioEt;
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idTipoEstacion"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idZona"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idAgencia"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idTipoInventario"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
 		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
 
@@ -54,6 +55,9 @@ public class TableroDetalleInvEstacionEt extends EntityBase implements Serializa
 	@Column(name = "id_planificacion_inventario")
 	private Long idPlanificacionInventario;
 
+	@Column(name = "orden")
+	private Long orden;
+
 	@Column(name = "id_zona")
 	private Long idZona;
 
@@ -75,11 +79,15 @@ public class TableroDetalleInvEstacionEt extends EntityBase implements Serializa
 	@Column(name = "tipo_inventario", length = 50)
 	private String tipoInventario;
 
+	@Column(name = "id_tipo_estacion")
+	private Long idTipoEstacion;
+
 	@Column(name = "mes", length = 20)
 	private String mes;
 
 	public TableroDetalleInvEstacionEt() {
-
+		this.orden = 0L;
+		this.idTipoEstacion = 0L;
 	}
 
 	public Long getIdTableroDetalleInvEstacion() {
@@ -168,6 +176,22 @@ public class TableroDetalleInvEstacionEt extends EntityBase implements Serializa
 
 	public void setTipoInventario(String tipoInventario) {
 		this.tipoInventario = tipoInventario;
+	}
+
+	public Long getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Long orden) {
+		this.orden = orden;
+	}
+
+	public Long getIdTipoEstacion() {
+		return idTipoEstacion;
+	}
+
+	public void setIdTipoEstacion(Long idTipoEstacion) {
+		this.idTipoEstacion = idTipoEstacion;
 	}
 
 	@Override

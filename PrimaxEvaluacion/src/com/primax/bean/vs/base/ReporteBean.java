@@ -38,6 +38,7 @@ import com.primax.bean.maker.ReporteIndividualNovedadCCTV;
 import com.primax.bean.maker.ReporteIndividualNovedadControl;
 import com.primax.bean.maker.ReporteIndividualPlanAccionEspecifico;
 import com.primax.bean.maker.ReporteIndividualPlanAccionGeneral;
+import com.primax.bean.maker.ReporteIndividualPlanAccionInventario;
 import com.primax.bean.maker.ReporteIndividualPlanAccionSeguimientoEspecifico;
 import com.primax.bean.maker.ReportePlantillaCriterioEspecifico;
 import com.primax.bean.maker.ReportePlantillaCriterioGeneral;
@@ -399,6 +400,17 @@ public class ReporteBean extends BaseBean implements Serializable {
 					exportIt(reporteGrupalTipoInventario.getReport(params,
 							WebAppUtil.getServletContext().getRealPath(reportPath), WebAppUtil.getServletContext(),
 							excel), "Reporte_Tipo_Iventario");
+				} catch (NumberFormatException | EntidadNoEncontradaException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "29":
+				/* Reporte Plan Acción Inventario */
+				ReporteIndividualPlanAccionInventario rptIndividualPlanAccionInv = new ReporteIndividualPlanAccionInventario();
+				try {
+					exportIt(rptIndividualPlanAccionInv.getReport(params,
+							WebAppUtil.getServletContext().getRealPath(reportPath), WebAppUtil.getServletContext(),
+							excel), "Reporte_Plan_Acción");
 				} catch (NumberFormatException | EntidadNoEncontradaException e) {
 					e.printStackTrace();
 				}

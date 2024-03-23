@@ -22,6 +22,8 @@ import com.primax.bean.vs.base.BaseBean;
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoEnum;
+import com.primax.jpa.enums.EstadoInventarioEnum;
+import com.primax.jpa.enums.EstadoPlanAccionInvEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.ResponsableEt;
@@ -29,6 +31,8 @@ import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.TipoInventarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.pla.CheckListEjecucionFirmaEt;
+import com.primax.jpa.pla.PlanAccionInventarioEt;
+import com.primax.jpa.pla.PlanAccionInventarioTipoEt;
 import com.primax.jpa.pla.PlanificacionEt;
 import com.primax.jpa.pla.PlanificacionInventarioEt;
 import com.primax.jpa.pla.PlanificacionInventarioTipoEt;
@@ -39,6 +43,8 @@ import com.primax.srv.idao.IAgenciaDao;
 import com.primax.srv.idao.ICheckListEjecucionDao;
 import com.primax.srv.idao.ICheckListEjecucionFirmaDao;
 import com.primax.srv.idao.IEvaluacionDao;
+import com.primax.srv.idao.IPlanAccionInventarioDao;
+import com.primax.srv.idao.IPlanAccionInventarioTipoDao;
 import com.primax.srv.idao.IPlanificacionDao;
 import com.primax.srv.idao.IPlanificacionInventarioDao;
 import com.primax.srv.idao.IPlanificacionInventarioTipoDao;
@@ -78,9 +84,13 @@ public class DashboardBean extends BaseBean implements Serializable {
 	@EJB
 	private ICheckListEjecucionDao iCheckListEjecucionDao;
 	@EJB
+	private IPlanAccionInventarioDao iPlanAccionInventarioDao;
+	@EJB
 	private ICheckListEjecucionFirmaDao iCheckListEjecucionFirmaDao;
 	@EJB
 	private IPlanificacionInventarioDao iPlanificacionInventarioDao;
+	@EJB
+	private IPlanAccionInventarioTipoDao iPlanAccionInventarioTipoDao;
 	@EJB
 	private IPlanificacionInventarioTipoDao iPlanificacionInventarioTipoDao;
 
@@ -241,7 +251,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 						String estado = "";
 						String codigo = "";
 						String estacion = "";
-						//String inventario = "";
+						// String inventario = "";
 						String responsable = "";
 
 						UsuarioEt usuario = appMain.getUsuario();
@@ -483,20 +493,34 @@ public class DashboardBean extends BaseBean implements Serializable {
 	public void guardarInv() {
 		Long check0 = 0L;
 		Long check1 = 0L;
+		PlanAccionInventarioEt planAccionInv = null;
 		try {
 			UsuarioEt usuario = appMain.getUsuario();
+			if (!planificacionInventarioSeleccionada.isPlanAccion()) {
+				planificacionInventarioSeleccionada.setFechaInicio(new Date());
+				generarPlanAccion(planificacionInventarioSeleccionada, usuario);
+				planificacionInventarioSeleccionada.setPlanAccion(true);
+			}
+			planAccionInv = iPlanAccionInventarioDao.getPlanAccionInvExiste(planificacionInventarioSeleccionada);
 			for (TipoInventarioEt tipoInv : tipoInventarioSeleccionados) {
 				PlanificacionInventarioTipoEt tipo = iPlanificacionInventarioTipoDao
 						.getPlanificacionInv(planificacionInventarioSeleccionada, tipoInv);
 				tipo.setEjecutado(true);
+				tipo.setEstadoInventario(EstadoInventarioEnum.EJECUTADO);
+				if (!tipo.isPlanAccion()) {
+					generarPlanAccionTipo(planAccionInv, tipoInv, tipo, usuario);
+					tipo.setPlanAccion(true);
+				}
 				iPlanificacionInventarioTipoDao.guardarPlanificacionInv(tipo, usuario);
 				planificacionInventarioSeleccionada.setEstadoInventario(EstadoCheckListEnum.EN_EJECUCION);
 			}
 			check0 = iPlanificacionInventarioTipoDao.getPlaInvList(planificacionInventarioSeleccionada);
 			check1 = (long) planificacionInventarioSeleccionada.getPlanificacionInventarioTipo().size();
 			if (check0 == check1) {
+				planificacionInventarioSeleccionada.setFechaFin(new Date());
 				planificacionInventarioSeleccionada.setEstadoInventario(EstadoCheckListEnum.EJECUTADO);
 			}
+			planificacionInventarioSeleccionada.setFechaEjecucion(new Date());
 			iPlanificacionInventarioDao.guardarPlanificacionInventario(planificacionInventarioSeleccionada, usuario);
 			RequestContext.getCurrentInstance().execute("PF('dlg_pln_003').hide();");
 
@@ -542,6 +566,35 @@ public class DashboardBean extends BaseBean implements Serializable {
 			System.out.println("Error :Método redireccionar" + " " + " " + e.getMessage());
 		}
 
+	}
+
+	public void generarPlanAccion(PlanificacionInventarioEt planificacionInv, UsuarioEt usuario) {
+		try {
+			PlanAccionInventarioEt planAccionInv = new PlanAccionInventarioEt();
+			planAccionInv.setUsuarioRegistra(usuario);
+			planAccionInv.setPlanificacionInventario(planificacionInv);
+			planAccionInv.setEstadoPlanAccionInv(EstadoPlanAccionInvEnum.PENDIENTE);
+			iPlanAccionInventarioDao.guardarPlanAccionInventario(planAccionInv, usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generarPlanAccion" + " " + " " + e.getMessage());
+		}
+	}
+
+	public void generarPlanAccionTipo(PlanAccionInventarioEt planAccionInv, TipoInventarioEt tipoInventario,
+			PlanificacionInventarioTipoEt tipo, UsuarioEt usuario) {
+		try {
+			PlanAccionInventarioTipoEt planAccionInvTipo = new PlanAccionInventarioTipoEt();
+			planAccionInvTipo.setUsuarioRegistra(usuario);
+			planAccionInvTipo.setPlanificacionInventarioTipo(tipo);
+			planAccionInvTipo.setTipoInventario(tipoInventario);
+			planAccionInvTipo.setPlanAccionInventario(planAccionInv);
+			planAccionInvTipo.setEstadoPlanAccionInv(EstadoPlanAccionInvEnum.PENDIENTE);
+			iPlanAccionInventarioTipoDao.guardarPlanAccionInvTipo(planAccionInvTipo, usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generarPlanAccionTipo" + " " + " " + e.getMessage());
+		}
 	}
 
 	public void buscar() {
@@ -801,8 +854,10 @@ public class DashboardBean extends BaseBean implements Serializable {
 		iTipoChecListDao.remove();
 		iPlanificacionDao.remove();
 		iCheckListEjecucionDao.remove();
+		iPlanAccionInventarioDao.remove();
 		iCheckListEjecucionFirmaDao.remove();
 		iPlanificacionInventarioDao.remove();
+		iPlanAccionInventarioTipoDao.remove();
 		iPlanificacionInventarioTipoDao.remove();
 	}
 
