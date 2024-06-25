@@ -1122,11 +1122,11 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style3" mode="Opaque" x="0" y="0" width="65" height="15" uuid="8a924110-47ba-45df-b40f-9852ceaf133d"/>
+								<reportElement style="style2" mode="Opaque" x="0" y="0" width="65" height="15" uuid="8a924110-47ba-45df-b40f-9852ceaf133d"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m03}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m02}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1144,11 +1144,11 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style4" mode="Opaque" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
+								<reportElement style="style3" mode="Transparent" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m04}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m03}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1166,11 +1166,11 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style5" mode="Opaque" x="0" y="0" width="65" height="15" uuid="0281d04d-631d-480e-99cb-180c84a86769"/>
+								<reportElement style="style4" mode="Opaque" x="0" y="0" width="65" height="15" uuid="0281d04d-631d-480e-99cb-180c84a86769"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m05}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m04}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1188,11 +1188,11 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style6" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m06}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m05}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
