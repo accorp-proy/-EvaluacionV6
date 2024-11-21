@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlantillaMatrizRiego" language="groovy" pageWidth="1603" pageHeight="842" columnWidth="1563" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aad255d0-463c-490a-a06a-2080940139f7">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="1346"/>
+	<property name="ireport.x" value="1599"/>
 	<property name="ireport.y" value="0"/>
 	<style name="style1">
 		<conditionalStyle>

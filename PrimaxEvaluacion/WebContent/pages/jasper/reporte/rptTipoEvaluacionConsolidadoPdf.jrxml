@@ -1144,7 +1144,7 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style3" mode="Transparent" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
+								<reportElement style="style3" mode="Opaque" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
@@ -1188,7 +1188,7 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
 							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="style1" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
+								<reportElement style="style5" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>

@@ -1099,7 +1099,7 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						</jr:columnHeader>
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
+							<textField pattern="###0.00" isBlankWhenNull="true">
 								<reportElement style="style1" mode="Opaque" x="0" y="0" width="60" height="15" uuid="3844f219-a7de-49e9-ad03-a0ba0813dcce"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
@@ -1108,30 +1108,8 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="60" uuid="c4da8a91-3e57-4119-9a8a-0adc841478e1">
-						<printWhenExpression><![CDATA[$F{mes02} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="60" height="30" uuid="90fb8ae0-ecd9-48bd-b696-810efa921418"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8" isBold="true"/>
-								</textElement>
-								<text><![CDATA[BPM]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style2" mode="Opaque" x="0" y="0" width="60" height="15" uuid="77501a0c-08da-4ad7-9a73-5879fa66e32c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m02}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
 					<jr:column width="65" uuid="066e5648-c474-4b4c-9722-d5c6d011392d">
-						<printWhenExpression><![CDATA[$F{mes03} > 0L ? true : false]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$F{mes02} > 0L ? true : false]]></printWhenExpression>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="65" height="30" uuid="de906411-6b5b-4840-bacf-dfdd99d351c3"/>
@@ -1143,17 +1121,17 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						</jr:columnHeader>
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style3" mode="Opaque" x="0" y="0" width="65" height="15" uuid="8a924110-47ba-45df-b40f-9852ceaf133d"/>
+							<textField pattern="###0.00" isBlankWhenNull="true">
+								<reportElement style="style2" mode="Opaque" x="0" y="0" width="65" height="15" uuid="8a924110-47ba-45df-b40f-9852ceaf133d"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m03}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m02}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="79a183dd-e49d-420f-b491-f9a89056bdca">
-						<printWhenExpression><![CDATA[$F{mes04} > 0L ? true : false]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$F{mes03} > 0L ? true : false]]></printWhenExpression>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="60" height="30" uuid="98ceeb2c-fb51-4a5d-afa1-3d2c5ad6bf53"/>
@@ -1165,17 +1143,17 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						</jr:columnHeader>
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style4" mode="Opaque" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
+							<textField pattern="###0.00" isBlankWhenNull="true">
+								<reportElement style="style3" mode="Opaque" x="0" y="0" width="60" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m04}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m03}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="65" uuid="54f3021e-b9b2-4ebf-b4db-f323f00aabf3">
-						<printWhenExpression><![CDATA[$F{mes05} > 0L ? true : false]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$F{mes04} > 0L ? true : false]]></printWhenExpression>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="65" height="30" uuid="c8f97ccf-58a7-425f-b192-2623553781ee"/>
@@ -1187,17 +1165,17 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						</jr:columnHeader>
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style5" mode="Opaque" x="0" y="0" width="65" height="15" uuid="0281d04d-631d-480e-99cb-180c84a86769"/>
+							<textField pattern="###0.00" isBlankWhenNull="true">
+								<reportElement style="style4" mode="Opaque" x="0" y="0" width="65" height="15" uuid="0281d04d-631d-480e-99cb-180c84a86769"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m05}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m04}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="60" uuid="84557ee1-9002-46aa-98c9-b9cc79f0e169">
-						<printWhenExpression><![CDATA[$F{mes06} > 0L ? true : false]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$F{mes05} > 0L ? true : false]]></printWhenExpression>
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="60" height="30" uuid="9b75a05d-78db-48c0-be28-dacd61d96e26"/>
@@ -1209,144 +1187,12 @@ from reporte_tipo_evaluacion_consolidado_et rpt where aud_usuario=$P{par_id_usua
 						</jr:columnHeader>
 						<jr:columnFooter height="15" rowSpan="1"/>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style6" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
+							<textField pattern="###0.00" isBlankWhenNull="true">
+								<reportElement style="style5" mode="Opaque" x="0" y="0" width="60" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="7" isBold="true"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{m06}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="d38dc1e9-f38f-4087-8c67-e91e7cb80ee2">
-						<printWhenExpression><![CDATA[$F{mes07} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="0f13fe73-fb59-4cd7-9065-ddd331217097"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M07]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style7" mode="Opaque" x="0" y="0" width="33" height="15" uuid="c72ab76f-374b-43c6-bb92-84db2a66694e"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m07}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="2028cb91-6719-434e-9fe0-7b23d89edc53">
-						<printWhenExpression><![CDATA[$F{mes08} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="4a21e4bd-0f9b-4cc7-8ec5-425ef0875a3f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M08]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style8" mode="Opaque" x="0" y="0" width="33" height="15" uuid="3068c150-db1a-4dcc-a795-b089e23af628"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m08}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="b249f12e-eea5-4945-a2f3-f13655c571be">
-						<printWhenExpression><![CDATA[$F{mes09} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="f93c8562-9f2e-4f7c-8e2d-1c52ab22ad18"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M09]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style9" mode="Opaque" x="0" y="0" width="33" height="15" uuid="675d42de-895f-4f39-aca4-b9c0d759a1ca"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m09}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="1b52ebae-0917-4db5-b483-656b7c42c338">
-						<printWhenExpression><![CDATA[$F{mes10} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="9345819d-88de-48de-9124-7da1c8d80ebc"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M10]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style10" mode="Opaque" x="0" y="0" width="33" height="15" uuid="9b149662-5c20-4fd6-a085-2fa2ff4acb7f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m10}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="1e6b4058-bfad-4c73-a47d-f41de79858c5">
-						<printWhenExpression><![CDATA[$F{mes11} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="b3c95022-87f7-440c-994c-b7f22dd92518"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M11]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style11" mode="Opaque" x="0" y="0" width="33" height="15" uuid="8aadec68-fa56-46f5-b7c0-e4c19c1623c7"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m11}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="33" uuid="18cd3daa-9d6e-49e4-b5c1-f8a3dfcd3fce">
-						<printWhenExpression><![CDATA[$F{mes12} > 0L ? true : false]]></printWhenExpression>
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="33" height="15" uuid="ec06f4ac-82ac-49b6-a0ec-fd768922ff4a"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
-								</textElement>
-								<text><![CDATA[M12]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="15" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement style="style12" mode="Opaque" x="0" y="0" width="33" height="15" uuid="7aa7a7a3-508a-41f0-bb43-d5cb48c4be5f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="7" isBold="true"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{m12}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{m05}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
