@@ -19,6 +19,7 @@ import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.ZonaEt;
@@ -107,12 +108,12 @@ public class CheckListEjecutadoBean extends BaseBean implements Serializable {
 					checkListEjecuciones = iCheckListEjecucionDao.getCheckListEjecucionAccesoZonaList(zonaSeleccionada,
 							estacionSeleccionada, evaluacionSeleccionada, tipoChecKListSeleccionado,
 							nivelEvaluacionSeleccionado, fDesde, fHasta, usuarioSeleccionado,
-							estadoCheckListSeleccionado);
+							estadoCheckListSeleccionado, usuario);
 				} else {
 
 					checkListEjecuciones = iCheckListEjecucionDao.getCheckListEjecucionAccesoZonaList(zonaSeleccionada,
 							estacionSeleccionada, evaluacionSeleccionada, tipoChecKListSeleccionado,
-							nivelEvaluacionSeleccionado, fDesde, fHasta, usuario, estadoCheckListSeleccionado);
+							nivelEvaluacionSeleccionado, fDesde, fHasta, usuario, estadoCheckListSeleccionado, usuario);
 				}
 			} else {
 				if (containsRol(rolUsuario, rol)) {
@@ -192,7 +193,14 @@ public class CheckListEjecutadoBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());

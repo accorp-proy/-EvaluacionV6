@@ -32,6 +32,7 @@ import org.hibernate.envers.Audited;
 
 import com.primax.jpa.base.EntityBase;
 import com.primax.jpa.gen.PersonaEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
 
 @Entity
@@ -65,6 +66,11 @@ public class UsuarioEt extends EntityBase {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
 	@Where(clause = "estado='ACT'")
+	//@OrderBy(" evaluacion.idEvaluacion ")
+	private List<EvaluacionUsuarioEt> evaluacionUsuario;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
+	@Where(clause = "estado='ACT'")
 	private List<RolUsuarioEt> rolesUsario;
 
 	@ManyToOne
@@ -84,6 +90,9 @@ public class UsuarioEt extends EntityBase {
 
 	@Column(name = "acceso_zona")
 	private boolean accesoZona;
+	
+	@Column(name = "acceso_evaluacion")
+	private boolean accesoEvaluacion;
 
 	public List<ZonaUsuarioEt> getZonaUsuario() {
 		return zonaUsuario;
@@ -162,6 +171,22 @@ public class UsuarioEt extends EntityBase {
 
 	public void setAccesoZona(boolean accesoZona) {
 		this.accesoZona = accesoZona;
+	}
+
+	public List<EvaluacionUsuarioEt> getEvaluacionUsuario() {
+		return evaluacionUsuario;
+	}
+
+	public void setEvaluacionUsuario(List<EvaluacionUsuarioEt> evaluacionUsuario) {
+		this.evaluacionUsuario = evaluacionUsuario;
+	}
+
+	public boolean isAccesoEvaluacion() {
+		return accesoEvaluacion;
+	}
+
+	public void setAccesoEvaluacion(boolean accesoEvaluacion) {
+		this.accesoEvaluacion = accesoEvaluacion;
 	}
 
 	@Override

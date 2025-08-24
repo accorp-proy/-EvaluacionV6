@@ -87,7 +87,7 @@ public class ConsultaPlanAccionGBean extends BaseBean implements Serializable {
 			ResponsableEt responsable = iResponsableDao.getResponsableEstacion(usuario.getPersonaUsuario());
 			checkListEjecuciones = iCheckListEjecucionDao.getCheckListEjecucionListPlanAccion(zonaSeleccionada,
 					responsable.getAgencia(), evaluacionSeleccionada, tipoChecKListSeleccionado, null, fDesde, fHasta,
-					estadoPlanAccionSeleccionado);
+					estadoPlanAccionSeleccionado,usuario);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método buscar " + " " + e.getMessage());

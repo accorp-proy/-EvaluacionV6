@@ -18,8 +18,10 @@ import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.ITipoChecKListDao;
+import com.primax.srv.idao.IUsuarioDao;
 import com.primax.srv.idao.IEvaluacionDao;
 
 @Named("TipoCheckListBn")
@@ -31,6 +33,8 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private IEvaluacionDao iEvaluacionDao;
 	@EJB
@@ -57,7 +61,8 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 
 	public void buscar() {
 		try {
-			tiposChecList = iTipoChecListDao.getTipoChecList(condicion);
+			UsuarioEt usuario = appMain.getUsuario();
+			tiposChecList = iTipoChecListDao.getTipoChecList(usuario, condicion);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método buscar " + " " + e.getMessage());
@@ -87,7 +92,7 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 		evaluacionSeleccionado = tipoChecList.getEvaluacion();
 		if (tipoChecList.getEvaluacion().isCriterio()) {
 			general = true;
-		}else {
+		} else {
 			general = false;
 		}
 	}
@@ -95,7 +100,15 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -152,6 +165,7 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 
 	@Override
 	protected void onDestroy() {
+		iUsuarioDao.remove();
 		iEvaluacionDao.remove();
 		iTipoChecListDao.remove();
 	}

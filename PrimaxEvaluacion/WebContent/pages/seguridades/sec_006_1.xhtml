@@ -142,12 +142,32 @@
 									<f:selectItems value="#{collectorEM.estadosCompleto}" />
 								</p:selectOneMenu>
 							</h:panelGroup>
+						</p:panelGrid>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-lg-4">
+					<div class="card card-w-title" style="height: 480px">
+						<h2>Accesos</h2>
+						<p:panelGrid columns="1" layout="grid"
+							styleClass="ui-panelgrid-blank form-group" id="pnl_acceso">
 							<h:panelGroup>
-								<p:selectCheckboxMenu id="multiple" converter="#{zonaConverter}"
+								<p:selectCheckboxMenu id="multiplesZona"
+									converter="#{zonaConverter}"
 									value="#{usuarioCtrl.usuarioBean.zonaSeleccionadas}"
 									label="Zona">
 									<f:selectItems value="#{usuarioCtrl.usuarioBean.zonaList}"
 										var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}" />
+								</p:selectCheckboxMenu>
+							</h:panelGroup>
+							<h:panelGroup>
+								<p:selectCheckboxMenu id="multiplesEvaluacion"
+									converter="#{evaluacionConverter}"
+									value="#{usuarioCtrl.usuarioBean.evaluacionSeleccionadas}"
+									label="Evaluacion">
+									<f:selectItems
+										value="#{usuarioCtrl.usuarioBean.evaluacionList}"
+										var="evaluacion" itemLabel="#{evaluacion.descripcion}"
+										itemValue="#{evaluacion}" />
 								</p:selectCheckboxMenu>
 							</h:panelGroup>
 							<h:panelGroup>

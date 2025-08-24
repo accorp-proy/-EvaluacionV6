@@ -25,7 +25,7 @@ public interface IAgenciaCheckListDao extends IGenericDao<AgenciaCheckListEt, Lo
 
 	public void guardaAgenciaCheckList(AgenciaCheckListEt agenciaCheckList, UsuarioEt usuario) throws EntidadNoGrabadaException;
 
-	public List<AgenciaCheckListEt> getAgenciaCheckListHabilitados(AgenciaEt agencia, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList)
+	public List<AgenciaCheckListEt> getAgenciaCheckListHabilitados(UsuarioEt usuario, AgenciaEt agencia, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList)
 			throws EntidadNoEncontradaException;
 
 }

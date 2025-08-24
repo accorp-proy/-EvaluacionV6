@@ -26,6 +26,7 @@ import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.enums.TipoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.ZonaEt;
@@ -33,6 +34,7 @@ import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.pla.CheckListKpiEjecucionEt;
 import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
+import com.primax.jpa.pla.PlanificacionEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.GenericDao;
 import com.primax.srv.idao.ICheckListEjecucionDao;
@@ -84,6 +86,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		sql.append(" AND to_char(o.planificacion.fechaPlanificacion,'yyyy-mm-dd') BETWEEN :fechaDesde AND :fechaHasta ");
 		if (usuario != null) {
 			sql.append(" AND o.usuarioAsignado = :usuario ");
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (zona != null) {
 			sql.append(" AND o.planificacion.agencia.zona = :zona ");
@@ -105,11 +108,16 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		}
 		sql.append(" ORDER BY o.planificacion.fechaPlanificacion ");
 		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("fechaDesde", SfechaDesde);
 		query.setParameter("fechaHasta", SfechaHasta);
 		if (usuario != null) {
 			query.setParameter("usuario", usuario);
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
 		}
 		if (zona != null) {
 			query.setParameter("zona", zona);
@@ -134,7 +142,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaList(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, UsuarioEt usuario, EstadoCheckListEnum estadoCheckList)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaList(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, UsuarioEt usuario, EstadoCheckListEnum estadoCheckList, UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException {
 
 		String SfechaDesde = format.format(fechaDesde);
@@ -150,6 +158,9 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		if (usuario != null) {
 			sql.append(" AND o.usuarioAsignado = :usuario ");
 			sql.append(" AND o.planificacion.agencia.zona in (:zonas) ");
+		}
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (estacion != null) {
 			sql.append(" AND o.planificacion.agencia = :estacion ");
@@ -168,6 +179,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		}
 		sql.append(" ORDER BY o.planificacion.fechaPlanificacion ");
 		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("fechaDesde", SfechaDesde);
@@ -179,8 +191,16 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 			for (ZonaUsuarioEt zonaUsuario : usuario.getZonaUsuario()) {
 				zonas.add(zonaUsuario.getZona());
 			}
+
 			query.setParameter("zonas", zonas);
 			query.setParameter("usuario", usuario);
+
+		}
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
 		}
 		if (estacion != null) {
 			query.setParameter("estacion", estacion);
@@ -215,13 +235,15 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion)
+	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o     ");
 		sql.append(" WHERE o.estado        = :estado   ");
 		sql.append(" AND date_trunc('day',o.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
 		sql.append(" AND o.estadoCheckList = :estadoCheckList ");
-
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
 		if (zona != null) {
 			sql.append(" AND o.planificacion.agencia.zona = :zona ");
 		}
@@ -242,10 +264,17 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		}
 		sql.append(" ORDER BY o.planificacion.fechaPlanificacion ");
 		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
 		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
 		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
 			query.setParameter("estadoPlanAccion", estadoPlanAccion);
 		}
@@ -269,12 +298,15 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario,UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o  ");
 		sql.append(" WHERE o.estado        = :estado   ");
 		sql.append(" AND date_trunc('day',o.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
 		sql.append(" AND o.estadoCheckList = :estadoCheckList ");
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
 		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
 			sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
 		}
@@ -295,11 +327,18 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		}
 		sql.append(" ORDER BY o.planificacion.fechaPlanificacion ");
 		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
 		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
 		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
 		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
 			query.setParameter("estadoPlanAccion", estadoPlanAccion);
 		}
@@ -541,6 +580,29 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
 		query.setParameter("estadoPlanAccion", EstadoPlanAccionEnum.PENDIENTE);
+		List<CheckListEjecucionEt> result = query.getResultList();
+		return result;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<CheckListEjecucionEt> getCheckEjecutandoByEvaluacion(UsuarioEt usuario, PlanificacionEt planificacion)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM CheckListEjecucionEt o ");
+		sql.append(" WHERE o.estado        = :estado   ");
+		if (usuario != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
+		sql.append(" AND o.planificacion   = :planificacion ");
+		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("planificacion", planificacion);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		List<CheckListEjecucionEt> result = query.getResultList();
 		return result;
 	}

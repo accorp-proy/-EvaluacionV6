@@ -19,7 +19,7 @@ public interface ICriterioEvaluacionDao extends IGenericDao<CriterioEvaluacionEt
 
 	public List<CriterioEvaluacionEt> getCriterioEvaluacionBPMList() throws EntidadNoEncontradaException;
 
-	public List<CriterioEvaluacionEt> getCriterioEvaluacionList(EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, String condicion)
+	public List<CriterioEvaluacionEt> getCriterioEvaluacionList(UsuarioEt usuario, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, String condicion)
 			throws EntidadNoEncontradaException;
 
 	public void guardarCriterioEvaluacion(CriterioEvaluacionEt criterioEvaluacion, UsuarioEt usuario) throws EntidadNoGrabadaException;

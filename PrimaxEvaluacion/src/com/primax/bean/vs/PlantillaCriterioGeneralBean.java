@@ -29,6 +29,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.enums.TipoCheckListEnum;
 import com.primax.jpa.param.CriterioEvaluacionEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.KPICriticoEt;
 import com.primax.jpa.param.NivelEvaluacionDetalleEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
@@ -64,6 +65,7 @@ import com.primax.srv.idao.IProcesoDetalleDao;
 import com.primax.srv.idao.ITipoCargoDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.ITipoEstacionDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("PlantillaCriterioGeneralBn")
 @ViewScoped
@@ -74,6 +76,8 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private IProcesoDao iProcesoDao;
 	@EJB
@@ -720,7 +724,17 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionByCriterio(true);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					if (evaluacionUsuario.getEvaluacion().isCriterio()) {
+						evaluaciones.add(evaluacionUsuario.getEvaluacion());
+					}
+
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getTipoControlList " + " " + e.getMessage());
@@ -1903,6 +1917,7 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 
 	@Override
 	protected void onDestroy() {
+		iUsuarioDao.remove();
 		iProcesoDao.remove();
 		iTipoCargoDao.remove();
 		iCheckListDao.remove();

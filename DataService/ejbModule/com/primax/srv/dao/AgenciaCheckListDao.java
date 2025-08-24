@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.AgenciaCheckListEt;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.pla.CheckListEt;
@@ -89,11 +91,14 @@ public class AgenciaCheckListDao extends GenericDao<AgenciaCheckListEt, Long> im
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<AgenciaCheckListEt> getAgenciaCheckListHabilitados(AgenciaEt agencia, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList)
+	public List<AgenciaCheckListEt> getAgenciaCheckListHabilitados(UsuarioEt usuario, AgenciaEt agencia, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM AgenciaCheckListEt o ");
 		sql.append(" WHERE o.estado   = :estado  ");
 		sql.append(" AND   o.agencia  = :agencia ");
+		if (usuario != null) {
+			sql.append(" AND o.checkList.evaluacion in (:evaluaciones) ");
+		}
 		if (nivelEvaluacion != null) {
 			sql.append(" AND o.checkList.nivelEvaluacion = :nivelEvaluacion ");
 		}
@@ -105,6 +110,13 @@ public class AgenciaCheckListDao extends GenericDao<AgenciaCheckListEt, Long> im
 		}
 		sql.append(" ORDER BY  o.idAgenciaCheckList   ");
 		TypedQuery<AgenciaCheckListEt> query = em.createQuery(sql.toString(), AgenciaCheckListEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		query.setParameter("agencia", agencia);
 		query.setParameter("estado", EstadoEnum.ACT);
 		if (nivelEvaluacion != null) {

@@ -2,6 +2,7 @@ package com.primax.srv.dao;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.enums.TipoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.pla.CheckListEt;
@@ -55,7 +57,7 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEt> getCheckList(NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckList)
+	public List<CheckListEt> getCheckList(UsuarioEt usuario,NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckList)
 			throws EntidadNoEncontradaException {
 		
 		String SfechaDesde = format.format(fechaDesde);
@@ -64,6 +66,9 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		sql = new StringBuilder("FROM CheckListEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
 		sql.append(" AND to_char(o.fechaRegistro,'yyyy-mm-dd') BETWEEN :fechaDesde AND :fechaHasta ");
+		if (usuario != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
 		if (nivelEvaluacion != null) {
 			sql.append(" AND o.nivelEvaluacion = :nivelEvaluacion ");
 		}
@@ -78,9 +83,16 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		}
 		sql.append(" ORDER BY o.fechaRegistro");
 		TypedQuery<CheckListEt> query = em.createQuery(sql.toString(), CheckListEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("fechaDesde", SfechaDesde);
 		query.setParameter("fechaHasta", SfechaHasta);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (nivelEvaluacion != null) {
 			query.setParameter("nivelEvaluacion", nivelEvaluacion);
 		}

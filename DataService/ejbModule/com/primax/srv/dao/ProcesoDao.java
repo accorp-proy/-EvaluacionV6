@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +17,8 @@ import com.primax.enm.gen.ActionAuditedEnum;
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
 import com.primax.jpa.enums.EstadoEnum;
+import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ProcesoEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.sec.UsuarioEt;
@@ -47,9 +50,12 @@ public class ProcesoDao extends GenericDao<ProcesoEt, Long> implements IProcesoD
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<ProcesoEt> getProcesoList(TipoChecKListEt tipoChecKList, String condicion) throws EntidadNoEncontradaException {
+	public List<ProcesoEt> getProcesoList(UsuarioEt usuario,TipoChecKListEt tipoChecKList, String condicion) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM ProcesoEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
+		if (usuario != null) {
+			sql.append(" AND o.tipoChecKList.evaluacion in (:evaluaciones) ");
+		}
 		if (tipoChecKList != null) {
 			sql.append(" AND o.tipoChecKList = :tipoChecKList ");
 		}
@@ -58,7 +64,14 @@ public class ProcesoDao extends GenericDao<ProcesoEt, Long> implements IProcesoD
 		}
 		sql.append(" ORDER BY o.orden ");
 		TypedQuery<ProcesoEt> query = em.createQuery(sql.toString(), ProcesoEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (tipoChecKList != null) {
 			query.setParameter("tipoChecKList", tipoChecKList);
 		}

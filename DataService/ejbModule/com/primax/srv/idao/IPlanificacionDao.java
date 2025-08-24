@@ -18,7 +18,7 @@ public interface IPlanificacionDao extends IGenericDao<PlanificacionEt, Long> {
 
 	public void guardarPlanificacion(PlanificacionEt planificacion, UsuarioEt usuario) throws EntidadNoGrabadaException;
 
-	public List<PlanificacionEt> getPlanificacionList(EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta)
+	public List<PlanificacionEt> getPlanificacionList(UsuarioEt usuario, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta)
 
 			throws EntidadNoEncontradaException;
 
@@ -26,5 +26,7 @@ public interface IPlanificacionDao extends IGenericDao<PlanificacionEt, Long> {
 
 	public List<PlanificacionEt> getPlanificacionList(EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, UsuarioEt usuario)
 			throws EntidadNoEncontradaException;
+
+	public PlanificacionEt getPlanificacionByEvaluacionList(UsuarioEt usuario, PlanificacionEt planificacion) throws EntidadNoEncontradaException;
 
 }

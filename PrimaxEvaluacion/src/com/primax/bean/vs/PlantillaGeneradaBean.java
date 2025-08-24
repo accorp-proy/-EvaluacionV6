@@ -26,6 +26,7 @@ import com.primax.jpa.param.CategoriaEstacionEt;
 import com.primax.jpa.param.CriterioEvaluacionDetalleEt;
 import com.primax.jpa.param.CriterioEvaluacionEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoCategoriaEstacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
@@ -49,6 +50,7 @@ import com.primax.srv.idao.INivelEvaluacionDao;
 import com.primax.srv.idao.IRolEtDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.ITipoEstacionDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("PlantillaGeneradaBn")
 @ViewScoped
@@ -63,6 +65,8 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 	private IRolEtDao iRolEtDao;
 	@EJB
 	private IAgenciaDao iAgenciaDao;
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private ICheckListDao iCheckListDao;
 	@EJB
@@ -136,7 +140,8 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 
 	public void buscar() {
 		try {
-			checkList = iCheckListDao.getCheckList(nivelEvaluacionSeleccionado, evaluacionSeleccionado,
+			UsuarioEt usuario = appMain.getUsuario();
+			checkList = iCheckListDao.getCheckList(usuario, nivelEvaluacionSeleccionado, evaluacionSeleccionado,
 					tipoChecKListSeleccionado, fDesde, fHasta, estadoCheckListSeleccionado);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -229,6 +234,7 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 			System.out.println("Error :Método guardarAsignacion " + " " + e.getMessage());
 		}
 	}
+
 	public void imprimir() {
 		try {
 			checkListImprimir = checkListSeleccionadoR;
@@ -238,7 +244,6 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 		}
 	}
 
-
 	public boolean containsCheckLIst(final List<AgenciaCheckListEt> list, final CheckListEt checkList) {
 		return list.stream().filter(o -> o.getCheckList().equals(checkList)).findFirst().isPresent();
 	}
@@ -246,6 +251,7 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 	public void modificar(CheckListEt checkList) {
 		checkListSeleccionado = checkList;
 	}
+
 	public void checkListR(CheckListEt checkList) {
 		checkListSeleccionadoR = checkList;
 	}
@@ -403,7 +409,14 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -595,6 +608,7 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 	@Override
 	protected void onDestroy() {
 		iRolEtDao.remove();
+		iUsuarioDao.remove();
 		iAgenciaDao.remove();
 		iCheckListDao.remove();
 		iEvaluacionDao.remove();

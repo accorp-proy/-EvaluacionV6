@@ -39,7 +39,6 @@ public class ReporteGrupalTipoInventario extends BaseReport {
 				nombreReporte = "rptTipoInventarioPdf.jasper";
 			}
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getReport " + " " + e.getMessage());

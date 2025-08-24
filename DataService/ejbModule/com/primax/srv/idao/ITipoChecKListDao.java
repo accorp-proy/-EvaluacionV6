@@ -15,13 +15,13 @@ public interface ITipoChecKListDao extends IGenericDao<TipoChecKListEt, Long> {
 
 	public TipoChecKListEt getTipoChecList(long id);
 
-	public List<TipoChecKListEt> getTipoChecList(String condicion) throws EntidadNoEncontradaException;
-
 	public List<TipoChecKListEt> getTipoCheckListByEvaluacionControl() throws EntidadNoEncontradaException;
 
 	public String generar(Long idZona, Long idTipoCheckList, Long idEvaluacion, Long idProceso, Long idUsuario);
 
 	public void guardaTipoChecList(TipoChecKListEt tipoChecList, UsuarioEt usuario) throws EntidadNoGrabadaException;
+
+	public List<TipoChecKListEt> getTipoChecList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException;
 
 	public List<TipoChecKListEt> getTipoCheckListByEvaluacion(EvaluacionEt evaluacion) throws EntidadNoEncontradaException;
 

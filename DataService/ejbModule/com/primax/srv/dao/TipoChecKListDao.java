@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +18,10 @@ import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.TipoChecKListEt;
+import com.primax.jpa.param.ZonaEt;
+import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.GenericDao;
 import com.primax.srv.idao.ITipoChecKListDao;
@@ -48,15 +52,25 @@ public class TipoChecKListDao extends GenericDao<TipoChecKListEt, Long> implemen
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<TipoChecKListEt> getTipoChecList(String condicion) throws EntidadNoEncontradaException {
+	public List<TipoChecKListEt> getTipoChecList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM TipoChecKListEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
+		if (usuario != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
 		if (condicion != null && !condicion.isEmpty()) {
 			sql.append(" AND o.descripcion like :condicion ");
 		}
 		sql.append(" ORDER BY o.idTipoCheckList ");
 		TypedQuery<TipoChecKListEt> query = em.createQuery(sql.toString(), TipoChecKListEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (condicion != null && !condicion.isEmpty()) {
 			query.setParameter("condicion", "%" + QUL.getString(condicion) + "%");
 		}

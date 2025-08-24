@@ -84,7 +84,8 @@ public class ProcesoBean extends BaseBean implements Serializable {
 
 	public void buscar() {
 		try {
-			procesos = iProcesoDao.getProcesoList(tipoChecKListSeleccionadoBusqueda, condicion);
+			UsuarioEt usuario = appMain.getUsuario();
+			procesos = iProcesoDao.getProcesoList(usuario, tipoChecKListSeleccionadoBusqueda, condicion);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método buscar " + " " + e.getMessage());
@@ -170,14 +171,15 @@ public class ProcesoBean extends BaseBean implements Serializable {
 	public List<TipoChecKListEt> getTiposChecList() {
 		List<TipoChecKListEt> tipoChecList = new ArrayList<TipoChecKListEt>();
 		try {
-			tipoChecList = iTipoChecListDao.getTipoChecList(null);
+			UsuarioEt usuario = appMain.getUsuario();
+			tipoChecList = iTipoChecListDao.getTipoChecList(usuario, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getTiposChecList " + " " + e.getMessage());
 		}
 		return tipoChecList;
 	}
-	
+
 	public List<NivelEsfuerzoEt> getNivelEsfuerzoList() {
 		List<NivelEsfuerzoEt> nivelesEsfuerzo = new ArrayList<NivelEsfuerzoEt>();
 		try {

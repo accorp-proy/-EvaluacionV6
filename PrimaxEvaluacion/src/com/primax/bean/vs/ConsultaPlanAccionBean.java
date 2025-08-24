@@ -27,6 +27,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.ParametrosGeneralesEt;
 import com.primax.jpa.param.TipoChecKListEt;
@@ -120,11 +121,11 @@ public class ConsultaPlanAccionBean extends BaseBean implements Serializable {
 			if (usuario.isAccesoZona()) {
 				checkListEjecuciones = iCheckListEjecucionDao.getCheckListEjecucionAccesoZonaListPlanAccion(
 						estacionSeleccionada, evaluacionSeleccionada, tipoChecKListSeleccionado,
-						nivelEvaluacionSeleccionado, fDesde, fHasta, estadoPlanAccionSeleccionado, usuario);
+						nivelEvaluacionSeleccionado, fDesde, fHasta, estadoPlanAccionSeleccionado, usuario, usuario);
 			} else {
 				checkListEjecuciones = iCheckListEjecucionDao.getCheckListEjecucionListPlanAccion(zonaSeleccionada,
 						estacionSeleccionada, evaluacionSeleccionada, tipoChecKListSeleccionado,
-						nivelEvaluacionSeleccionado, fDesde, fHasta, estadoPlanAccionSeleccionado);
+						nivelEvaluacionSeleccionado, fDesde, fHasta, estadoPlanAccionSeleccionado, usuario);
 			}
 
 		} catch (Exception e) {
@@ -171,7 +172,14 @@ public class ConsultaPlanAccionBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());

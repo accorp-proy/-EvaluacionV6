@@ -22,6 +22,8 @@ import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.gen.PersonaEt;
+import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.sec.PersonaImagenEt;
 import com.primax.jpa.sec.PoliticaSeguridadEt;
@@ -29,6 +31,8 @@ import com.primax.jpa.sec.RolEt;
 import com.primax.jpa.sec.RolUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
+import com.primax.srv.idao.IEvaluacionDao;
+import com.primax.srv.idao.IEvaluacionUsuarioDao;
 import com.primax.srv.idao.IGeneralUtilsDao;
 import com.primax.srv.idao.IPersonaDao;
 import com.primax.srv.idao.IPoliticaSeguridadDao;
@@ -52,6 +56,8 @@ public class UsuarioBean extends BaseBean implements Serializable {
 	@EJB
 	private IPersonaDao iPersonaDao;
 	@EJB
+	private IEvaluacionDao iEvaluacionDao;
+	@EJB
 	private IZonaUsuarioDao iZonaUsuarioDao;
 	@EJB
 	private IResponsableDao iResponsableDao;
@@ -59,6 +65,8 @@ public class UsuarioBean extends BaseBean implements Serializable {
 	private IGeneralUtilsDao iGeneralUtilsDao;
 	@EJB
 	private IPoliticaSeguridadDao iPoliticaSeguridadDao;
+	@EJB
+	private IEvaluacionUsuarioDao iEvaluacionUsuarioDao;
 
 	@Inject
 	private AppMain appMain;
@@ -89,6 +97,8 @@ public class UsuarioBean extends BaseBean implements Serializable {
 
 	private List<ZonaEt> zonaSeleccionadas;
 
+	private List<EvaluacionEt> evaluacionSeleccionadas;
+
 	private PersonaEt personaSeleccionada = new PersonaEt();
 
 	private boolean okPolSeg;
@@ -102,6 +112,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
 		politicaSeg = iPoliticaSeguridadDao.getpoliticaSeguridad();
 		setPolicy(politicaSeg);
 		zonaSeleccionadas = new ArrayList<>();
+		evaluacionSeleccionadas = new ArrayList<>();
 	}
 
 	public void setPolicy(PoliticaSeguridadEt policy) {
@@ -189,6 +200,17 @@ public class UsuarioBean extends BaseBean implements Serializable {
 		return zonas;
 	}
 
+	public List<EvaluacionEt> getEvaluacionList() {
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		try {
+			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
+		}
+		return evaluaciones;
+	}
+
 	public PersonaEt getPersonaSeleccionada() {
 		return personaSeleccionada;
 	}
@@ -204,7 +226,6 @@ public class UsuarioBean extends BaseBean implements Serializable {
 
 	public void modificaUsuario(UsuarioEt usuario) {
 		this.usuarioSeleccionado = usuario;
-		
 
 	}
 
@@ -247,6 +268,9 @@ public class UsuarioBean extends BaseBean implements Serializable {
 			usuarioSeleccionado.getRolesUsario().addAll(rolesEliminados);
 		}
 		try {
+			/*
+			 * Guardar y Actualiza Zonas Seleccionadas
+			 */
 			if (usuarioSeleccionado.getZonaUsuario() != null && !usuarioSeleccionado.getZonaUsuario().isEmpty()) {
 				usuarioSeleccionado.setAccesoZona(true);
 				for (ZonaUsuarioEt zonaUsuario : usuarioSeleccionado.getZonaUsuario()) {
@@ -257,6 +281,21 @@ public class UsuarioBean extends BaseBean implements Serializable {
 			}
 			if (usuarioSeleccionado.getZonaUsuario() != null && !zonaSeleccionadas.isEmpty()) {
 				usuarioSeleccionado.setAccesoZona(true);
+			}
+			/*
+			 * Guardar y Actualiza Evaluaciones Seleccionadas
+			 */
+			if (usuarioSeleccionado.getEvaluacionUsuario() != null
+					&& !usuarioSeleccionado.getEvaluacionUsuario().isEmpty()) {
+				usuarioSeleccionado.setAccesoEvaluacion(true);
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuarioSeleccionado.getEvaluacionUsuario()) {
+					evaluacionUsuario.setEstado(EstadoEnum.INA);
+					evaluacionUsuario.setUsuario(usuarioSeleccionado);
+					iEvaluacionUsuarioDao.guardarEvaluacionUsuario(evaluacionUsuario, usuarioSeleccionado);
+				}
+			}
+			if (usuarioSeleccionado.getEvaluacionUsuario() != null && !evaluacionSeleccionadas.isEmpty()) {
+				usuarioSeleccionado.setAccesoEvaluacion(true);
 			}
 			iUsuarioDao.crearUsuarioSistema(usuarioSeleccionado);
 			showInfo("Notificación", FacesMessage.SEVERITY_INFO, null, "Datos del usuario guardado");
@@ -270,6 +309,17 @@ public class UsuarioBean extends BaseBean implements Serializable {
 				}
 				zonaUsuario.setEstado(EstadoEnum.ACT);
 				iZonaUsuarioDao.guardarZonaUsuario(zonaUsuario, usuarioSeleccionado);
+			}
+			for (EvaluacionEt evaluacion : evaluacionSeleccionadas) {
+				EvaluacionUsuarioEt evaluacionUsuario = null;
+				evaluacionUsuario = iEvaluacionUsuarioDao.getEvaluacionExiste(evaluacion, usuarioSeleccionado);
+				if (evaluacionUsuario == null) {
+					evaluacionUsuario = new EvaluacionUsuarioEt();
+					evaluacionUsuario.setEvaluacion(evaluacion);
+					evaluacionUsuario.setUsuario(usuarioSeleccionado);
+				}
+				evaluacionUsuario.setEstado(EstadoEnum.ACT);
+				iEvaluacionUsuarioDao.guardarEvaluacionUsuario(evaluacionUsuario, usuarioSeleccionado);
 			}
 			init();
 		} catch (
@@ -452,13 +502,23 @@ public class UsuarioBean extends BaseBean implements Serializable {
 		this.zonaSeleccionadas = zonaSeleccionadas;
 	}
 
+	public List<EvaluacionEt> getEvaluacionSeleccionadas() {
+		return evaluacionSeleccionadas;
+	}
+
+	public void setEvaluacionSeleccionadas(List<EvaluacionEt> evaluacionSeleccionadas) {
+		this.evaluacionSeleccionadas = evaluacionSeleccionadas;
+	}
+
 	@Override
 	public void onDestroy() {
 		iZonaDao.remove();
 		iUsuarioDao.remove();
 		iPersonaDao.remove();
+		iEvaluacionDao.remove();
 		iResponsableDao.remove();
 		iPoliticaSeguridadDao.remove();
+		iEvaluacionUsuarioDao.remove();
 	}
 
 }

@@ -35,6 +35,7 @@ import com.primax.jpa.param.AgenciaCheckListEt;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.CorreoEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.ResponsableEt;
 import com.primax.jpa.param.TipoChecKListEt;
@@ -416,7 +417,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			System.out.println("Error :Método anadirCheckList " + " " + e.getMessage());
 		}
 	}
-	
+
 	public String reemplazarEtiqueta(String original, CheckListEjecucionEt checkListEjecucion) {
 		String reemplazo = "";
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -573,14 +574,15 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 	public void buscarHabilitados() {
 		List<AgenciaCheckListEt> agenciaCheckList = new ArrayList<>();
 		try {
+			UsuarioEt usuario = appMain.getUsuario();
 			if (nivelEvaluacionSeleccionado != null && estacionSeleccionada != null && evaluacionSeleccionada != null) {
 				estacionSeleccionada.setAgenciaCheckList(new ArrayList<>());
-				agenciaCheckList = iAgenciaCheckListDao.getAgenciaCheckListHabilitados(estacionSeleccionada,
+				agenciaCheckList = iAgenciaCheckListDao.getAgenciaCheckListHabilitados(usuario, estacionSeleccionada,
 						nivelEvaluacionSeleccionado, evaluacionSeleccionada, tipoChecKListSeleccionado);
 				estacionSeleccionada.setAgenciaCheckList(agenciaCheckList);
 			} else {
-				agenciaCheckList = iAgenciaCheckListDao.getAgenciaCheckListHabilitados(estacionSeleccionada, null, null,
-						null);
+				agenciaCheckList = iAgenciaCheckListDao.getAgenciaCheckListHabilitados(usuario, estacionSeleccionada,
+						null, null, null);
 				estacionSeleccionada.setAgenciaCheckList(agenciaCheckList);
 			}
 
@@ -593,13 +595,14 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 	public void inicializarCalendario() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
+			UsuarioEt usuario = appMain.getUsuario();
 			eventModel = new LazyScheduleModel() {
 				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void loadEvents(Date desde, Date hasta) {
 					try {
-						planificaciones = iPlanificacionDao.getPlanificacionList(evaluacionSeleccionada,
+						planificaciones = iPlanificacionDao.getPlanificacionList(usuario, evaluacionSeleccionada,
 								tipoChecKListSeleccionado, desde, hasta);
 						DefaultScheduleEvent scheduleEventAllDay;
 						String estado = "";
@@ -624,21 +627,21 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 									leyenda0 += "<br/>" + leyenda1;
 								}
 								switch (checkListE.getEstadoCheckList().getDescripcion()) {
-									case "AGENDADA":
-										tema = "schedule-agendada";
-										break;
-									case "EN EJECUCION":
-										tema = "schedule-en-ejecucion";
-										break;
-									case "EJECUTADO":
-										tema = "schedule-ejecutado";
-										break;
-									case "NO EJECUTADO":
-										tema = "schedule-no-ejecutado";
-										break;
-									case "INCONCLUSO":
-										tema = "schedule-inconcluso";
-										break;
+								case "AGENDADA":
+									tema = "schedule-agendada";
+									break;
+								case "EN EJECUCION":
+									tema = "schedule-en-ejecucion";
+									break;
+								case "EJECUTADO":
+									tema = "schedule-ejecutado";
+									break;
+								case "NO EJECUTADO":
+									tema = "schedule-no-ejecutado";
+									break;
+								case "INCONCLUSO":
+									tema = "schedule-inconcluso";
+									break;
 								}
 							}
 							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
@@ -715,12 +718,22 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 	}
 
 	public void onEventSelect(SelectEvent selectEvent) {
-		event = (ScheduleEvent) selectEvent.getObject();
-		planificacionSeleccionada = (PlanificacionEt) event.getData();
-		estacionSeleccionada = planificacionSeleccionada.getAgencia();
-		bloqueo = true;
-		for (PlanificacionAuditorEt planificacionAuditor : planificacionSeleccionada.getPlanificacionAuditor()) {
-			usuarioSeleccionados.add(planificacionAuditor.getUsuarioAuditor());
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			event = (ScheduleEvent) selectEvent.getObject();
+			planificacionSeleccionada = (PlanificacionEt) event.getData();
+			estacionSeleccionada = planificacionSeleccionada.getAgencia();
+			planificacionSeleccionada.setCheckListEjecucion(new ArrayList<>());
+			List<CheckListEjecucionEt> checkListEjecuciones = iCheckListEjecucionDao.getCheckEjecutandoByEvaluacion(usuario, planificacionSeleccionada);
+			planificacionSeleccionada.setCheckListEjecucion(checkListEjecuciones);
+			buscarHabilitados();
+			bloqueo = true;
+			for (PlanificacionAuditorEt planificacionAuditor : planificacionSeleccionada.getPlanificacionAuditor()) {
+				usuarioSeleccionados.add(planificacionAuditor.getUsuarioAuditor());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método onEventSelect " + " " + e.getMessage());
 		}
 	}
 
@@ -867,7 +880,14 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());

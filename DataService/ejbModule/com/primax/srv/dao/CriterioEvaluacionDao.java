@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.CriterioEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ProcesoDetalleEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.GenericDao;
@@ -48,10 +50,13 @@ public class CriterioEvaluacionDao extends GenericDao<CriterioEvaluacionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CriterioEvaluacionEt> getCriterioEvaluacionList(EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, String condicion)
+	public List<CriterioEvaluacionEt> getCriterioEvaluacionList(UsuarioEt usuario,EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, String condicion)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CriterioEvaluacionEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
+		if (usuario != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
 		if (evaluacion != null) {
 			sql.append(" AND o.evaluacion = :evaluacion ");
 		}
@@ -63,7 +68,14 @@ public class CriterioEvaluacionDao extends GenericDao<CriterioEvaluacionEt, Long
 		}
 		sql.append(" ORDER BY o.idCriterioEvaluacion ");
 		TypedQuery<CriterioEvaluacionEt> query = em.createQuery(sql.toString(), CriterioEvaluacionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		if (evaluacion != null) {
 			query.setParameter("evaluacion", evaluacion);
 		}

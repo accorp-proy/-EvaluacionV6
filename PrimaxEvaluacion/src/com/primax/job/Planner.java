@@ -20,7 +20,7 @@ public class Planner {
 	@PostConstruct
 	public void init() {
 		/**
-		 * Actualización Estados CheckList
+		 * Actualizaciï¿½n Estados CheckList
 		 */
 		JobDetail jobWorkerEstadoCheck = JobBuilder.newJob(WorkerEstadoCheck.class).withIdentity("JOB-ACL", "GRP-NIGHT")
 				.build();
@@ -38,7 +38,7 @@ public class Planner {
 		try {
 			scheduler = new StdSchedulerFactory().getScheduler();
 			scheduler.scheduleJob(jobWorkerEstadoCheck, triggerWorkerEstadoCheck);
-			scheduler.start();
+			//scheduler.start();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}

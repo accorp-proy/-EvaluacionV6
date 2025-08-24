@@ -22,6 +22,7 @@ import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.CriterioEvaluacionDetalleEt;
 import com.primax.jpa.param.CriterioEvaluacionEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelColorEt;
 import com.primax.jpa.param.ParametrosGeneralesEt;
 import com.primax.jpa.param.ProcesoDetalleEt;
@@ -36,6 +37,7 @@ import com.primax.srv.idao.IParametrolGeneralDao;
 import com.primax.srv.idao.IProcesoDao;
 import com.primax.srv.idao.IProcesoDetalleDao;
 import com.primax.srv.idao.ITipoChecKListDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("CriterioEvaluacionBn")
 @ViewScoped
@@ -47,12 +49,13 @@ public class CriterioEvaluacionBean extends BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
+	private IUsuarioDao iUsuarioDao;
+	@EJB
 	private IProcesoDao iProcesoDao;
 	@EJB
 	private IEvaluacionDao iEvaluacionDao;
 	@EJB
 	private INivelColorDao iNivelColorDao;
-
 	@EJB
 	private ITipoChecKListDao iTipoChecKListDao;
 	@EJB
@@ -104,7 +107,8 @@ public class CriterioEvaluacionBean extends BaseBean implements Serializable {
 
 	public void buscar() {
 		try {
-			criterioEvaluaciones = iCriterioEvaluacionDao.getCriterioEvaluacionList(evaluacionSeleccionado,
+			UsuarioEt usuario = appMain.getUsuario();
+			criterioEvaluaciones = iCriterioEvaluacionDao.getCriterioEvaluacionList(usuario, evaluacionSeleccionado,
 					tipoChecKListSeleccionado, condicion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,7 +299,14 @@ public class CriterioEvaluacionBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -522,6 +533,7 @@ public class CriterioEvaluacionBean extends BaseBean implements Serializable {
 
 	@Override
 	protected void onDestroy() {
+		iUsuarioDao.remove();
 		iProcesoDao.remove();
 		iNivelColorDao.remove();
 		iEvaluacionDao.remove();

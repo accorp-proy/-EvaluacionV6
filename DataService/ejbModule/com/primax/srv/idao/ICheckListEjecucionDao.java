@@ -14,6 +14,7 @@ import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
+import com.primax.jpa.pla.PlanificacionEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.IGenericDao;
 
@@ -48,16 +49,19 @@ public interface ICheckListEjecucionDao extends IGenericDao<CheckListEjecucionEt
 
 	public CheckListEjecucionEt getCheckListEjecucion(AgenciaEt agencia, String codigo, Date fechaEjecucion) throws EntidadNoEncontradaException;
 
-	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion)
+	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException;
 
-	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario,UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException;
 
 	public List<CheckListEjecucionEt> getCheckListEjecucionList(ZonaEt zona, AgenciaEt agencia, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, UsuarioEt usuario, EstadoCheckListEnum estadoCheckList)
 			throws EntidadNoEncontradaException;
 
-	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaList(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, UsuarioEt usuario, EstadoCheckListEnum estadoCheckList)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaList(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, UsuarioEt usuario, EstadoCheckListEnum estadoCheckList,UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException;
+
+	public List<CheckListEjecucionEt> getCheckEjecutandoByEvaluacion(UsuarioEt usuario, PlanificacionEt planificacion)
 			throws EntidadNoEncontradaException;
 
 }

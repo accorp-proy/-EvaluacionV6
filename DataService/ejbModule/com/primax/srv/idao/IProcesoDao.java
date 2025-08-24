@@ -21,6 +21,6 @@ public interface IProcesoDao extends IGenericDao<ProcesoEt, Long> {
 
 	public List<ProcesoEt> getProcesoByTipoList(TipoChecKListEt tipoChecKList) throws EntidadNoEncontradaException;
 
-	public List<ProcesoEt> getProcesoList(TipoChecKListEt tipoChecKList, String condicion) throws EntidadNoEncontradaException;
+	public List<ProcesoEt> getProcesoList(UsuarioEt usuario,TipoChecKListEt tipoChecKList, String condicion) throws EntidadNoEncontradaException;
 
 }

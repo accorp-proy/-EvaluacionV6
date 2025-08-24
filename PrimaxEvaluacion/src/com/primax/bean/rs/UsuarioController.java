@@ -23,6 +23,7 @@ import com.primax.enm.gen.RutaFileEnum;
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.gen.PersonaEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.sec.RolEt;
 import com.primax.jpa.sec.RolUsuarioEt;
@@ -105,6 +106,13 @@ public class UsuarioController extends BaseBean implements Serializable {
 				usuarioBean.getZonaSeleccionadas().add(zonaU.getZona());
 			}
 		}
+		if (usuarioSeleccionado.getEvaluacionUsuario() != null
+				&& !usuarioSeleccionado.getEvaluacionUsuario().isEmpty()) {
+			usuarioBean.setEvaluacionSeleccionadas(new ArrayList<>());
+			for (EvaluacionUsuarioEt evaluacionU : usuarioSeleccionado.getEvaluacionUsuario()) {
+				usuarioBean.getEvaluacionSeleccionadas().add(evaluacionU.getEvaluacion());
+			}
+		}
 	}
 
 	public void nuevoUsuario() {
@@ -182,7 +190,7 @@ public class UsuarioController extends BaseBean implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
+
 		RequestContext.getCurrentInstance().execute("PF('dialog_04').hide()");
 	}
 
