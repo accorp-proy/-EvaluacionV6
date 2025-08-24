@@ -38,7 +38,7 @@ public class Planner {
 		try {
 			scheduler = new StdSchedulerFactory().getScheduler();
 			scheduler.scheduleJob(jobWorkerEstadoCheck, triggerWorkerEstadoCheck);
-			//scheduler.start();
+			scheduler.start();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}

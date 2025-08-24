@@ -668,7 +668,8 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 
 	public void cargarCheckList() {
 		try {
-			checkListHabilitados = iCheckListDao.getCheckListChild(estacionSeleccionada);
+			UsuarioEt usuario = appMain.getUsuario();
+			checkListHabilitados = iCheckListDao.getCheckListChild(usuario, estacionSeleccionada);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
@@ -724,7 +725,8 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			planificacionSeleccionada = (PlanificacionEt) event.getData();
 			estacionSeleccionada = planificacionSeleccionada.getAgencia();
 			planificacionSeleccionada.setCheckListEjecucion(new ArrayList<>());
-			List<CheckListEjecucionEt> checkListEjecuciones = iCheckListEjecucionDao.getCheckEjecutandoByEvaluacion(usuario, planificacionSeleccionada);
+			List<CheckListEjecucionEt> checkListEjecuciones = iCheckListEjecucionDao
+					.getCheckEjecutandoByEvaluacion(usuario, planificacionSeleccionada);
 			planificacionSeleccionada.setCheckListEjecucion(checkListEjecuciones);
 			buscarHabilitados();
 			bloqueo = true;
@@ -801,8 +803,19 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 	}
 
 	public void cargarCheckListHabilitado() {
-		this.checkListHabilitados = iCheckListDao.getCheckListChild(estacionSeleccionada);
-		createDocuments();
+		try {
+			List<AgenciaCheckListEt> agenciaCheckList = new ArrayList<>();
+			UsuarioEt usuario = appMain.getUsuario();
+			this.checkListHabilitados = iCheckListDao.getCheckListChild(usuario, estacionSeleccionada);
+			agenciaCheckList = iAgenciaCheckListDao.getAgenciaCheckListHabilitados(usuario, estacionSeleccionada, null,
+					null, null);
+			estacionSeleccionada.setAgenciaCheckList(new ArrayList<>());
+			estacionSeleccionada.setAgenciaCheckList(agenciaCheckList);
+			createDocuments();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método cargarCheckListHabilitado " + " " + e.getMessage());
+		}
 	}
 
 	@SuppressWarnings("unused")

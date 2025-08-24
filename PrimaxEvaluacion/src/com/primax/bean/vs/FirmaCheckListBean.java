@@ -31,6 +31,7 @@ import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ResponsableEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
@@ -45,6 +46,7 @@ import com.primax.srv.idao.IPlanificacionDao;
 import com.primax.srv.idao.IResponsableDao;
 import com.primax.srv.idao.IRolEtDao;
 import com.primax.srv.idao.ITipoChecKListDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("FirmaCheckListBn")
 @ViewScoped
@@ -52,10 +54,13 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 
 	private static final long serialVersionUID = -734535679991041247L;
 
+	
 	@EJB
 	private IRolEtDao iRolEtDao;
 	@EJB
 	private IAgenciaDao iAgenciaDao;
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private IEvaluacionDao iEvaluacionDao;
 	@EJB
@@ -307,7 +312,14 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -490,6 +502,7 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 	@Override
 	protected void onDestroy() {
 		iRolEtDao.remove();
+		iUsuarioDao.remove();
 		iAgenciaDao.remove();
 		iEvaluacionDao.remove();
 		iResponsableDao.remove();

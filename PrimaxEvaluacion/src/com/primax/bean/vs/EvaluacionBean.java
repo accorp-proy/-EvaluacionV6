@@ -56,7 +56,8 @@ public class EvaluacionBean extends BaseBean implements Serializable {
 
 	public void buscar() {
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(condicion);
+			UsuarioEt usuario = appMain.getUsuario();
+			evaluaciones = iEvaluacionDao.getEvaluacionList(usuario, condicion);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método buscar " + " " + e.getMessage());

@@ -57,12 +57,12 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEt> getCheckList(UsuarioEt usuario,NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckList)
+	public List<CheckListEt> getCheckList(UsuarioEt usuario, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckList)
 			throws EntidadNoEncontradaException {
-		
+
 		String SfechaDesde = format.format(fechaDesde);
 		String SfechaHasta = format.format(fechaHasta);
-		
+
 		sql = new StringBuilder("FROM CheckListEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
 		sql.append(" AND to_char(o.fechaRegistro,'yyyy-mm-dd') BETWEEN :fechaDesde AND :fechaHasta ");
@@ -123,14 +123,26 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEt> getCheckListChild(AgenciaEt agencia) {
-		sql = new StringBuilder("SELECT o.checkList FROM AgenciaCheckListEt o ");
+	public List<CheckListEt> getCheckListChild(UsuarioEt usuario, AgenciaEt agencia) {
+		//sql = new StringBuilder("SELECT o.checkList FROM CheckListEt o ");
+		sql = new StringBuilder("FROM CheckListEt o ");
 		sql.append("WHERE o.estado = :estado ");
-		sql.append(" AND o.agencia = :agencia ");
-		sql.append("ORDER BY o.idAgenciaCheckList");
+		if (usuario != null) {
+			sql.append(" AND o.evaluacion in (:evaluaciones) ");
+		}
+		//sql.append(" AND o.agencia = :agencia ");
+		//sql.append("ORDER BY o.idAgenciaCheckList");
+		sql.append("ORDER BY o.idCheckList ");
 		TypedQuery<CheckListEt> query = em.createQuery(sql.toString(), CheckListEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
 		query.setParameter("estado", EstadoEnum.ACT);
-		query.setParameter("agencia", agencia);
+		//query.setParameter("agencia", agencia);
 		List<CheckListEt> result = query.getResultList();
 		for (int i = 0; i < result.size(); i++) {
 			result.get(i).getCheckListProceso().size();

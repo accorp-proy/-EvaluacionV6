@@ -1,5 +1,6 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.GenericDao;
 import com.primax.srv.idao.IEvaluacionDao;
@@ -76,6 +78,33 @@ public class EvaluacionDao extends GenericDao<EvaluacionEt, Long> implements IEv
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<EvaluacionEt> getEvaluacionList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM EvaluacionEt o ");
+		sql.append(" WHERE o.estado  = :estado   ");
+		if (usuario != null) {
+			sql.append(" AND o in (:evaluaciones) ");
+		}
+		if (condicion != null && !condicion.isEmpty()) {
+			sql.append(" AND o.descripcion like :condicion ");
+		}
+		sql.append(" ORDER BY o.idEvaluacion ");
+		TypedQuery<EvaluacionEt> query = em.createQuery(sql.toString(), EvaluacionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		if (usuario != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
+		if (condicion != null && !condicion.isEmpty()) {
+			query.setParameter("condicion", "%" + QUL.getString(condicion) + "%");
+		}
+		List<EvaluacionEt> result = query.getResultList();
+		return result;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<EvaluacionEt> getEvaluacionByCriterio(boolean criterio) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM EvaluacionEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
@@ -87,7 +116,7 @@ public class EvaluacionDao extends GenericDao<EvaluacionEt, Long> implements IEv
 		List<EvaluacionEt> result = query.getResultList();
 		return result;
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public String limpiarReporte(Long idUsuario) {
 		StoredProcedureQuery query = this.em.createNamedStoredProcedureQuery("getReporteEvaluacionConsolidado");

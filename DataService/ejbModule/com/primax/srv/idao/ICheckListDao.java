@@ -23,7 +23,7 @@ public interface ICheckListDao extends IGenericDao<CheckListEt, Long> {
 
 	public List<CheckListEt> getCheckListChild0();
 
-	public List<CheckListEt> getCheckListChild(AgenciaEt agencia);
+	public List<CheckListEt> getCheckListChild(UsuarioEt usuario, AgenciaEt agencia);
 
 	public void guardarCheckList(CheckListEt checkList, UsuarioEt usuario) throws EntidadNoGrabadaException;
 
@@ -31,7 +31,7 @@ public interface ICheckListDao extends IGenericDao<CheckListEt, Long> {
 
 	public CheckListEt getCheckPendiente(TipoCheckListEnum tipoCheckList, UsuarioEt usuario) throws EntidadNoEncontradaException;
 
-	public List<CheckListEt> getCheckList(UsuarioEt usuario,NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckListEnum)
+	public List<CheckListEt> getCheckList(UsuarioEt usuario, NivelEvaluacionEt nivelEvaluacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, Date fechaDesde, Date fechaHasta, EstadoCheckListEnum estadoCheckListEnum)
 			throws EntidadNoEncontradaException;
 
 	public List<CheckListEt> getCheckListBusqueda(EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, EstadoCheckListEnum estadoCheckListEnum)

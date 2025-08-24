@@ -14,11 +14,14 @@ import javax.inject.Named;
 import com.primax.bean.ss.AppMain;
 import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.pla.CheckListEt;
+import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.ICheckListDao;
 import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.ITipoChecKListDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("BusquedaCheckBn")
 @ViewScoped
@@ -29,6 +32,8 @@ public class BusquedaCheckBean extends BaseBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private ICheckListDao iCheckListDao;
 	@EJB
@@ -65,7 +70,14 @@ public class BusquedaCheckBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -142,6 +154,7 @@ public class BusquedaCheckBean extends BaseBean implements Serializable {
 
 	@Override
 	public void onDestroy() {
+		iUsuarioDao.remove();
 		iCheckListDao.remove();
 		iEvaluacionDao.remove();
 		iTipoChecKListDao.remove();

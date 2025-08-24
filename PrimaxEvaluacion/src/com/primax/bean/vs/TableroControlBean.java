@@ -19,6 +19,7 @@ import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.NivelEvaluacionDetalleEt;
 import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.ParametrosGeneralesEt;
@@ -216,7 +217,8 @@ public class TableroControlBean extends BaseBean implements Serializable {
 								int mes = Integer.parseInt(parametrosGenerales.getValorLista());
 								Date fechaDesde = getFechaDesde(mes, anio);
 								Date fechaHasta = getFechaHasta(mes, anio);
-								iTableroDetalleEstacionDao.generar(fechaDesde, fechaHasta, idTipoEstacion, idZona, idAgencia, idEvaluacion, idNivelEvaluacion, idUsuario);
+								iTableroDetalleEstacionDao.generar(fechaDesde, fechaHasta, idTipoEstacion, idZona,
+										idAgencia, idEvaluacion, idNivelEvaluacion, idUsuario);
 							}
 						}
 					}
@@ -513,7 +515,14 @@ public class TableroControlBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());

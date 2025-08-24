@@ -14,6 +14,7 @@ import org.primefaces.context.RequestContext;
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ProcesoDetalleEt;
 import com.primax.jpa.param.ProcesoEt;
 import com.primax.jpa.param.TipoChecKListEt;
@@ -22,6 +23,7 @@ import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.IProcesoDao;
 import com.primax.srv.idao.IProcesoDetalleDao;
 import com.primax.srv.idao.ITipoChecKListDao;
+import com.primax.srv.idao.IUsuarioDao;
 
 @Named("PlanAccionOrganizadoBn")
 @ViewScoped
@@ -32,6 +34,8 @@ public class PlanAccionOrganizadoBean extends BaseBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IUsuarioDao iUsuarioDao;
 	@EJB
 	private IProcesoDao iProcesoDao;
 	@EJB
@@ -69,7 +73,14 @@ public class PlanAccionOrganizadoBean extends BaseBean implements Serializable {
 	public List<EvaluacionEt> getEvaluacionList() {
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		try {
-			evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					evaluaciones.add(evaluacionUsuario.getEvaluacion());
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionList(null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
@@ -142,6 +153,7 @@ public class PlanAccionOrganizadoBean extends BaseBean implements Serializable {
 	@Override
 	protected void onDestroy() {
 		iProcesoDao.remove();
+		iUsuarioDao.remove();
 		iEvaluacionDao.remove();
 		iTipoChecKListDao.remove();
 		iProcesoDetalleDao.remove();
