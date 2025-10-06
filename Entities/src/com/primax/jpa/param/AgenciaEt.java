@@ -95,8 +95,10 @@ public class AgenciaEt extends EntityBase implements Serializable {
 	private List<AgenciaCheckListEt> agenciaCheckList;
 
 	public AgenciaEt() {
+		
 		this.numVisita = 1L;
 		this.nivelRiesgo = 0L;
+		this.nombreAgencia = "";
 		this.puntajeOptimo = 0L;
 		this.posicionPuntaje = 0L;
 		this.nivelRiesgoS = "Bajo";
