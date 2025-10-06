@@ -1,0 +1,87 @@
+
+!ENTRY org.eclipse.egit.core 4 0 2025-10-06 16:21:05.107
+!MESSAGE An exception occurred during push on URI https://github.com/accorp-proy/-EvaluacionV6.git: https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/'
+!STACK 0
+org.eclipse.jgit.errors.TransportException: https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/'
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:702)
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:637)
+	at org.eclipse.jgit.transport.TransportHttp.openPush(TransportHttp.java:541)
+	at org.eclipse.jgit.transport.PushProcess.execute(PushProcess.java:140)
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1533)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:269)
+	at org.eclipse.egit.ui.internal.push.PushJob.performJob(PushJob.java:86)
+	at org.eclipse.egit.ui.internal.jobs.RepositoryJob.run(RepositoryJob.java:59)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:21:05.108
+!MESSAGE Can't connect to any repository: https://github.com/accorp-proy/-EvaluacionV6.git (https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/')
+
+!ENTRY org.eclipse.core.resources 4 2 2025-10-06 16:21:24.442
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NoSuchMethodError: 'java.lang.Object org.eclipse.jdt.internal.core.JavaElement.getElementInfo()'
+	at org.jboss.tools.common.java.impl.ValueResolver.getFieldInitialValue(ValueResolver.java:215)
+	at org.jboss.tools.common.java.impl.ValueResolver.setFieldInitialValueToConstant(ValueResolver.java:195)
+	at org.jboss.tools.common.java.impl.ValueResolver$ReferenceResolver.resolveReference(ValueResolver.java:550)
+	at org.jboss.tools.common.java.impl.ValueResolver.resolve(ValueResolver.java:173)
+	at org.jboss.tools.common.java.impl.ValueResolver.resolvePair(ValueResolver.java:111)
+	at org.jboss.tools.common.java.impl.AnnotationDeclaration.setDeclaration(AnnotationDeclaration.java:52)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.addAnnotation(AbstractMemberDefinition.java:79)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.init(AbstractMemberDefinition.java:72)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractTypeDefinition.init(AbstractTypeDefinition.java:51)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.setAnnotatable(AbstractMemberDefinition.java:52)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractTypeDefinition.setType(AbstractTypeDefinition.java:45)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.build(JSF2ProjectBuilder.java:261)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.fullBuild(JSF2ProjectBuilder.java:192)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.build(JSF2ProjectBuilder.java:153)
+	at org.jboss.tools.jst.web.kb.internal.KbBuilder.buildExtensionModels(KbBuilder.java:225)
+	at org.jboss.tools.jst.web.kb.internal.KbBuilder.build(KbBuilder.java:136)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:1109)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:299)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:355)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:449)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:452)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:564)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:512)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:594)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:208)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:309)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.resources 4 75 2025-10-06 16:21:24.475
+!MESSAGE Errors occurred during the build.
+!SUBENTRY 1 org.jboss.tools.jst.web.kb 4 75 2025-10-06 16:21:24.475
+!MESSAGE Errors running builder 'JBoss Knowledge Base Builder' on project 'Entities'.
+!STACK 0
+java.lang.NoSuchMethodError: 'java.lang.Object org.eclipse.jdt.internal.core.JavaElement.getElementInfo()'
+	at org.jboss.tools.common.java.impl.ValueResolver.getFieldInitialValue(ValueResolver.java:215)
+	at org.jboss.tools.common.java.impl.ValueResolver.setFieldInitialValueToConstant(ValueResolver.java:195)
+	at org.jboss.tools.common.java.impl.ValueResolver$ReferenceResolver.resolveReference(ValueResolver.java:550)
+	at org.jboss.tools.common.java.impl.ValueResolver.resolve(ValueResolver.java:173)
+	at org.jboss.tools.common.java.impl.ValueResolver.resolvePair(ValueResolver.java:111)
+	at org.jboss.tools.common.java.impl.AnnotationDeclaration.setDeclaration(AnnotationDeclaration.java:52)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.addAnnotation(AbstractMemberDefinition.java:79)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.init(AbstractMemberDefinition.java:72)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractTypeDefinition.init(AbstractTypeDefinition.java:51)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractMemberDefinition.setAnnotatable(AbstractMemberDefinition.java:52)
+	at org.jboss.tools.jsf.jsf2.bean.model.impl.AbstractTypeDefinition.setType(AbstractTypeDefinition.java:45)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.build(JSF2ProjectBuilder.java:261)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.fullBuild(JSF2ProjectBuilder.java:192)
+	at org.jboss.tools.jsf.jsf2.bean.build.JSF2ProjectBuilder.build(JSF2ProjectBuilder.java:153)
+	at org.jboss.tools.jst.web.kb.internal.KbBuilder.buildExtensionModels(KbBuilder.java:225)
+	at org.jboss.tools.jst.web.kb.internal.KbBuilder.build(KbBuilder.java:136)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:1109)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:299)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:355)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:449)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:452)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:564)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:512)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:594)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:208)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:309)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

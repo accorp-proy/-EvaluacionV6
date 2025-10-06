@@ -267,6 +267,7 @@ public class AgenciaEt extends EntityBase implements Serializable {
 			if (this.idAgencia.equals(other.idAgencia))
 				return true;
 		}
+		
 		return false;
 	}
 }
