@@ -84,19 +84,17 @@ public class PlanAccionAnioEt extends EntityBase implements Serializable {
 	public <T> void audit(UsuarioEt user, ActionAuditedEnum act) {
 		super.audit(user, act);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
-
 		if (obj instanceof PlanAccionAnioEt) {
-
 			PlanAccionAnioEt other = (PlanAccionAnioEt) obj;
 			if (this.idPlanAccionAnio == null)
 				return this == other;
-
 			return this.idPlanAccionAnio.equals(other.idPlanAccionAnio);
 		}
 		return false;
+		
 	}
 
 }
