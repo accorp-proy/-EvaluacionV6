@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: lib/commons-beanutils-1.8.0.jar lib/commons-io-2.4.jar lib/h
+ ornetq-core-client-2.2.6.Final.jar lib/hornetq-jms-client-2.2.6.Final.j
+ ar lib/jboss-jms-api-1.1.0.GA.jar lib/jersey-client-1.18.1.jar lib/jers
+ ey-core-1.18.1.jar lib/guava-18.0.jar lib/jt400.jar lib/quartz-2.2.1.ja
+ r lib/quartz-jobs-2.2.1.jar
+

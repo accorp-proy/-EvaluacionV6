@@ -1962,3 +1962,582 @@ java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.m
 	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
 	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:14:01.506
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:14:08.942
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:14:16.474
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:14:22.636
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:14:28.778
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.core 4 0 2025-10-06 16:15:20.155
+!MESSAGE An exception occurred during push on URI https://github.com/accorp-proy/-EvaluacionV6.git: https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/'
+!STACK 0
+org.eclipse.jgit.errors.TransportException: https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/'
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:702)
+	at org.eclipse.jgit.transport.TransportHttp.connect(TransportHttp.java:637)
+	at org.eclipse.jgit.transport.TransportHttp.openPush(TransportHttp.java:541)
+	at org.eclipse.jgit.transport.PushProcess.execute(PushProcess.java:140)
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1533)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:269)
+	at org.eclipse.egit.ui.internal.push.PushJob.performJob(PushJob.java:86)
+	at org.eclipse.egit.ui.internal.jobs.RepositoryJob.run(RepositoryJob.java:59)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:20.156
+!MESSAGE Can't connect to any repository: https://github.com/accorp-proy/-EvaluacionV6.git (https://github.com/accorp-proy/-EvaluacionV6.git: git-receive-pack not permitted on 'https://github.com/accorp-proy/-EvaluacionV6.git/')
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:50.711
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:50.912
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:51.112
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:51.321
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:57.386
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:57.530
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:57.737
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:57.943
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:15:58.191
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:08.976
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:09.081
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:09.257
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:09.456
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:09.626
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:13.252
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:13.399
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:13.576
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:13.767
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:13.953
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:18.242
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:18.426
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:18.809
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:25.649
+!MESSAGE El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+!STACK 0
+java.io.IOException: El proceso no tiene acceso al archivo porque otro proceso tiene bloqueada una parte del archivo
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:328)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.fillBuffer(AutoLFInputStream.java:213)
+	at org.eclipse.jgit.util.io.AutoLFInputStream.read(AutoLFInputStream.java:169)
+	at java.base/java.io.InputStream.readNBytes(InputStream.java:509)
+	at org.eclipse.jgit.util.IO.readFully(IO.java:212)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:117)
+	at org.eclipse.jgit.internal.storage.file.ObjectDirectoryInserter.insert(ObjectDirectoryInserter.java:92)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:272)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:31.350
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\lockfile (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\lockfile (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.openEntryStream(WorkingTreeIterator.java:649)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:271)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:31.990
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\lockfile (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\lockfile (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.openEntryStream(WorkingTreeIterator.java:649)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:271)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:52.833
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:52.985
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:53.192
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:16:53.408
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:17:11.099
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:17:11.312
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2025-10-06 16:17:11.520
+!MESSAGE C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+!STACK 0
+java.io.FileNotFoundException: C:\JMAJI\espacioTrabajo\DesarrolloEvaluacionV6\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:159)
+	at org.eclipse.jgit.treewalk.FileTreeIterator$FileEntry.openInputStream(FileTreeIterator.java:388)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.possiblyFilteredLength(WorkingTreeIterator.java:408)
+	at org.eclipse.jgit.treewalk.WorkingTreeIterator.getEntryContentLength(WorkingTreeIterator.java:615)
+	at org.eclipse.jgit.api.AddCommand.call(AddCommand.java:265)
+	at org.eclipse.egit.ui.internal.staging.StagingView$60.run(StagingView.java:3920)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

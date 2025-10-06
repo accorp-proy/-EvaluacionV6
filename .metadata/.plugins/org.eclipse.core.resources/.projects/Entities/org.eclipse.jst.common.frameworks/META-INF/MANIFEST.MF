@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: jaxb-api.jar jaxb-core.jar jaxb-impl.jar jaxb-jxc.jar jaxp-r
+ i-1.4.2.jar jaxb-xjc.jar hibernate-core-5.0.10.Final.jar hibernate-enve
+ rs-5.0.10.Final.jar
+
