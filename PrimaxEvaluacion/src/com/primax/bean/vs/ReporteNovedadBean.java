@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -18,7 +18,6 @@ import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.ProcesoDetalleEt;
 import com.primax.jpa.param.ProcesoEt;
 import com.primax.jpa.param.TipoChecKListEt;
-import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.IProcesoDao;
@@ -63,7 +62,7 @@ public class ReporteNovedadBean extends BaseBean implements Serializable {
 		try {
 			UsuarioEt usuario = appMain.getUsuario();
 			iProcesoDetalleDao.guardaProcesoDetalle(kpiSeleccionado, usuario);
-			RequestContext.getCurrentInstance().execute("PF('dialog_15_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_15_1').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método guardarKPI " + " " + e.getMessage());

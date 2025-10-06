@@ -12,22 +12,22 @@
 		</f:facet>
 		<h:form id="frm_003_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{provinciaBn.guardar()}" update=":frm_par_003" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Nombre provincia " />
-				<p:inputText style="text-transform:uppercase"
+				<p:inputText style="text-transform:uppercase" styleClass="w100"
 					value="#{provinciaBn.provinciaSeleccionada.nombreProvincia}"
 					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Codigo Inec "></p:outputLabel>
-				<p:inputText
+				<p:inputText styleClass="w75"
 					value="#{provinciaBn.provinciaSeleccionada.inecProvincia}"
 					requiredMessage="Codigo de Inec es requerido"
 					title="Ingrese codigo de provincia del Inec">
 				</p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu  editable="false"
 					value="#{provinciaBn.provinciaSeleccionada.estado}">
 					<f:selectItems value="#{provinciaBn.estadosActIna}" />
 				</p:selectOneMenu>

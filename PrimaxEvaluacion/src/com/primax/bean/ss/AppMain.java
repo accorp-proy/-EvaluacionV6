@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -66,7 +67,7 @@ public class AppMain extends BaseBean implements Serializable {
 	public void actualizarClave() {
 		try {
 			usuarioDao.actualizar(usuario);
-			showInfo("Contaseña actualizada", FacesMessage.SEVERITY_INFO);
+			showInfo("ContaseÃ±a actualizada", FacesMessage.SEVERITY_INFO);
 		} catch (EntidadNoGrabadaException e) {
 			showInfo("Se produjo un error", FacesMessage.SEVERITY_ERROR);
 			e.printStackTrace();
@@ -222,27 +223,34 @@ public class AppMain extends BaseBean implements Serializable {
 	public void fileDownload(InputStream file, String fileName) {
 		try {
 			byte[] tempFile = IOUtils.toByteArray(file);
-			download = new DefaultStreamedContent(new ByteArrayInputStream(tempFile),
-					FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName), fileName);
+			download = DefaultStreamedContent.builder().name(fileName) // Name of the file when downloaded
+					.contentType("text/plain") // MIME type of the content
+					.stream(() -> new ByteArrayInputStream(tempFile)) // Supplier for the InputStream
+					.build();
+			// download = new DefaultStreamedContent(new ByteArrayInputStream(tempFile),
+			// FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName),
+			// fileName);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 	public void fileDownloadPath(Long idCheckList, String fileName) {
 		try {
 			String pathServer = RutaFileEnum.RUTA_CONTROL_INTERNO.getDescripcion();
 			String pathImg = pathServer + File.separatorChar + idCheckList + File.separatorChar + fileName;
 			InputStream file = getImg(pathImg);
 			byte[] tempFile = IOUtils.toByteArray(file);
-			download = new DefaultStreamedContent(new ByteArrayInputStream(tempFile),
-					FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName), fileName);
+//			download = new DefaultStreamedContent(new ByteArrayInputStream(tempFile),
+//					FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName), fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public InputStream getImg(String pathImg) {
 		String path = pathImg;
 		System.out.println(path);
@@ -257,8 +265,8 @@ public class AppMain extends BaseBean implements Serializable {
 	}
 
 	public void fileDownloadByte(byte[] file, String fileName) {
-		download = new DefaultStreamedContent(new ByteArrayInputStream(file),
-				FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName), fileName);
+//		download = new DefaultStreamedContent(new ByteArrayInputStream(file),
+//				FacesContext.getCurrentInstance().getExternalContext().getMimeType(fileName), fileName);
 	}
 
 	public String formatoFecha(Date fecha, String formato) {

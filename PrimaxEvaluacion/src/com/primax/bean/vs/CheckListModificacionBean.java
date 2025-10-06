@@ -15,7 +15,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.apache.commons.fileupload.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -184,7 +185,7 @@ public class CheckListModificacionBean extends BaseBean implements Serializable 
 				checkListEjecucionSeleccionado = checkList;
 			} else {
 				showInfo(mensaje, FacesMessage.SEVERITY_ERROR);
-				RequestContext.getCurrentInstance().execute("PF('dlg_conf_0').hide();");
+				PrimeFaces.current().executeInitScript("PF('dlg_conf_0').hide();");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -200,7 +201,7 @@ public class CheckListModificacionBean extends BaseBean implements Serializable 
 				checkListEjecucionSeleccionado = checkList;
 			} else {
 				showInfo(mensaje, FacesMessage.SEVERITY_ERROR);
-				RequestContext.getCurrentInstance().execute("PF('dlg_conf_1').hide();");
+				PrimeFaces.current().executeInitScript("PF('dlg_conf_1').hide();");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

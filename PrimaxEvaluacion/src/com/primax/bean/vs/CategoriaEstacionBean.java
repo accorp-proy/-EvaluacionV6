@@ -11,16 +11,16 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.enums.EstadoEnum;
-import com.primax.jpa.param.TipoEstacionEt;
 import com.primax.jpa.param.CategoriaEstacionEt;
+import com.primax.jpa.param.TipoEstacionEt;
 import com.primax.jpa.sec.UsuarioEt;
-import com.primax.srv.idao.ITipoEstacionDao;
 import com.primax.srv.idao.ICategoriaEstacionDao;
+import com.primax.srv.idao.ITipoEstacionDao;
 
 @Named("CategoriaEstacionBn")
 @ViewScoped
@@ -69,7 +69,7 @@ public class CategoriaEstacionBean extends BaseBean implements Serializable {
 			UsuarioEt usuario = appMain.getUsuario();
 			iCategoriaEstacionDao.guardarSubformatoNegocio(categoriaEstacionSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_08_1').hide();");
+			PrimeFaces.current().executeScript("PF('dialog_08_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

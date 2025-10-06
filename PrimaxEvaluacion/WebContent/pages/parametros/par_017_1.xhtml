@@ -14,12 +14,11 @@
 		</f:facet>
 		<h:form id="frm_par_017_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{FrecuenciaVisitaBn.guardar()}" update=":frm_par_017"
 					oncomplete="PF('dialog_17_1').hide()" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
-
 				<p:outputLabel value="Orden" />
 				<p:spinner
 					value="#{FrecuenciaVisitaBn.frecuenciaVisitaSeleccionado.orden}"
@@ -27,10 +26,11 @@
 				</p:spinner>
 				<p:outputLabel value="Descripción"></p:outputLabel>
 				<p:inputText maxlength="100" placeholder="Ingresar Descripción"
+				styleClass="w100"
 					value="#{FrecuenciaVisitaBn.frecuenciaVisitaSeleccionado.descripcion}">
 				</p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu  editable="false"
 					value="#{FrecuenciaVisitaBn.frecuenciaVisitaSeleccionado.estado}">
 					<f:selectItems value="#{FrecuenciaVisitaBn.estadosActIna}" />
 				</p:selectOneMenu>

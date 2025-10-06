@@ -2,9 +2,9 @@ package com.primax.bean.vs;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +16,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.schedule.ScheduleEntryResizeEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.LazyScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -53,14 +61,6 @@ import com.primax.srv.idao.IResponsableDao;
 import com.primax.srv.idao.IRolEtDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.IUsuarioDao;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.ScheduleEntryResizeEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultScheduleEvent;
-import org.primefaces.model.LazyScheduleModel;
-import org.primefaces.model.ScheduleEvent;
-import org.primefaces.model.ScheduleModel;
 
 @Named("dashboardBn")
 @ViewScoped
@@ -108,7 +108,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 	 * Variables Calendario
 	 */
 	private ScheduleModel eventModel;
-	private ScheduleEvent event = new DefaultScheduleEvent();
+	private ScheduleEvent event = new DefaultScheduleEvent<>();
 
 	private String titulo = "";
 
@@ -144,7 +144,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 		tipoInventarioSeleccionados = new ArrayList<>();
 		planificacionSeleccionada = new PlanificacionEt();
 		planificacionInventarioSeleccionada = new PlanificacionInventarioEt();
-		event = new DefaultScheduleEvent();
+		event = new DefaultScheduleEvent<>();
 		iniCalendarControl();
 
 	}
@@ -165,23 +165,34 @@ public class DashboardBean extends BaseBean implements Serializable {
 		}
 	}
 
+	public Date convertToD(LocalDateTime dateToConvert) {
+		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	public LocalDateTime convertToL(Date dateToConvert) {
+		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
+
 	public void iniCalendarControl() {
+
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			eventModel = new LazyScheduleModel() {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
 						String estado = "";
 						String codigo = "";
 						String estacion = "";
 						String responsable = "";
 						UsuarioEt usuario = appMain.getUsuario();
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
 						planificaciones = iPlanificacionDao.getPlanificacionList(evaluacionSeleccionada,
-								tipoChecKListSeleccionado, desde, hasta, usuario);
-						DefaultScheduleEvent scheduleEventAllDay;
+								tipoChecKListSeleccionado, desdeD, hastaD, usuario);
+						DefaultScheduleEvent<PlanificacionEt> scheduleEventAllDay;
 						for (PlanificacionEt planificacion : planificaciones) {
 							String leyenda0 = "";
 							String leyenda1 = "";
@@ -200,34 +211,37 @@ public class DashboardBean extends BaseBean implements Serializable {
 									leyenda0 += "<br/>" + leyenda1;
 								}
 								switch (checkListE.getEstadoCheckList().getDescripcion()) {
-									case "AGENDADA":
-										tema = "schedule-agendada";
-										break;
-									case "EN EJECUCION":
-										tema = "schedule-en-ejecucion";
-										break;
-									case "EJECUTADO":
-										tema = "schedule-ejecutado";
-										break;
-									case "NO EJECUTADO":
-										tema = "schedule-no-ejecutado";
-										break;
-									case "INCONCLUSO":
-										tema = "schedule-inconcluso";
-										break;
+								case "AGENDADA":
+									tema = "schedule-agendada";
+									break;
+								case "EN EJECUCION":
+									tema = "schedule-en-ejecucion";
+									break;
+								case "EJECUTADO":
+									tema = "schedule-ejecutado";
+									break;
+								case "NO EJECUTADO":
+									tema = "schedule-no-ejecutado";
+									break;
+								case "INCONCLUSO":
+									tema = "schedule-inconcluso";
+									break;
 								}
 							}
-							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+							scheduleEventAllDay.setStyleClass(tema);
+							scheduleEventAllDay.setTitle(planificacion.getAgencia().getNombreAgencia());
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacion()));
 							scheduleEventAllDay.setDescription(leyenda0);
 							scheduleEventAllDay.setAllDay(true);
 							eventModel.addEvent(scheduleEventAllDay);
+
 						}
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}
@@ -246,7 +260,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
 						String tema = "";
 						String estado = "";
@@ -254,10 +268,11 @@ public class DashboardBean extends BaseBean implements Serializable {
 						String estacion = "";
 						// String inventario = "";
 						String responsable = "";
-
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
 						UsuarioEt usuario = appMain.getUsuario();
-						planificacionesIventario = iPlanificacionInventarioDao.getPlanificacionInventarioList(desde,
-								hasta, usuario);
+						planificacionesIventario = iPlanificacionInventarioDao.getPlanificacionInventarioList(desdeD,
+								hastaD, usuario);
 						DefaultScheduleEvent scheduleEventAllDay;
 						for (PlanificacionInventarioEt planificacion : planificacionesIventario) {
 							String leyenda0 = "";
@@ -279,27 +294,29 @@ public class DashboardBean extends BaseBean implements Serializable {
 								leyenda0 += "<br/>" + leyenda1;
 							}
 							switch (planificacion.getEstadoInventario().getDescripcion()) {
-								case "AGENDADA":
-									tema = "schedule-agendada";
-									break;
-								case "EN EJECUCION":
-									tema = "schedule-en-ejecucion";
-									break;
-								case "EJECUTADO":
-									tema = "schedule-ejecutado";
-									break;
-								case "NO EJECUTADO":
-									tema = "schedule-no-ejecutado";
-									break;
-								case "INCONCLUSO":
-									tema = "schedule-inconcluso";
-									break;
+							case "AGENDADA":
+								tema = "schedule-agendada";
+								break;
+							case "EN EJECUCION":
+								tema = "schedule-en-ejecucion";
+								break;
+							case "EJECUTADO":
+								tema = "schedule-ejecutado";
+								break;
+							case "NO EJECUTADO":
+								tema = "schedule-no-ejecutado";
+								break;
+							case "INCONCLUSO":
+								tema = "schedule-inconcluso";
+								break;
 							}
 
-							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+//							scheduleEventAllDay = new DefaultScheduleEvent(
+//									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacionInventario()));
 							scheduleEventAllDay.setDescription(leyenda0);
@@ -307,7 +324,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 							eventModel.addEvent(scheduleEventAllDay);
 						}
 
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}
@@ -405,14 +422,14 @@ public class DashboardBean extends BaseBean implements Serializable {
 				if (evaluacion != null) {
 					String codigo = evaluacion.isCriterio() == true ? "1" : "2";
 					switch (codigo) {
-						case "1":
-							pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_001.xhtml";
-							break;
-						case "2":
-							pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_002.xhtml";
-							break;
-						default:
-							break;
+					case "1":
+						pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_001.xhtml";
+						break;
+					case "2":
+						pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_002.xhtml";
+						break;
+					default:
+						break;
 					}
 				}
 				if (checkListEjecucionSeleccionado.getEstadoCheckList().equals(EstadoCheckListEnum.AGENDADA)) {
@@ -523,7 +540,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 			}
 			planificacionInventarioSeleccionada.setFechaEjecucion(new Date());
 			iPlanificacionInventarioDao.guardarPlanificacionInventario(planificacionInventarioSeleccionada, usuario);
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_003').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_003').hide();");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -550,14 +567,14 @@ public class DashboardBean extends BaseBean implements Serializable {
 			if (evaluacion != null) {
 				String codigo = evaluacion.isCriterio() == true ? "1" : "2";
 				switch (codigo) {
-					case "1":
-						pagina = "/PrimaxEvaluacion/pages/gerencia/ger_002.xhtml";
-						break;
-					case "2":
-						pagina = "/PrimaxEvaluacion/pages/gerencia/ger_003.xhtml";
-						break;
-					default:
-						break;
+				case "1":
+					pagina = "/PrimaxEvaluacion/pages/gerencia/ger_002.xhtml";
+					break;
+				case "2":
+					pagina = "/PrimaxEvaluacion/pages/gerencia/ger_003.xhtml";
+					break;
+				default:
+					break;
 				}
 				iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucionSeleccionado, usuario);
 				contex.getExternalContext().redirect(pagina);
@@ -727,7 +744,7 @@ public class DashboardBean extends BaseBean implements Serializable {
 		return dateTime.plusDays(((int) (Math.random() * 30)));
 	}
 
-	public void onEventResize(ScheduleEntryResizeEvent event) {
+	public void onEventResize(ScheduleEntryResizeEvent Scheduleevent) {
 
 	}
 

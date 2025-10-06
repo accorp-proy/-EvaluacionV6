@@ -10,7 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -53,7 +53,7 @@ public class TipoInventarioBean extends BaseBean implements Serializable {
 			tipoInventarios = iTipoInventarioDao.getTipoInventarioList(condicion);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error :Método buscar " + " " + e.getMessage());
+			System.out.println("Error :Mï¿½todo buscar " + " " + e.getMessage());
 		}
 	}
 
@@ -67,12 +67,12 @@ public class TipoInventarioBean extends BaseBean implements Serializable {
 			}
 			UsuarioEt usuario = appMain.getUsuario();
 			iTipoInventarioDao.guardarTipoInventario(tipoInventarioSeleccionado, usuario);
-			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_22_1').hide();");
+			showInfo("Informaciï¿½n Grabada con ï¿½xito ", FacesMessage.SEVERITY_INFO);
+			PrimeFaces.current().executeInitScript("PF('dialog_22_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error :Método guardar " + " " + e.getMessage());
+			System.out.println("Error :Mï¿½todo guardar " + " " + e.getMessage());
 		}
 	}
 
@@ -80,17 +80,17 @@ public class TipoInventarioBean extends BaseBean implements Serializable {
 		String mensaje = "";
 		try {
 			if (tipoInventario.getDescripcion() == null) {
-				mensaje = "Por favor ingresar descripción";
+				mensaje = "Por favor ingresar descripciï¿½n";
 				return mensaje;
 			}
 			if (tipoInventario.getCodigo() == null) {
-				mensaje = "Por favor ingresar código";
+				mensaje = "Por favor ingresar cï¿½digo";
 				return mensaje;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error :Método validacionGuardar " + " " + e.getMessage());
+			System.out.println("Error :Mï¿½todo validacionGuardar " + " " + e.getMessage());
 		}
 		return mensaje;
 	}

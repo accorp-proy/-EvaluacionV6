@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_013_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					process="@this frm_par_013_1"
 					action="#{CriterioEvaluacionBn.guardar()}" update=":frm_par_013"
 					oncomplete="PF('dialog_13_1').hide()" />
@@ -24,7 +24,7 @@
 					<p:outputLabel value="Evaluación" style="width:100%"></p:outputLabel>
 				</p:column>
 				<p:column>
-					<p:selectOneMenu style="width:100% !important"
+					<p:selectOneMenu
 						value="#{CriterioEvaluacionBn.evaluacionSeleccionado}"
 						converter="#{evaluacionConverter}">
 						<f:selectItem itemLabel="Evaluación" />
@@ -35,10 +35,11 @@
 					</p:selectOneMenu>
 				</p:column>
 				<p:column>
-					<p:outputLabel value="Tipo Check List" style="width:100%"></p:outputLabel>
+					<p:outputLabel value="Tipo Check List"></p:outputLabel>
 				</p:column>
 				<p:column>
-					<p:selectOneMenu id="cmbTipoCheck" style="width:100% !important"
+					<p:selectOneMenu id="cmbTipoCheck"
+					editable="false"
 						value="#{CriterioEvaluacionBn.tipoChecKListSeleccionado}"
 						converter="#{tipoCheckListConverter}">
 						<f:selectItem itemLabel="Tipo CheckList" />
@@ -48,10 +49,11 @@
 					</p:selectOneMenu>
 				</p:column>
 				<p:column>
-					<p:outputLabel value="Proceso" style="width:100%"></p:outputLabel>
+					<p:outputLabel value="Proceso"></p:outputLabel>
 				</p:column>
 				<p:column>
-					<p:selectOneMenu id="cmbProceso" style="width:100% !important"
+					<p:selectOneMenu id="cmbProceso"
+					editable="false"
 						value="#{CriterioEvaluacionBn.procesoSeleccionado}"
 						converter="#{procesoConverter}">
 						<f:selectItem itemLabel="Proceso" />
@@ -63,10 +65,10 @@
 					</p:selectOneMenu>
 				</p:column>
 				<p:column>
-					<p:outputLabel id="labelKpi" value="Kpi" style="width:100%"></p:outputLabel>
+					<p:outputLabel id="labelKpi" value="Kpi"></p:outputLabel>
 				</p:column>
 				<p:column>
-					<p:selectOneMenu id="cmbKpi" style="width:100% !important"
+					<p:selectOneMenu id="cmbKpi"
 						disabled="#{CriterioEvaluacionBn.condicionKpi}" editable="false"
 						value="#{CriterioEvaluacionBn.procesoDetalleSeleccionado}"
 						converter="#{procesoDetalleConverter}">
@@ -83,7 +85,7 @@
 					value="#{CriterioEvaluacionBn.criterioEvaluacionSeleccionado.nombre}"
 					requiredMessage="Nombre es requerido"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{CriterioEvaluacionBn.criterioEvaluacionSeleccionado.estado}">
 					<f:selectItems value="#{CriterioEvaluacionBn.estadosActIna}" />
 				</p:selectOneMenu>

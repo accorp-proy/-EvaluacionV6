@@ -14,7 +14,7 @@
 		<h:form id="frm_par_007_2">
 			<p:growl autoUpdate="true"></p:growl>
 			<div align="right">
-				<p:commandButton icon="ui-icon-save" update=":frm_par_007"
+				<p:commandButton icon="pi pi-save" update=":frm_par_007"
 					styleClass="secondary"
 					action="#{TipoEstacionBn.guardarCategoria()}" title="Guardar">
 				</p:commandButton>
@@ -28,11 +28,11 @@
 						itemValue="#{categoriaE}">
 					</f:selectItems>
 				</p:selectOneListbox>
-				<p:commandButton icon="ui-icon-play-circle-filled"
+				<p:commandButton icon=" pi pi-chevron-circle-right"
 					styleClass="secondary" action="#{TipoEstacionBn.onTransfer()}"
 					update="listCategoriaSave" process="@form">
 				</p:commandButton>
-				<p:commandButton icon="ui-icon-remove-circle" styleClass="secondary"
+				<p:commandButton icon="pi pi-ban" styleClass="secondary"
 					action="#{TipoEstacionBn.onRemove()}" update="listCategoriaSave"
 					process="@form"></p:commandButton>
 				<p:selectOneListbox id="listCategoriaSave"

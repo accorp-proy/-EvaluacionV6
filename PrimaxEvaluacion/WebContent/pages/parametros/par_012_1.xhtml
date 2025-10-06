@@ -14,13 +14,14 @@
 		</f:facet>
 		<h:form id="frm_par_012_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{KPICriticoBn.guardar()}" update=":frm_par_012"
 					oncomplete="PF('dialog_12_1').hide()" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="KPI Crítico " />
 				<p:inputText value="#{KPICriticoBn.kKPICriticoSeleccionado.nombre}"
+				styleClass="w100"
 					required="true" requiredMessage="Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Descripción " />
 				<p:inputText
@@ -29,6 +30,7 @@
 				<p:outputLabel value="Nombre Img " />
 				<p:inputText
 					value="#{KPICriticoBn.kKPICriticoSeleccionado.nombreImagen}"
+					styleClass="w100"
 					required="true" requiredMessage="Descripción es requerido"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
 				<p:selectOneMenu style="width:50% !important" editable="false"

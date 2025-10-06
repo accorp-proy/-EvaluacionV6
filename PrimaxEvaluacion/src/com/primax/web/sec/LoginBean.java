@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.PrimeFaces;
+
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.ejb.lkp.EnumNaming;
@@ -36,10 +38,11 @@ public class LoginBean extends BaseBean {
 	public void init() {
 		switch (appMain.getErrLog()) {
 		case 1:
-			getRequestContext().execute("doGrowl('Debe ingresar usuario y contraseña')");
+			PrimeFaces.current().executeScript("doGrowl('Debe ingresar usuario y contraseï¿½a')");
 			break;
 		case 2:
-			getRequestContext().execute("doGrowl('Verifique que su nombre de usuario y contraseña sea el correcto')");
+			PrimeFaces.current()
+					.executeScript("doGrowl('Verifique que su nombre de usuario y contraseï¿½a sea el correcto')");
 			break;
 		}
 		appMain.setErrLog(0);

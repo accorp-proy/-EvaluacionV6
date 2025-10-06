@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_020_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{NivelEsfuerzoBn.guardar()}" update=":frm_par_020"
 					oncomplete="PF('dialog_20_1').hide()" />
 			</div>
@@ -27,14 +27,15 @@
 				<p:outputLabel value="Descripción" />
 				<p:inputText
 					value="#{NivelEsfuerzoBn.nivelEsfuerzoSeleccionado.descripcion}"
-					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
+					styleClass="w100" required="true"
+					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Puntaje" />
 				<p:spinner
 					value="#{NivelEsfuerzoBn.nivelEsfuerzoSeleccionado.puntaje}"
 					size="5" min="1" max="100">
 				</p:spinner>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{NivelEsfuerzoBn.nivelEsfuerzoSeleccionado.estado}">
 					<f:selectItems value="#{NivelEsfuerzoBn.estadosActIna}" />
 				</p:selectOneMenu>

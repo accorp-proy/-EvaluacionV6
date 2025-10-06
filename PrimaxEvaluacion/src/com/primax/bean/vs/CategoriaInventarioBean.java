@@ -11,7 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -79,7 +79,7 @@ public class CategoriaInventarioBean extends BaseBean implements Serializable {
 			categoriaInventarioSeleccionado.setDescripcion(categoriaInventarioSeleccionado.getDescripcion().toUpperCase().trim());
 			iCategoriaInventarioDao.guardarCategoriaInventario(categoriaInventarioSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_24_1').hide();");
+			PrimeFaces.current().executeScript("PF('dialog_24_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

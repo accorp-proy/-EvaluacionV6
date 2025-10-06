@@ -13,7 +13,7 @@
 				rendered="#{appMain.usuario.idUsuario eq 1}"></p:outputLabel>
 		</f:facet>
 		<h:form id="frm_par_021_3">
-			<p:panelGrid styleClass="sinborde w100">
+			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:row>
 					<p:column>
 						<h:outputLabel value="CheckList" />
@@ -21,13 +21,13 @@
 					<p:column>
 						<p:commandButton title="Descargar en formato Excel"
 							rendered="#{TreePlanAccionBn.checkListEjecucionR.evaluacion.criterio == true}"
-							icon="fa fa-file-excel-o" immediate="true" ajax="false"
+							icon="pi pi-file-excel" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(6,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.tipoChecKList.descripcion,TreePlanAccionBn.checkListEjecucionR.codigo,null,null,null,null,null,null,true)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
 						<p:commandButton title="Descargar en formato Excel"
 							rendered="#{TreePlanAccionBn.checkListEjecucionR.evaluacion.criterio == false}"
-							icon="fa fa-file-excel-o" immediate="true" ajax="false"
+							icon="pi pi-file-excel" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(7,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.tipoChecKList.descripcion,TreePlanAccionBn.checkListEjecucionR.codigo,TreePlanAccionBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),appMain.usuario.personaUsuario.nombreCompleto,null,null,null,null,true)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
@@ -40,7 +40,7 @@
 					<p:column>
 						<p:commandButton title="Descargar en formato Excel"
 							disabled="#{TreePlanAccionBn.checkListEjecucionR.tipoChecKList.generaMatriz == false}"
-							icon="fa fa-file-excel-o" immediate="true" ajax="false"
+							icon="pi pi-file-excel" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(8,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.tipoChecKList.descripcion,TreePlanAccionBn.checkListEjecucionR.codigo,null,null,null,null,null,null,true)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
@@ -54,7 +54,7 @@
 						<p:commandButton title="Descargar Reporte Novedad en formato Pdf"
 							rendered="#{TreePlanAccionBn.checkListEjecucionR.evaluacion.idEvaluacion eq 2}"
 							disabled="#{TreePlanAccionBn.checkListEjecucionR.tipoChecKList.generaReporte == false}"
-							icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+							icon="pi pi-file-pdf" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(11,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),TreePlanAccionBn.checkListEjecucionR.evaluacion.idEvaluacion.toString(),TreePlanAccionBn.checkListEjecucionR.tipoChecKList.idTipoCheckList.toString(),null,null,null,null,null,false)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
@@ -62,7 +62,7 @@
 							title="Descargar Reporte Novedad CCTV en formato Pdf"
 							disabled="#{TreePlanAccionBn.checkListEjecucionR.tipoChecKList.generaReporte == false}"
 							rendered="#{TreePlanAccionBn.checkListEjecucionR.evaluacion.idEvaluacion eq 5}"
-							icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+							icon="pi pi-file-pdf" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(21,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),null,null,null,null,null,null,null,false)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>
@@ -70,7 +70,7 @@
 							title="Descargar Reporte Novedad Supervisión de Efectivo en formato Pdf"
 							rendered="#{TreePlanAccionBn.checkListEjecucionR.evaluacion.idEvaluacion eq 4}"
 							disabled="#{TreePlanAccionBn.checkListEjecucionR.tipoChecKList.generaReporte == false}"
-							icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+							icon="pi pi-file-pdf" immediate="true" ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(11,appMain.usuario.nombreUsuario,TreePlanAccionBn.checkListEjecucionR.idCheckListEjecucion.toString(),TreePlanAccionBn.checkListEjecucionR.planificacion.agencia.idAgencia.toString(),TreePlanAccionBn.checkListEjecucionR.evaluacion.idEvaluacion.toString(),null,null,null,null,null,null,false)}">
 							<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 						</p:commandButton>

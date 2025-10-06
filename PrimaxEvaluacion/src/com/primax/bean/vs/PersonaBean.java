@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
@@ -75,7 +76,7 @@ public class PersonaBean extends BaseBean implements Serializable {
 		try {
 			personaDao.guardarPersona(personaSeleccionada, appMain.getUsuario());
 			showInfo("Notificación", FacesMessage.SEVERITY_INFO, null, "Dato de persona guardado");
-			getRequestContext().execute("PF('dlg_per_01').hide()");
+			PrimeFaces.current().executeInitScript("PF('dlg_per_01').hide()");
 			nuevo();
 			buscar();
 		} catch (EntidadNoGrabadaException e) {
@@ -145,11 +146,11 @@ public class PersonaBean extends BaseBean implements Serializable {
 				personaSeleccionada.setPersonaImagen(imagen);
 
 			}
-			personaSeleccionada.getPersonaImagen().setImgUsuario(event.getFile().getContents());
+			personaSeleccionada.getPersonaImagen().setImgUsuario(event.getFile().getContent());
 			personaSeleccionada.getPersonaImagen().setNombreImagen(event.getFile().getFileName());
 			iGeneralUtilsDao.creaRuta(personaSeleccionada.getIdPersona(), pathProyecto + File.separatorChar
 					+ pathImagenTemp + File.separatorChar + PersonaEnum.USUARIO.getDescripcion());
-			String rutaTmp = iGeneralUtilsDao.guardaImagenTemporal(event.getFile().getContents(),
+			String rutaTmp = iGeneralUtilsDao.guardaImagenTemporal(event.getFile().getContent(),
 					RutaFileEnum.RUTA_PROYECTO_DEPLOYED.getDescripcion(), PersonaEnum.USUARIO.getDescripcion(),
 					personaSeleccionada.getIdPersona(), event.getFile().getFileName(), true);
 			System.out.println("rutaTmp " + rutaTmp);

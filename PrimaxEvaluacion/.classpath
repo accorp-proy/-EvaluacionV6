@@ -20,7 +20,8 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-api-2.17.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-core-2.17.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sun.misc.BASE64Decoder.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-6.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-extensions-6.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/atlantis-theme-6.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-extensions-13.0.13.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-13.0.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

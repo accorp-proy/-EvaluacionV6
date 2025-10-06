@@ -14,13 +14,13 @@
 		</f:facet>
 		<h:form id="frm_par_010_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{ProcesoBn.guardar()}" update=":frm_par_010"
 					oncomplete="PF('dialog_10_1').hide()" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Tipo CheckList :" />
-				<p:selectOneMenu style="width:80% !important" required="true"
+				<p:selectOneMenu required="true"
 					value="#{ProcesoBn.tipoChecKListSeleccionado}"
 					converter="#{tipoCheckListConverter}">
 					<f:selectItem itemLabel="Seleccione Tipo CheckList" />
@@ -35,7 +35,7 @@
 				<p:inputText value="#{ProcesoBn.procesoSeleccionado.nombreProceso}"
 					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{ProcesoBn.procesoSeleccionado.estado}">
 					<f:selectItems value="#{ProcesoBn.estadosActIna}" />
 				</p:selectOneMenu>

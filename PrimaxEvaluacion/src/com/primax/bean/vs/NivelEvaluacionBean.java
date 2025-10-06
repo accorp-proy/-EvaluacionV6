@@ -18,7 +18,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
@@ -92,7 +92,7 @@ public class NivelEvaluacionBean extends BaseBean implements Serializable {
 			UsuarioEt usuario = appMain.getUsuario();
 			iNivelEvaluacionDao.guardarNivelEvaluacion(nivelEvaluacionSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_16_2').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_16_2').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,7 +169,7 @@ public class NivelEvaluacionBean extends BaseBean implements Serializable {
 			Long idNivelEvauacion = nivelEvaluacionSeleccionado.getIdNivelEvaluacion();
 			nombreArchivo = idNivelEvauacion + "_" + event.getFile().getFileName();
 			nivelEvaluacionDetalleSeleccionado.setImgNombre(nombreArchivo);
-			nivelEvaluacionDetalleSeleccionado.setFile(event.getFile().getInputstream());
+			nivelEvaluacionDetalleSeleccionado.setFile(event.getFile().getInputStream());
 			if (nombreArchivo.toLowerCase().contains(".png") || nombreArchivo.toLowerCase().contains(".jpg")) {
 				rutaServer = iGeneralUtils0Dao.creaRuta(idNivelEvauacion,
 						RutaFileEnum.RUTA_NIVEL_EVALUACION.getDescripcion());
@@ -182,7 +182,7 @@ public class NivelEvaluacionBean extends BaseBean implements Serializable {
 			}
 			InputStream inputStreamImg = nivelEvaluacionDetalleSeleccionado.getFile();
 			iGeneralUtils0Dao.copyFile(nombreArchivo, inputStreamImg, ruta);
-			inputStreamImg = event.getFile().getInputstream();
+			inputStreamImg = event.getFile().getInputStream();
 			iGeneralUtils1Dao.copyFile(nombreArchivo, inputStreamImg, rutaServer);
 			FacesMessage msg = new FacesMessage("Satisfactorio! ",
 					event.getFile().getFileName() + "  " + "Esta subido Correctamente.");

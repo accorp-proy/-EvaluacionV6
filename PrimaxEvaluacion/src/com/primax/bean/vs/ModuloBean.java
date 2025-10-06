@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -44,7 +45,7 @@ public class ModuloBean extends BaseBean implements Serializable {
 			menuPadre = (MenuEt) selectedNode.getData();
 			menuSeleccionado = new MenuEt();
 			menuSeleccionado.setMenuPadre(menuPadre);
-			getRequestContext().execute("PF('dialog_02').show()");
+			PrimeFaces.current().executeInitScript("PF('dialog_02').show()");
 		} else {
 			showInfo("Notificación", FacesMessage.SEVERITY_ERROR, null,
 					"Por favor seleccione una opcion para continuar.");
@@ -54,7 +55,7 @@ public class ModuloBean extends BaseBean implements Serializable {
 	public void cargarOpcion() {
 		if (selectedNode != null && selectedNode.getData() != null) {
 			menuSeleccionado = (MenuEt) selectedNode.getData();
-			getRequestContext().execute("PF('dialog_02').show()");
+			PrimeFaces.current().executeInitScript("PF('dialog_02').show()");
 		} else {
 			showInfo("Notificación", FacesMessage.SEVERITY_ERROR, null,
 					"Por favor seleccione una opcion para continuar.");

@@ -15,7 +15,7 @@
 		<h:form id="fd04">
 			<p:messages id="msgs" showDetail="true" />
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check" process="fd04"
+				<p:commandButton title="Guardar" icon="pi pi-save" process="fd04"
 					action="#{usuarioCtrl.guardar()}" update=":usu_00"></p:commandButton>
 			</div>
 			<div class="ui-g ui-fluid">
@@ -28,7 +28,7 @@
 								<p:inputText style="width:70%"
 									value="#{usuarioCtrl.usuarioBean.usuarioSeleccionado.personaUsuario.identificacionPersona}">
 								</p:inputText>
-								<p:commandButton title="Buscar" icon="ui-icon-search"
+								<p:commandButton title="Buscar" icon="pi pi-search"
 									process="@this" listener="#{UsuarioBn.nuevaBusquedaPersona()}"
 									update=":frmPersona" oncomplete="PF('dialog_06').show()"></p:commandButton>
 								<label>Cédula</label>
@@ -81,7 +81,7 @@
 							emptyMessage="Sin roles" var="roluser" id="fdt04">
 							<f:facet name="header">
 								<div align="right">
-									<p:commandButton icon="ui-icon-plus" process="@this"
+									<p:commandButton icon=" pi pi-plus" process="@this"
 										title="añadir"
 										action="#{usuarioCtrl.limpiarListaSeleccionados()}"
 										update=":dialog_05" oncomplete="PF('dialog_05').show()"></p:commandButton>
@@ -91,7 +91,7 @@
 								<h:outputText value="#{roluser.rol.nomRol}" />
 							</p:column>
 							<p:column width="30">
-								<p:commandButton icon="ui-icon-closethick" title="Quitar rol"
+								<p:commandButton icon="pi pi-trash" title="Quitar rol"
 									update="fdt04" process="@this"
 									action="#{usuarioCtrl.eliminaRol(roluser)}"></p:commandButton>
 							</p:column>

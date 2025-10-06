@@ -203,7 +203,7 @@ public class GerenciaCriterioGBean extends BaseBean implements Serializable {
 			CheckListEjecucionAdjuntoEt reg = new CheckListEjecucionAdjuntoEt();
 			reg.setCheckListEjecucion(checkListEjecucion);
 			reg.setNombreAdjunto(event.getFile().getFileName());
-			reg.setFile(event.getFile().getInputstream());
+			reg.setFile(event.getFile().getInputStream());
 
 			for (CheckListEjecucionAdjuntoEt doc : checkListEjecucion.getCheckListEjecucionAdjunto()) {
 				if (doc.getNombreAdjunto().equals(reg.getNombreAdjunto())) {

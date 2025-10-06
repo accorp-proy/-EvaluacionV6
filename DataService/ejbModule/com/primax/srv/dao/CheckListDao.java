@@ -66,7 +66,7 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		sql = new StringBuilder("FROM CheckListEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
 		sql.append(" AND to_char(o.fechaRegistro,'yyyy-mm-dd') BETWEEN :fechaDesde AND :fechaHasta ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (nivelEvaluacion != null) {
@@ -87,7 +87,7 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("fechaDesde", SfechaDesde);
 		query.setParameter("fechaHasta", SfechaHasta);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}
@@ -127,7 +127,7 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		//sql = new StringBuilder("SELECT o.checkList FROM CheckListEt o ");
 		sql = new StringBuilder("FROM CheckListEt o ");
 		sql.append("WHERE o.estado = :estado ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		//sql.append(" AND o.agencia = :agencia ");
@@ -135,7 +135,7 @@ public class CheckListDao extends GenericDao<CheckListEt, Long> implements IChec
 		sql.append("ORDER BY o.idCheckList ");
 		TypedQuery<CheckListEt> query = em.createQuery(sql.toString(), CheckListEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

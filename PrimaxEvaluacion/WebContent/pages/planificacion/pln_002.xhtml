@@ -15,7 +15,7 @@
 			<p:growl showDetail="true" id="mensajes">
 			</p:growl>
 			<div align="right">
-				<p:commandButton icon="ui-icon-save" process="@this frm_pln_002"
+				<p:commandButton icon="pi pi-save" process="@this frm_pln_002"
 					action="#{PlanificacionBn.guardar()}"
 					update=":frm_pln_001,:frm_pln_002" styleClass="secondary"
 					title="Guardar">
@@ -53,7 +53,7 @@
 							<p:outputLabel value="Zonas"></p:outputLabel>
 						</p:column>
 						<p:column>
-							<p:selectOneMenu style="width:70px !important" id="cmbZona"
+							<p:selectOneMenu id="cmbZona"
 								value="#{PlanificacionBn.zonaSeleccionada}"
 								converter="#{zonaConverter}">
 								<f:selectItem itemLabel="Zona" />
@@ -66,7 +66,7 @@
 							<p:outputLabel value="Estación"></p:outputLabel>
 						</p:column>
 						<p:column>
-							<p:selectOneMenu id="cmbEstacion" style="width:70% !important"
+							<p:selectOneMenu id="cmbEstacion"
 								disabled="#{PlanificacionBn.bloqueo}"
 								value="#{PlanificacionBn.estacionSeleccionada}"
 								converter="#{agenciaConverter}" var="t" filter="true"
@@ -111,7 +111,6 @@
 					<p:panelGrid styleClass="sinborde w100" layout="grid" columns="4">
 						<p:column>
 							<p:selectOneMenu id="cmbNivelEvaluacion"
-								style="width:100px !important"
 								value="#{PlanificacionBn.nivelEvaluacionSeleccionado}"
 								converter="#{nivelEvaluacionConverter}">
 								<f:selectItem itemLabel="Nivel Evaluación" />
@@ -122,7 +121,6 @@
 						</p:column>
 						<p:column>
 							<p:selectOneMenu id="cmbEvaluacion"
-								style="width:100px !important"
 								value="#{PlanificacionBn.evaluacionSeleccionada}"
 								converter="#{evaluacionConverter}">
 								<f:selectItem itemLabel="Evaluación" />
@@ -134,7 +132,7 @@
 							</p:selectOneMenu>
 						</p:column>
 						<p:column>
-							<p:selectOneMenu id="cmbTipoCheck" style="width:100px !important"
+							<p:selectOneMenu id="cmbTipoCheck"
 								value="#{PlanificacionBn.tipoChecKListSeleccionado}"
 								converter="#{tipoCheckListConverter}">
 								<f:selectItem itemLabel="Tipo CheckList" />
@@ -180,7 +178,7 @@
 								<f:facet name="header">
 									<h:outputText value="CheckList Agregados" />
 									<div align="right">
-										<p:commandButton icon="ui-icon-plus"
+										<p:commandButton icon="pi pi-plus"
 											disabled="#{PlanificacionBn.bloqueo}"
 											update=":frm_pln_004,frm_pln_002:mensajes,frm_pln_002:tabWiwe0:dtbAgenciaCheckList"
 											action="#{PlanificacionBn.mostrarDialogAuditor()}"
@@ -214,7 +212,7 @@
 								</p:column>
 								<p:column headerText="Proceso">
 									<div align="center">
-										<p:commandButton icon="ui-icon-update"
+										<p:commandButton icon="pi pi-pencil"
 											process="@this dtbCheckListAgregado"
 											title="Se muestran los procesos del CheckList"
 											disabled="#{PlanificacionBn.bloqueo}"
@@ -225,7 +223,7 @@
 								<p:column headerText="Eliminar">
 									<div align="center">
 										<div align="center">
-											<p:commandButton icon="ui-icon-trash" title="Eliminar"
+											<p:commandButton icon="pi pi-trash" title="Eliminar"
 												process="@this dtbCheckListAgregado"
 												update="dtbCheckListAgregado"
 												disabled="#{PlanificacionBn.bloqueo}"
@@ -238,7 +236,7 @@
 						</div>
 					</div>
 				</p:tab>
-				
+
 			</p:tabView>
 		</h:form>
 		<ui:include src="/pages/planificacion/pln_004.xhtml"></ui:include>

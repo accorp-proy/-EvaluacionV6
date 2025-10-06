@@ -10,12 +10,12 @@
 			<h:outputScript library="js" name="calendar.js" />
 			<p:growl showDetail="false" id="mensajes">
 			</p:growl>
-			<p:panelGrid styleClass="sinborde w110" columns="9" layout="grid">
-				<p:row>
-					<p:fieldset legend="Modificación/Eliminación de Checklist">
-						<p:panelGrid columns="9" styleClass="sinborde" layout="grid">
-							<p:column>
-								<p:selectOneMenu style="width:80px !important" id="cmbZona"
+			<p:fieldset legend="Modificación/Eliminación de Checklist">
+				<div class="col-12">
+					<div class="card">
+						<div class="ui-fluid formgrid grid">
+							<div class="field col-12 md:col-1">
+								<p:selectOneMenu id="cmbZona"
 									value="#{CheckListModificacionBn.zonaSeleccionada}"
 									converter="#{zonaConverter}">
 									<f:selectItem itemLabel="Zona" />
@@ -23,9 +23,10 @@
 										var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
 									<p:ajax event="change" update="frm_pln_008:cmbEstacion"></p:ajax>
 								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu id="cmbEstacion" style="width:80px !important"
+
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbEstacion"
 									value="#{CheckListModificacionBn.estacionSeleccionada}"
 									converter="#{agenciaConverter}" var="t" filter="true"
 									filterMatchMode="contains">
@@ -37,10 +38,9 @@
 										<h:outputText value="#{t.nombreAgencia}" />
 									</p:column>
 								</p:selectOneMenu>
-							</p:column>
-							<p:column>
+							</div>
+							<div class="field col-12 md:col-2">
 								<p:selectOneMenu id="cmbEvaluacion"
-									style="width:100px !important"
 									value="#{CheckListModificacionBn.evaluacionSeleccionada}"
 									converter="#{evaluacionConverter}">
 									<f:selectItem itemLabel="Evaluación" />
@@ -50,10 +50,9 @@
 										itemLabel="#{evaluacion.descripcion}" />
 									<p:ajax event="change" update="frm_pln_008:cmbTipoCheck"></p:ajax>
 								</p:selectOneMenu>
-							</p:column>
-							<p:column>
+							</div>
+							<div class="field col-12 md:col-2">
 								<p:selectOneMenu id="cmbTipoCheck"
-									style="width:100px !important"
 									value="#{CheckListModificacionBn.tipoChecKListSeleccionado}"
 									converter="#{tipoCheckListConverter}">
 									<f:selectItem itemLabel="Tipo CheckList" />
@@ -62,10 +61,9 @@
 										var="tipoCheckList" itemValue="#{tipoCheckList}"
 										itemLabel="#{tipoCheckList.descripcion}" />
 								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:100px !important"
-									id="cmbNivelEvaluacion"
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbNivelEvaluacion"
 									value="#{CheckListModificacionBn.nivelEvaluacionSeleccionado}"
 									converter="#{nivelEvaluacionConverter}">
 									<f:selectItem itemLabel="Nivel Evaluación" />
@@ -74,34 +72,37 @@
 										var="nivelEvaluacion" itemValue="#{nivelEvaluacion}"
 										itemLabel="#{nivelEvaluacion.descripcion}" />
 								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{CheckListModificacionBn.fDesde}" size="10"
+							</div>
+							<div class="field col-12 md:col-1">
+								<p:calendar value="#{CheckListModificacionBn.fDesde}"
 									placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
 									pattern="dd/MM/yyy" locale="es">
 								</p:calendar>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{CheckListModificacionBn.fHasta}" size="10"
+							</div>
+							<div class="field col-12 md:col-1">
+								<p:calendar value="#{CheckListModificacionBn.fHasta}"
 									placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
 									pattern="dd/MM/yyy" locale="es">
 								</p:calendar>
-							</p:column>
-							<p:column>
+							</div>
+							<div class="field col-12 md:col-1">
 								<p:commandButton title="Botón permite realizar busqueda"
-									icon="ui-icon-search"
+									icon="pi pi-search"
 									action="#{CheckListModificacionBn.buscar()}"
 									update="dtbCheckListEjecucion">
 								</p:commandButton>
-							</p:column>
-						</p:panelGrid>
-					</p:fieldset>
-				</p:row>
-			</p:panelGrid>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</p:fieldset>
+
 
 			<div align="center">
 				<p:dataTable paginator="true" rows="7" reflow="true"
-					tableStyle="table-layout: auto;" style="margin-bottom:20px"
+					tableStyle="table-layout: auto" paginatorPosition="bottom"
 					emptyMessage="No existe CheckList Ejecutados"
 					id="dtbCheckListEjecucion"
 					value="#{CheckListModificacionBn.checkListEjecuciones}"
@@ -133,14 +134,14 @@
 					</p:column>
 					<p:column width="30" headerText="Modificar">
 						<div align="center">
-							<p:commandButton icon="fa fa-file-excel-o"
+							<p:commandButton icon="pi pi-pencil"
 								update="frm_pln_008:mensajes" onclick="PF('dlg_conf_0').show()"
 								action="#{CheckListModificacionBn.modificar(checkEjecucion)}"></p:commandButton>
 						</div>
 					</p:column>
 					<p:column width="30" headerText="Eliminar">
 						<div align="center">
-							<p:commandButton icon="fa fa-file-excel-o"
+							<p:commandButton icon="pi pi-trash"
 								update="frm_pln_008:mensajes" onclick="PF('dlg_conf_1').show()"
 								action="#{CheckListModificacionBn.eliminar(checkEjecucion)}"></p:commandButton>
 						</div>

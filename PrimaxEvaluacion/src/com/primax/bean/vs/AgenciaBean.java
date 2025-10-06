@@ -13,7 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -177,7 +177,7 @@ public class AgenciaBean extends BaseBean implements Serializable {
 			guardarResponsable(usuario);
 			iAgenciaDao.guardarAgencia(agenciaSeleccionada, appMain.getUsuario());
 			showInfo("Dato Guardado", FacesMessage.SEVERITY_INFO, null, null);
-			RequestContext.getCurrentInstance().execute("PF('dialog_06_1').hide();");
+			PrimeFaces.current().executeScript("PF('dialog_06_1').hide();");
 			nuevo();
 			buscar();
 		} catch (EntidadNoGrabadaException e) {

@@ -11,9 +11,9 @@
 			<p:growl showDetail="false" id="mensajes">
 			</p:growl>
 			<p:fieldset legend="Información">
-				<p:panelGrid columns="9" styleClass="sinborde" layout="grid">
+				<p:panelGrid  styleClass="fullsize sinborde" layout="grid">
 					<p:column>
-						<p:selectOneMenu style="width:100px !important"
+						<p:selectOneMenu 
 							value="#{PlantillaGeneradaBn.tipoEstacionSeleccionada}"
 							converter="#{tipoEstacionConverter}">
 							<f:selectItem itemLabel="Tipo Estación" />
@@ -23,9 +23,10 @@
 							<p:ajax event="change" update="frm_pla_003:cmbCategoriaEstacion"></p:ajax>
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
 					<p:column>
 						<p:selectOneMenu id="cmbCategoriaEstacion"
-							style="width:100px !important"
+							
 							value="#{PlantillaGeneradaBn.categoriaEstacionSeleccionada}"
 							converter="#{categoriaEstacionConverter}">
 							<f:selectItem itemLabel="Categoría Estación" />
@@ -35,8 +36,9 @@
 								itemLabel="#{categoria.descripcion}" />
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
 					<p:column>
-						<p:selectOneMenu style="width:100px !important"
+						<p:selectOneMenu 
 							value="#{PlantillaGeneradaBn.nivelEvaluacionSeleccionado}"
 							converter="#{nivelEvaluacionConverter}">
 							<f:selectItem itemLabel="Nivel Evaluación" />
@@ -45,8 +47,9 @@
 								itemLabel="#{nivelEvaluacion.descripcion}" />
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
 					<p:column>
-						<p:selectOneMenu id="cmbEvaluacion" style="width:100px !important"
+						<p:selectOneMenu id="cmbEvaluacion" 
 							value="#{PlantillaGeneradaBn.evaluacionSeleccionado}"
 							converter="#{evaluacionConverter}">
 							<f:selectItem itemLabel="Evaluación" />
@@ -56,8 +59,9 @@
 							<p:ajax event="change" update="frm_pla_003:cmbTipoCheck"></p:ajax>
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
 					<p:column>
-						<p:selectOneMenu id="cmbTipoCheck" style="width:100px !important"
+						<p:selectOneMenu id="cmbTipoCheck" 
 							value="#{PlantillaGeneradaBn.tipoChecKListSeleccionado}"
 							converter="#{tipoCheckListConverter}">
 							<f:selectItem itemLabel="Tipo CheckList" />
@@ -66,27 +70,35 @@
 								itemLabel="#{tipoCheckList.descripcion}" />
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
+					<p:column></p:column>
+				<p:spacer></p:spacer>
 					<p:column>
-						<p:calendar value="#{PlantillaGeneradaBn.fDesde}" size="10"
+						<p:calendar value="#{PlantillaGeneradaBn.fDesde}"  size="8"
 							placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
 							pattern="dd/MM/yyy" locale="es">
 						</p:calendar>
 					</p:column>
+					<p:spacer></p:spacer>
+				
 					<p:column>
-						<p:calendar value="#{PlantillaGeneradaBn.fHasta}" size="10"
+						<p:calendar value="#{PlantillaGeneradaBn.fHasta}"  size="8"
 							placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
 							pattern="dd/MM/yyy" locale="es">
 						</p:calendar>
 					</p:column>
+					
+					<p:spacer></p:spacer>
 					<p:column>
-						<p:selectOneMenu style="width:95% !important" editable="false"
+						<p:selectOneMenu  editable="false"
 							value="#{PlantillaGeneradaBn.estadoCheckListSeleccionado}">
 							<f:selectItems value="#{PlantillaGeneradaBn.estadoCheckList}" />
 						</p:selectOneMenu>
 					</p:column>
+					<p:spacer></p:spacer>
 					<p:column>
 						<p:commandButton title="Botón permite realizar busqueda"
-							icon="ui-icon-search" action="#{PlantillaGeneradaBn.buscar()}"
+							icon="pi pi-search" action="#{PlantillaGeneradaBn.buscar()}"
 							update="frm_pla_003:dtbCheckList">
 						</p:commandButton>
 					</p:column>
@@ -95,7 +107,7 @@
 
 			<div align="center">
 				<p:dataTable paginator="true" rows="7" reflow="true"
-					tableStyle="table-layout: auto;" style="margin-bottom:20px"
+					tableStyle="table-layout: auto" paginatorPosition="bottom" 
 					emptyMessage="No existe Formatos" id="dtbCheckList"
 					value="#{PlantillaGeneradaBn.checkList}" var="checkList">
 					<p:column headerText="Código">
@@ -125,7 +137,7 @@
 					<p:column width="5" headerText="Eliminar"
 						rendered="#{PlantillaGeneradaBn.userADM eq false}">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-trash"
 								title="Botón permite eliminar checkList"
 								disabled="#{checkList.estadoCheckList.descripcion ne 'PLANTILLA' and checkList.estadoCheckList.descripcion ne 'GENERADO'}"
 								onclick="PF('dlg_conf_1').show()"
@@ -135,7 +147,7 @@
 					<p:column width="5" headerText="Eliminar"
 						rendered="#{PlantillaGeneradaBn.userADM eq true}">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-trash"
 								title="Botón permite eliminar checkList"
 								onclick="PF('dlg_conf_1').show()"
 								action="#{PlantillaGeneradaBn.modificar(checkList)}"></p:commandButton>
@@ -143,7 +155,7 @@
 					</p:column>
 					<p:column width="5" headerText="Aprobar">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-check-square"
 								title="Botón permite aprobar checkList"
 								disabled="#{checkList.estadoCheckList.descripcion ne 'APROBADO' and checkList.estadoCheckList.descripcion ne 'GENERADO'}"
 								onclick="PF('dlg_conf_0').show()"
@@ -152,7 +164,7 @@
 					</p:column>
 					<p:column width="5" headerText="Asignación">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-play"
 								disabled="#{checkList.estadoCheckList.descripcion ne 'APROBADO'}"
 								update=":frm_pla_003_1"
 								action="#{PlantillaGeneradaBn.modificarAsignacion(checkList)}"
@@ -162,7 +174,7 @@
 					</p:column>
 					<p:column width="5" headerText="Inactivar">
 						<div align="center">
-							<p:commandButton icon="ui-icon-trash"
+							<p:commandButton icon="pi pi-ban"
 								onclick="PF('dlg_conf_2').show()"
 								action="#{PlantillaGeneradaBn.modificar(checkList)}"
 								title="Botón permite inactivar CheckList"></p:commandButton>
@@ -170,7 +182,7 @@
 					</p:column>
 					<p:column width="5" headerText="Validar">
 						<div align="center">
-							<p:commandButton icon="ui-icon-check"
+							<p:commandButton icon=" pi pi-check"
 								onclick="PF('dlg_conf_3').show()"
 								disabled="#{checkList.validarCriterio == true}"
 								action="#{PlantillaGeneradaBn.modificar(checkList)}"
@@ -179,7 +191,7 @@
 					</p:column>
 					<p:column width="5" headerText="Reporte">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-chart-bar"
 								update=":frm_pla_003_2"
 								action="#{PlantillaGeneradaBn.checkListR(checkList)}"
 								title="Botón permite descargar y visualizar reportes"

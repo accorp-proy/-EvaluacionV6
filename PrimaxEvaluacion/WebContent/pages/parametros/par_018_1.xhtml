@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_018_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{ZonaBn.guardar()}" update=":frm_par_018"
 					oncomplete="PF('dialog_18_1').hide()" />
 			</div>
@@ -25,9 +25,10 @@
 				</p:spinner>
 				<p:outputLabel value="Descripción Zona " />
 				<p:inputText value="#{ZonaBn.zonaSeleccionado.nombreZona}"
-					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
+					styleClass="w100" required="true"
+					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{ZonaBn.zonaSeleccionado.estado}">
 					<f:selectItems value="#{ZonaBn.estadosActIna}" />
 				</p:selectOneMenu>

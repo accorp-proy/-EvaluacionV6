@@ -12,16 +12,16 @@
 			<p:panelGrid columns="4" styleClass="sinborde w120" layout="grid"
 				columnClasses="ui-grid-col-10,ui-grid-col-2">
 				<p:column>
-					<p:commandButton id="btnFirmar" icon="fa fa-pencil-square-o"
+					<p:commandButton id="btnFirmar" icon="pi pi-check-square"
 						oncomplete="PF('dlg_eje_010').show()" update=":frm_eje_010"
 						process="@this frm_eje_002" title="Firma Responsables"></p:commandButton>
 				</p:column>
 				<p:column>
-					<p:commandButton id="btnGuardar" icon="ui-icon-check"
+					<p:commandButton id="btnGuardar" icon="pi pi-check"
 						title="Guardar" process="@this frm_eje_002"
 						disabled="#{CheckListEjecucionCtrlBn.validarGuardar == false}"
 						action="#{CheckListEjecucionCtrlBn.guardar()}"></p:commandButton>
-					<p:commandButton id="btnGuardarC" icon="fa fa-save"
+					<p:commandButton id="btnGuardarC" icon="pi pi-save"
 						title="Guardar CheckList"
 						disabled="#{CheckListEjecucionCtrlBn.validarGuardar}"
 						onclick="PF('dlg_conf_1').show()"></p:commandButton>
@@ -63,11 +63,11 @@
 					</p:panelGrid>
 					<p:dataTable id="dtbCheckList" var="detalle"
 						value="#{CheckListEjecucionCtrlBn.checkListEjecucion.checkListProcesoEjecucion}"
-						emptyMessage="No existen Procesos">
+						emptyMessage="No existen Procesos"   >
 						<f:facet name="header">
                       #{CheckListEjecucionCtrlBn.checkListEjecucion.evaluacion.descripcion} - #{CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.descripcion} - #{CheckListEjecucionCtrlBn.checkListEjecucion.codigo}
                          </f:facet>
-						<p:columnGroup type="header">
+						<p:columnGroup type="header" >
 							<p:row>
 								<p:column headerText="KPIs " style="width:60px"></p:column>
 								<p:column headerText="Criterio Evaluación" style="width:20px" />
@@ -87,63 +87,63 @@
 									<p:column>
 										<f:facet name="header">
 											<div align="center">
-												<p:commandButton icon="ui-icon-add" id="btnProceso1"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso1"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Combustible"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('combustible')}"
 													oncomplete="PF('dlg_eje_006').show()" update=":frm_eje_006"></p:commandButton>
-												<p:commandButton icon="ui-icon-add" id="btnProceso2"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso2"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Control Efectivo"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('efectivo') and (detalle.proceso.nombreProceso.toLowerCase().contains('control'))}"
 													oncomplete="PF('dlg_eje_007').show()" update=":frm_eje_007"></p:commandButton>
-												<p:commandButton icon="ui-icon-add" id="btnProceso5"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso5"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Conciliación Efectivo"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('efectivo') and (detalle.proceso.nombreProceso.toLowerCase().contains('conteo'))}"
 													oncomplete="PF('dlg_eje_007_1').show()"
 													update=":frm_eje_007_1"></p:commandButton>
-												<p:commandButton icon="ui-icon-add" id="btnProceso3"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso3"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Tienda"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('tienda')}"
 													oncomplete="PF('dlg_eje_008').show()" update=":frm_eje_008"></p:commandButton>
-												<p:commandButton icon="ui-icon-add" id="btnProceso6"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso6"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Controles de estación de servicio a Promotores"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('servicio a promotores')}"
 													oncomplete="PF('dlg_eje_008_1').show()"
 													update=":frm_eje_008_1"></p:commandButton>
-												<p:commandButton icon="ui-icon-add" id="btnProceso4"
+												<p:commandButton icon="pi pi-plus-circle" id="btnProceso4"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Procedimientos Estaciones de Servicio"
 													rendered="#{detalle.proceso.nombreProceso.toLowerCase().contains('procedimiento')}"
 													oncomplete="PF('dlg_eje_009').show()" update=":frm_eje_009"></p:commandButton>
-												<p:commandButton icon="ui-icon-queue" id="btnProcesoFrm1"
+												<p:commandButton icon="pi pi-book" id="btnProcesoFrm1"
 													rendered="#{not empty detalle.checkListProcesoEjecucionFormulario and detalle.proceso.orden eq 1}"
 													process="@this frm_eje_002"
 													oncomplete="PF('dlg_eje_006_1').show()"
 													update=":frm_eje_006_1:tabWiwe0"
 													title="Agregar Información Adicional Formulario,Proceso #{detalle.proceso.nombreProceso}"></p:commandButton>
-												<p:commandButton icon="ui-icon-queue" id="btnProcesoFrm2"
+												<p:commandButton icon="pi pi-book" id="btnProcesoFrm2"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Formulario,Proceso #{detalle.proceso.nombreProceso}"
 													rendered="#{not empty detalle.checkListProcesoEjecucionFormulario and detalle.proceso.orden eq 2}"
 													oncomplete="PF('dlg_eje_006_2').show()"
 													update=":frm_eje_006_2:tabWiwe0"></p:commandButton>
-												<p:commandButton icon="ui-icon-queue" id="btnProcesoFrm3"
+												<p:commandButton icon="pi pi-book" id="btnProcesoFrm3"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Formulario,Proceso #{detalle.proceso.nombreProceso}"
 													rendered="#{not empty detalle.checkListProcesoEjecucionFormulario and detalle.proceso.orden eq 3}"
 													oncomplete="PF('dlg_eje_006_3').show()"
 													update=":frm_eje_006_3:tabWiwe0"></p:commandButton>
-												<p:commandButton icon="ui-icon-queue" id="btnProcesoFrm4"
+												<p:commandButton icon="pi pi-book" id="btnProcesoFrm4"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Formulario,Proceso #{detalle.proceso.nombreProceso}"
 													rendered="#{not empty detalle.checkListProcesoEjecucionFormulario and detalle.proceso.orden eq 4}"
 													oncomplete="PF('dlg_eje_006_4').show()"
 													update=":frm_eje_006_3:tabWiwe0"></p:commandButton>
-												<p:commandButton icon="ui-icon-queue" id="btnProcesoFrm5"
+												<p:commandButton icon="pi pi-book" id="btnProcesoFrm5"
 													process="@this frm_eje_002"
 													title="Agregar Información Adicional Formulario,Proceso #{detalle.proceso.nombreProceso}"
 													rendered="#{not empty detalle.checkListProcesoEjecucionFormulario and detalle.proceso.orden eq 5}"
@@ -157,21 +157,21 @@
 							<p:column>
 								<h:outputText value="#{checkListKpi.descripcion}" />
 								<p:spacer width="10"></p:spacer>
-								<p:commandButton icon="fa fa-dollar" process="@this frm_eje_002"
+								<p:commandButton icon="pi pi-dollar" process="@this frm_eje_002"
 									title="Arqueo Caja General"
 									action="#{CheckListEjecucionCtrlBn.checkListKpiSeleccionadoArqueoCaja(checkListKpi)}"
 									oncomplete="PF('dlg_eje_003').show()" update=":frm_eje_003"
 									rendered="#{checkListKpi.criterioEvaluacion.tipo eq 'C'}"></p:commandButton>
-								<p:commandButton icon="fa fa-dollar" process="@this frm_eje_002"
+								<p:commandButton icon="pi pi-dollar" process="@this frm_eje_002"
 									title="Arqueo Caja Fuerte"
 									action="#{CheckListEjecucionCtrlBn.checkListKpiSeleccionadoArqueoCajaFuerte(checkListKpi)}"
 									oncomplete="PF('dlg_eje_003_1').show()" update=":frm_eje_003_1"
 									rendered="#{checkListKpi.criterioEvaluacion.tipo eq 'T'}"></p:commandButton>
-								<p:commandButton icon="fa fa-dollar" process="@this frm_eje_002"
+								<p:commandButton icon="pi pi-dollar" process="@this frm_eje_002"
 									action="#{CheckListEjecucionCtrlBn.checkListKpiSeleccionadoArqueoFondoSuelto(checkListKpi)}"
 									oncomplete="PF('dlg_eje_004').show()" update=":frm_eje_004"
 									rendered="#{checkListKpi.criterioEvaluacion.tipo eq 'F'}"></p:commandButton>
-								<p:commandButton icon="fa fa-dollar" process="@this frm_eje_002"
+								<p:commandButton icon="pi pi-dollar" process="@this frm_eje_002"
 									action="#{CheckListEjecucionCtrlBn.checkListKpiSeleccionadoArqueoCajaChica(checkListKpi)}"
 									oncomplete="PF('dlg_eje_005').show()" update=":frm_eje_005"
 									rendered="#{checkListKpi.criterioEvaluacion.tipo eq 'E'}"></p:commandButton>

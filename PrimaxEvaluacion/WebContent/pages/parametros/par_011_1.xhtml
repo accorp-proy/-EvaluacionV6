@@ -14,13 +14,13 @@
 		</f:facet>
 		<h:form id="frm_par_011_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{TipoCheckListBn.guardar()}" update=":frm_par_011"
 					oncomplete="PF('dialog_11_1').hide()" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Evaluación :" />
-				<p:selectOneMenu style="width:80% !important" required="true"
+				<p:selectOneMenu required="true"
 					value="#{TipoCheckListBn.evaluacionSeleccionado}"
 					converter="#{evaluacionConverter}">
 					<f:selectItem itemLabel="Evaluación" />
@@ -31,7 +31,8 @@
 				<p:outputLabel value="Tipo CheckList " />
 				<p:inputText
 					value="#{TipoCheckListBn.tipoChecListSeleccionado.descripcion}"
-					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
+					styleClass="w100" required="true"
+					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Genera Matríz " />
 				<p:selectBooleanCheckbox
 					value="#{TipoCheckListBn.tipoChecListSeleccionado.generaMatriz}"></p:selectBooleanCheckbox>
@@ -39,7 +40,7 @@
 				<p:selectBooleanCheckbox
 					value="#{TipoCheckListBn.tipoChecListSeleccionado.generaReporte}"></p:selectBooleanCheckbox>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{TipoCheckListBn.tipoChecListSeleccionado.estado}">
 					<f:selectItems value="#{TipoCheckListBn.estadosActIna}" />
 				</p:selectOneMenu>

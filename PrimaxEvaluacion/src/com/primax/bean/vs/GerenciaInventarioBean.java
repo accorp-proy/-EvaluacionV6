@@ -12,7 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -217,7 +217,7 @@ public class GerenciaInventarioBean extends BaseBean implements Serializable {
 			iPlanAccionInventarioTipoDao.clear();
 			planAccionInvTipo = iPlanAccionInventarioTipoDao
 					.getTipoInventarioById(planAccionInvTipo.getIdPlanAccionInventarioTipo());
-			RequestContext.getCurrentInstance().execute("PF('dlg_ger_004_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_ger_004_1').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método anadirCheckList " + " " + e.getMessage());

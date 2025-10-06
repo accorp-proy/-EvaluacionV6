@@ -13,12 +13,12 @@
 				<h2>Configuración Reporte Novedades</h2>
 			</div>
 			<div align="center">
-				<p:panelGrid styleClass="sinborde w75" columns="2">
+				<p:panelGrid styleClass="sinborde w100" columns="2">
 					<p:row></p:row>
 					<p:row>
 						<p:fieldset legend="Controles">
-							<p:panelGrid columns="4" styleClass="sinborde">
-								<p:selectOneMenu style="width:95px !important" required="false"
+							<p:panelGrid columns="6" styleClass="sinborde">
+								<p:selectOneMenu  required="false"
 									value="#{ReporteNovedadBn.evaluacionSeleccionado}"
 									converter="#{evaluacionConverter}">
 									<f:selectItem itemLabel="Evaluación" />
@@ -27,7 +27,8 @@
 										itemLabel="#{evaluacion.descripcion}" />
 									<p:ajax event="change" update="frm_par_015:cmbTipoCheck"></p:ajax>
 								</p:selectOneMenu>
-								<p:selectOneMenu id="cmbTipoCheck" style="width:90px !important"
+								<p:outputLabel></p:outputLabel>
+								<p:selectOneMenu id="cmbTipoCheck" 
 									value="#{ReporteNovedadBn.tipoChecKListSeleccionado}"
 									converter="#{tipoCheckListConverter}">
 									<f:selectItem itemLabel="Tipo CheckList" />
@@ -36,7 +37,8 @@
 										itemLabel="#{tipoCheckList.descripcion}" />
 									<p:ajax event="change" update="frm_par_015:cmbProceso"></p:ajax>
 								</p:selectOneMenu>
-								<p:selectOneMenu id="cmbProceso" style="width:90px !important"
+								<p:outputLabel></p:outputLabel>
+								<p:selectOneMenu id="cmbProceso" 
 									value="#{ReporteNovedadBn.procesoSeleccionado}"
 									converter="#{procesoConverter}">
 									<f:selectItem itemLabel="Proceso" />
@@ -78,7 +80,7 @@
 									</div>
 								</p:column>
 								<p:column width="30" headerText="Acción">
-									<p:commandButton icon="ui-icon-pencil" title="Editar"
+									<p:commandButton icon="pi pi-pencil" title="Editar"
 										action="#{ReporteNovedadBn.kpiSeleccionadoModificar(kpi)}"
 										oncomplete="PF('dialog_15_1').show()" update=":frm_par_015_1"></p:commandButton>
 								</p:column>

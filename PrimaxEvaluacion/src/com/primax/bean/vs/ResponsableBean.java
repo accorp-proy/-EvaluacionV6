@@ -10,7 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -80,7 +80,7 @@ public class ResponsableBean extends BaseBean implements Serializable {
 			iPersonaDao.guardarPersona(responsableSeleccionado.getPersona(), usuario);
 			iResponsableDao.guardarResponsable(responsableSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dlg_per_003').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_per_003').hide();");
 			buscar();
 
 		} catch (Exception e) {

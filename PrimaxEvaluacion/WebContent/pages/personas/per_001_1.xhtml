@@ -14,20 +14,20 @@
 		</f:facet>
 		<h:form id="frm_per_0011">
 			<div align="right">
-				<p:commandButton icon="ui-icon-check"
+				<p:commandButton icon="pi pi-save"
 					update=":frm_per_0011,:frm_per_001" action="#{personaBn.guardar()}"
 					title="Guardar"></p:commandButton>
 			</div>
 			<p:tabView id="tabView_00">
 				<p:tab id="tab_00" title="Información General">
-					<p:panelGrid styleClass="sinborde w100 ui-panelgrid-blank"
+					<p:panelGrid columns="2" styleClass="fullsize sinborde"
 						id="grd_data">
 						<p:row>
 							<p:column>
 								<p:outputLabel value="Identificación"></p:outputLabel>
 							</p:column>
 							<p:column>
-								<p:inputText maxlength="10"
+								<p:inputText maxlength="10" styleClass="w50"
 									value="#{personaBn.personaSeleccionada.identificacionPersona}">
 									<p:ajax process="@this" event="blur"
 										listener="#{personaBn.validarPersona()}" update="@form"></p:ajax>
@@ -40,7 +40,7 @@
 								<p:outputLabel value="Nombre Completo"></p:outputLabel>
 							</p:column>
 							<p:column>
-								<p:inputText
+								<p:inputText styleClass="w50"
 									value="#{personaBn.personaSeleccionada.nombreCompleto}"></p:inputText>
 							</p:column>
 						</p:row>
@@ -59,7 +59,7 @@
 								<p:outputLabel value="Dirección"></p:outputLabel>
 							</p:column>
 							<p:column>
-								<p:inputTextarea styleClass="w100"
+								<p:inputTextarea styleClass="w50"
 									value="#{personaBn.personaSeleccionada.direccionDomicilio}"></p:inputTextarea>
 							</p:column>
 						</p:row>
@@ -107,7 +107,7 @@
 							layout="grid" styleClass="ui-panelgrid-blank">
 							<p:signature style="width:360px;height:150px" widgetVar="sig"
 								guideline="true" value="#{personaBn.personaSeleccionada.firma}" />
-							<p:commandButton icon="fa fa-book" type="button"
+							<p:commandButton icon=" pi pi-book" type="button"
 								title="Limpiar Firma" onclick="PF('sig').clear()" />
 						</p:panelGrid>
 					</div>

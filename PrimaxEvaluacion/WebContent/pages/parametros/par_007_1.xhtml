@@ -14,21 +14,23 @@
 		</f:facet>
 		<h:form id="frm_par_007_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{TipoEstacionBn.guardar()}" update=":frm_par_007" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Tipo de Estación " />
 				<p:inputText
+				styleClass="w100"
 					value="#{TipoEstacionBn.tipoEstacionSeleccionado.descripcion}"
 					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Código"></p:outputLabel>
 				<p:inputText
+				styleClass="w100"
 					value="#{TipoEstacionBn.tipoEstacionSeleccionado.codigo}"
 					requiredMessage="Codigo es requerido" title="Ingrese codigo ">
 				</p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu  editable="false"
 					value="#{TipoEstacionBn.tipoEstacionSeleccionado.estado}">
 					<f:selectItems value="#{TipoEstacionBn.estadosActIna}" />
 				</p:selectOneMenu>

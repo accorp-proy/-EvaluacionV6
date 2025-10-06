@@ -22,8 +22,9 @@
 			<div class="ui-g ui-fluid">
 				<div class="ui-g-12">
 					<p:dataTable id="dat_rol" paginator="true" rows="8"
+						tableStyle="table-layout: auto" paginatorPosition="bottom"
 						value="#{MenuRolBn.rolesSistema}" emptyMessage="Sin Roles"
-						var="rols" reflow="true" tableStyle="table-layout: auto;">
+						var="rols" reflow="true">
 						<f:facet name="header">
 							<h:outputText value="Roles de usuarios" />
 						</f:facet>
@@ -35,12 +36,13 @@
 						</p:column>
 						<p:column>
 							<div align="center">
-								<p:commandButton icon="ui-icon-pencil"
+								<p:commandButton icon="pi pi-pencil"
 									action="#{MenuRolBn.edit(rols)}"
 									oncomplete="PF('dlg_seg_005').show()" update=":dlg_seg_005"
 									process="@this" title="Editar Rol"></p:commandButton>
+									<p:spacer width="5" ></p:spacer>
 								<p:commandButton action="#{MenuRolBn.editAcesos(rols)}"
-									icon="fa fa-shield" id="btn_edit" title="Modificar Accesos"
+									icon=" pi pi-shield" id="btn_edit" title="Modificar Accesos"
 									update=":fr_02" oncomplete="PF('dlg_seg_013').show()"></p:commandButton>
 							</div>
 						</p:column>

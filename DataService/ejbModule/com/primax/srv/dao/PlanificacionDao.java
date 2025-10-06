@@ -75,13 +75,13 @@ public class PlanificacionDao extends GenericDao<PlanificacionEt, Long> implemen
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("SELECT DISTINCT(o.planificacion) FROM CheckListEjecucionEt o ");
 		sql.append(" WHERE o.planificacion.estado  = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		sql.append(" AND date_trunc('day',o.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
 		TypedQuery<PlanificacionEt> query = em.createQuery(sql.toString(), PlanificacionEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

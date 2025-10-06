@@ -22,77 +22,72 @@
 
 				<p:growl showDetail="true" id="mensajes">
 				</p:growl>
-				<p:panelGrid id="pnl" styleClass="sinborde w120" layout="grid"
-					columns="7">
-					<f:facet name="header">
-						<p:column colspan="7">
-							<div align="left">
-								<p:outputLabel
-									value="Informacion de inventarios, planes de accion y evidencias" />
+				<div class="col-12">
+					<div class="card">
+						<h5>Filtros de Plan de Acción Inventario y Adjuntos</h5>
+						<div class="ui-fluid formgrid grid">
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbAnio"
+									value="#{TreePlanAccionInvBn.anioSeleccionado}"
+									converter="#{parametrosConverter}">
+									<f:selectItem itemLabel="Año" />
+									<f:selectItems value="#{TreePlanAccionInvBn.tipoAnioList}"
+										var="anio" itemLabel="#{anio.nombreLista}" itemValue="#{anio}"></f:selectItems>
+								</p:selectOneMenu>
 							</div>
-						</p:column>
-					</f:facet>
-					<p:column>
-						<p:selectOneMenu style="width:120px !important" id="cmbAnio"
-							value="#{TreePlanAccionInvBn.anioSeleccionado}"
-							converter="#{parametrosConverter}">
-							<f:selectItem itemLabel="Año" />
-							<f:selectItems value="#{TreePlanAccionInvBn.tipoAnioList}"
-								var="anio" itemLabel="#{anio.nombreLista}" itemValue="#{anio}"></f:selectItems>
-						</p:selectOneMenu>
-					</p:column>
-					<p:column>
-						<p:selectCheckboxMenu id="cmbMeses" style="width:120px !important"
-							value="#{TreePlanAccionInvBn.mesesSeleccionados}" label="Meses"
-							converter="#{parametrosConverter}" filter="false">
-							<f:selectItems value="#{TreePlanAccionInvBn.tipoMesList}"
-								var="mes" itemLabel="#{mes.nombreLista}" itemValue="#{mes}"></f:selectItems>
-						</p:selectCheckboxMenu>
-					</p:column>
-					<p:column>
-						<p:selectOneMenu style="width:120px !important" id="cmbZona"
-							value="#{TreePlanAccionInvBn.zonaSeleccionada}"
-							disabled="#{TreePlanAccionInvBn.tipoGerente=='true'}"
-							converter="#{zonaConverter}">
-							<f:selectItem itemLabel="Zona" />
-							<f:selectItems value="#{TreePlanAccionInvBn.tipoZonaList}"
-								var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
-							<p:ajax event="change" update="frm_par_025:cmbEstacion"></p:ajax>
-						</p:selectOneMenu>
-					</p:column>
-					<p:column>
-						<p:selectOneMenu id="cmbEstacion" style="width:70px !important"
-							value="#{TreePlanAccionInvBn.estacionSeleccionada}"
-							disabled="#{TreePlanAccionInvBn.tipoGerente=='true'}"
-							converter="#{agenciaConverter}" var="t" filter="true"
-							filterMatchMode="contains">
-							<f:selectItem itemLabel="Estación" />
-							<f:selectItems value="#{TreePlanAccionInvBn.estacionList}"
-								var="estacion" itemLabel="#{estacion.nombreAgencia}"
-								itemValue="#{estacion}" />
-							<p:column>
-								<h:outputText value="#{t.nombreAgencia}" />
-							</p:column>
-						</p:selectOneMenu>
-					</p:column>
-					<p:column>
-						<p:selectOneMenu style="width:120px !important" id="cmbTipoIv"
-							value="#{TreePlanAccionInvBn.tipoInvSeleccionado}"
-							converter="#{tipoInventarioConverter}">
-							<f:selectItem itemLabel="Tipo Inventario" />
-							<f:selectItems value="#{TreePlanAccionInvBn.tipoInvList}"
-								var="tipoInv" itemLabel="#{tipoInv.descripcion}"
-								itemValue="#{tipoInv}"></f:selectItems>
-						</p:selectOneMenu>
-					</p:column>
-					<p:column>
-						<p:commandButton icon="ui-icon-search"
-							update="frm_par_025:pnl_rep" process="@this frm_par_025"
-							action="#{TreePlanAccionInvBn.generar()}">
-						</p:commandButton>
-					</p:column>
-				</p:panelGrid>
-
+							<div class="field col-12 md:col-2">
+								<p:selectCheckboxMenu id="cmbMeses"
+									value="#{TreePlanAccionInvBn.mesesSeleccionados}" label="Meses"
+									converter="#{parametrosConverter}" filter="false">
+									<f:selectItems value="#{TreePlanAccionInvBn.tipoMesList}"
+										var="mes" itemLabel="#{mes.nombreLista}" itemValue="#{mes}"></f:selectItems>
+								</p:selectCheckboxMenu>
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbZona"
+									value="#{TreePlanAccionInvBn.zonaSeleccionada}"
+									disabled="#{TreePlanAccionInvBn.tipoGerente=='true'}"
+									converter="#{zonaConverter}">
+									<f:selectItem itemLabel="Zona" />
+									<f:selectItems value="#{TreePlanAccionInvBn.tipoZonaList}"
+										var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
+									<p:ajax event="change" update="frm_par_025:cmbEstacion"></p:ajax>
+								</p:selectOneMenu>
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbEstacion"
+									value="#{TreePlanAccionInvBn.estacionSeleccionada}"
+									disabled="#{TreePlanAccionInvBn.tipoGerente=='true'}"
+									converter="#{agenciaConverter}" var="t" filter="true"
+									filterMatchMode="contains">
+									<f:selectItem itemLabel="Estación" />
+									<f:selectItems value="#{TreePlanAccionInvBn.estacionList}"
+										var="estacion" itemLabel="#{estacion.nombreAgencia}"
+										itemValue="#{estacion}" />
+									<p:column>
+										<h:outputText value="#{t.nombreAgencia}" />
+									</p:column>
+								</p:selectOneMenu>
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:selectOneMenu id="cmbTipoIv"
+									value="#{TreePlanAccionInvBn.tipoInvSeleccionado}"
+									converter="#{tipoInventarioConverter}">
+									<f:selectItem itemLabel="Tipo Inventario" />
+									<f:selectItems value="#{TreePlanAccionInvBn.tipoInvList}"
+										var="tipoInv" itemLabel="#{tipoInv.descripcion}"
+										itemValue="#{tipoInv}"></f:selectItems>
+								</p:selectOneMenu>
+							</div>
+							<div class="field col-12 md:col-2">
+								<p:commandButton icon="pi pi-search"
+									update="frm_par_025:pnl_rep" process="@this frm_par_025"
+									action="#{TreePlanAccionInvBn.generar()}">
+								</p:commandButton>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div align="center">
 					<h2>Planes de acción organizados por carpetas</h2>
 				</div>
@@ -111,7 +106,7 @@
 						<p:column headerText="Acción">
 							<div align="center">
 								<p:commandButton rendered="#{document.tipo eq 'Plan'}"
-									icon="fa fa-file-text-o" immediate="true" ajax="false"
+									icon="pi pi-cloud-download" immediate="true" ajax="false"
 									title="Descargar Plan Acción"
 									actionListener="#{ReporteBn.imprimirExcel(29,'ADM',document.id0.toString(),document.id1.toString(),'1',null,null,null,null,null,null,false)}">
 									<p:fileDownload value="#{appMain.download}" />
@@ -122,19 +117,19 @@
 									value="#{TreePlanAccionInvBn.adjuntoTienda(document.id0)}"
 									oncomplete="PF('dlg_par_025_1').show();"
 									title="Evidencias del Plan de Acción" update=":frm_par_025_1"
-									icon="fa fa-file-archive-o"></p:commandButton>
+									icon="pi pi-window-minimize"></p:commandButton>
 								<p:commandButton
 									rendered="#{document.tipo eq 'Plan' and document.nombre eq 'COMBUSTIBLE'}"
 									value="#{TreePlanAccionInvBn.adjuntoCombustible(document.id0)}"
 									oncomplete="PF('dlg_par_025_2').show();"
 									title="Evidencias del Plan de Acción" update=":frm_par_025_2"
-									icon="fa fa-file-archive-o"></p:commandButton>
+									icon="pi pi-external-link"></p:commandButton>
 								<p:commandButton
 									rendered="#{document.tipo eq 'Plan' and document.nombre eq 'PROMOCIONES Y LUBRICANTES'}"
 									value="#{TreePlanAccionInvBn.adjuntoPromocion(document.id0)}"
 									oncomplete="PF('dlg_par_025_3').show();"
 									title="Evidencias del Plan de Acción" update=":frm_par_025_3"
-									icon="fa fa-file-archive-o"></p:commandButton>
+									icon="pi pi-external-link"></p:commandButton>
 							</div>
 						</p:column>
 

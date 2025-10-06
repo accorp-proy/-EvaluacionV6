@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_014_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{EvaluacionBn.guardar()}" update=":frm_par_014"
 					oncomplete="PF('dialog_14_1').hide()" />
 			</div>
@@ -31,7 +31,7 @@
 						itemLabel="#{criterio}" itemValue="#{criterio}" />
 				</p:selectOneRadio>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu  editable="false"
 					value="#{EvaluacionBn.evaluacionSeleccionado.estado}">
 					<f:selectItems value="#{EvaluacionBn.estadosActIna}" />
 				</p:selectOneMenu>

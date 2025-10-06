@@ -11,7 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import com.primax.ejb.lkp.BaseNaming;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
+
 
 public abstract class BaseBean extends BaseNaming {
 
@@ -40,10 +41,7 @@ public abstract class BaseBean extends BaseNaming {
 		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	}
 
-	protected static RequestContext getRequestContext() {
-		RequestContext requestContext = RequestContext.getCurrentInstance();
-		return requestContext;
-	}
+	
 
 	protected static String getUserName() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);

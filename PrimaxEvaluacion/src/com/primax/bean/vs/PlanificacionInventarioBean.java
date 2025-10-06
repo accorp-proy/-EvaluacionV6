@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,9 +17,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.apache.commons.fileupload.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.schedule.ScheduleEntryResizeEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.LazyScheduleModel;
@@ -38,6 +41,7 @@ import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.pla.CheckListEt;
 import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
+import com.primax.jpa.pla.PlanificacionEt;
 import com.primax.jpa.pla.PlanificacionInventarioEt;
 import com.primax.jpa.pla.PlanificacionInventarioTipoEt;
 import com.primax.jpa.pla.PlanificacionParticipanteEt;
@@ -132,7 +136,7 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 					enviarEmail(planificacionSeleccionada);
 				}
 				iPlanificacionDao.guardarPlanificacionInventario(planificacionSeleccionada, usuario);
-				RequestContext.getCurrentInstance().execute("PF('dlg_pln_012').hide();");
+				PrimeFaces.current().executeScript("PF('dlg_pln_012').hide();");
 				inicializarObj();
 				buscar();
 			} else {
@@ -251,6 +255,14 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 		}
 	}
 
+	public Date convertToD(LocalDateTime dateToConvert) {
+		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	public LocalDateTime convertToL(Date dateToConvert) {
+		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
+
 	public void inicializarCalendario() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -258,10 +270,12 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
-						planificaciones = iPlanificacionDao.getPlanificacionInventarioList(desde, hasta);
-						DefaultScheduleEvent scheduleEventAllDay;
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
+						planificaciones = iPlanificacionDao.getPlanificacionInventarioList(desdeD, hastaD);
+						DefaultScheduleEvent<PlanificacionInventarioEt> scheduleEventAllDay;
 						String estado = "";
 						String estacion = "";
 						String inventario = "";
@@ -288,35 +302,36 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 							}
 							leyenda0 = estacion + responsable + participante + estado + inventario;
 							switch (planificacion.getEstadoInventario().getDescripcion()) {
-								case "AGENDADA":
-									tema = "schedule-agendada";
-									break;
-								case "EN EJECUCION":
-									tema = "schedule-en-ejecucion";
-									break;
-								case "EJECUTADO":
-									tema = "schedule-ejecutado";
-									break;
-								case "NO EJECUTADO":
-									tema = "schedule-no-ejecutado";
-									break;
-								case "INCONCLUSO":
-									tema = "schedule-inconcluso";
-									break;
+							case "AGENDADA":
+								tema = "schedule-agendada";
+								break;
+							case "EN EJECUCION":
+								tema = "schedule-en-ejecucion";
+								break;
+							case "EJECUTADO":
+								tema = "schedule-ejecutado";
+								break;
+							case "NO EJECUTADO":
+								tema = "schedule-no-ejecutado";
+								break;
+							case "INCONCLUSO":
+								tema = "schedule-inconcluso";
+								break;
 							}
-
-							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+							scheduleEventAllDay.setTextColor(tema);
 							scheduleEventAllDay.setData(planificacion);
+							scheduleEventAllDay.setTitle(planificacion.getAgencia().getNombreAgencia());
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacionInventario()));
 							scheduleEventAllDay.setDescription(leyenda0);
 							scheduleEventAllDay.setAllDay(true);
 							eventModel.addEvent(scheduleEventAllDay);
 						}
 
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}
@@ -341,7 +356,7 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 		try {
 			bloqueo = false;
 			inicializarObj();
-			Date date = (Date) selectEvent.getObject();
+			LocalDateTime dateL = (LocalDateTime) selectEvent.getObject();
 			Calendar calendar0 = Calendar.getInstance();
 			Calendar calendar1 = Calendar.getInstance();
 			int hour = calendar1.get(Calendar.HOUR);
@@ -349,7 +364,8 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 			int second = calendar1.get(Calendar.SECOND);
 			int m = calendar1.get(Calendar.AM_PM);
 			calendar1.setTime(new Date());
-			calendar0.setTime(date);
+			Date dateD = convertToD(dateL);
+			calendar0.setTime(dateD);
 			int month = calendar1.get(Calendar.MONTH);
 			calendar0.add(Calendar.DATE, 1);
 			calendar0.set(Calendar.HOUR, hour);
@@ -363,8 +379,8 @@ public class PlanificacionInventarioBean extends BaseBean implements Serializabl
 			planificacionSeleccionada.setPlanificacionInventarioTipo(new ArrayList<>());
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa ");
 			String strDate = dateFormat.format(calendar0.getTime());
-			date = dateFormat.parse(strDate);
-			planificacionSeleccionada.setFechaPlanificacion(date);
+			dateD = dateFormat.parse(strDate);
+			planificacionSeleccionada.setFechaPlanificacion(dateD);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			System.out.println("Error :Método onDateSelect " + " " + e.getMessage());

@@ -12,7 +12,7 @@
 		</f:facet>
 		<h:form id="frm_eje_003_1">
 			<p:growl showDetail="false" id="mensajes"></p:growl>
-			<p:panelGrid columns="5" styleClass="sinborde w120" layout="grid"
+			<p:panelGrid columns="6" styleClass="sinborde w120" layout="grid"
 				columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-6">
 				<p:column>
 					<p:commandButton title="Descargar en formato Pdf"
@@ -61,7 +61,7 @@
 			<p:dataTable id="dtbArqueoCaja" var="arqueoCaja"
 				value="#{CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.arqueoCajaFuerte}"
 				sortBy="#{arqueoCaja.orden}" expandableRowGroups="true">
-				<p:headerRow>
+				<p:headerRow groupBy="#{arqueoCaja.orden}" >
 					<p:column colspan="5">
 						<h:outputText value="#{arqueoCaja.subDescripcion}" />
 					</p:column>

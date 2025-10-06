@@ -13,7 +13,7 @@
 					<p:row>
 						<p:column>
 							<div align="left">
-								<p:outputLabel value="Parametros Generales "></p:outputLabel>
+								<p:outputLabel value="Parametros Generales " style="font-weight: bold;"></p:outputLabel>
 								<p:outputLabel value="par_002.xhtml"
 									rendered="#{appMain.usuario.idUsuario eq 1}"></p:outputLabel>
 							</div>
@@ -24,19 +24,19 @@
 									value="#{parametroGeneralBn.textoBusquedaParametro}"></p:inputText>
 								<p:commandButton title="Buscar"
 									action="#{parametroGeneralBn.buscar()}" update="dtbParametro"
-									icon="ui-icon-search" styleClass="secondary"></p:commandButton>
+									icon=" pi pi-search" styleClass="secondary"></p:commandButton>
 								<p:commandButton title="Nuevo" update=":frm_002_1"
 									action="#{parametroGeneralBn.nuevoParametro()}"
 									oncomplete="PF('dialog_par_002_1').show()"
-									icon="ui-icon-open-in-new" styleClass="secondary"></p:commandButton>
+									icon="pi pi-tablet" styleClass="secondary"></p:commandButton>
 							</div>
 						</p:column>
 					</p:row>
 				</f:facet>
 			</p:panelGrid>
-			<p:dataTable paginator="true" rows="15" reflow="true"
-				tableStyle="table-layout: auto" style="margin-bottom:20px"
-				rowsPerPageTemplate="5,10,15" emptyMessage="No existe coincidencia"
+			<p:dataTable paginator="true" rows="10" reflow="true"
+				tableStyle="table-layout: auto" paginatorPosition="bottom" 
+				 emptyMessage="No existe coincidencia"
 				id="dtbParametro"
 				value="#{parametroGeneralBn.listaParametrosGenerales}" var="par">
 				<p:column headerText="Código" style="text-align:center">
@@ -57,11 +57,11 @@
 					<h:outputText value="#{par.parametros.size()}"></h:outputText>
 				</p:column>
 				<p:column style="text-align:center">
-					<p:commandButton icon="ui-icon-pencil" title="Editar"
+					<p:commandButton icon="pi pi-pencil" title="Editar"
 						action="#{parametroGeneralBn.cargarParametroPadreSeleccionado(par)}"
 						oncomplete="PF('dialog_par_002_1').show()" update=":frm_002_1"></p:commandButton>
 					<p:spacer width="20px"></p:spacer>
-					<p:commandButton icon="ui-icon-trash" title="Eliminar"
+					<p:commandButton icon="pi pi-trash" title="Eliminar"
 						action="#{parametroGeneralBn.cargarParametroPadreEliminar(par)}"
 						oncomplete="PF('dlg_conf').show()"></p:commandButton>
 				</p:column>

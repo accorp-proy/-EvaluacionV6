@@ -21,7 +21,7 @@
 						<p:column>
 							<div align="right">
 								<p:spacer></p:spacer>
-								<p:selectOneMenu style="width:95px !important" required="false"
+								<p:selectOneMenu  required="false"
 									value="#{CriterioEvaluacionBn.evaluacionSeleccionado}"
 									converter="#{evaluacionConverter}">
 									<f:selectItem itemLabel="Evaluación" />
@@ -31,7 +31,7 @@
 									<p:ajax event="change" update="frm_par_013:cmbTipoCheck"></p:ajax>
 								</p:selectOneMenu>
 								<p:spacer width="10"></p:spacer>
-								<p:selectOneMenu id="cmbTipoCheck" style="width:95px !important"
+								<p:selectOneMenu id="cmbTipoCheck" 
 									required="false"
 									value="#{CriterioEvaluacionBn.tipoChecKListSeleccionado}"
 									converter="#{tipoCheckListConverter}">
@@ -45,19 +45,19 @@
 									value="#{CriterioEvaluacionBn.condicion}"></p:inputText>
 								<p:commandButton title="Buscar"
 									action="#{CriterioEvaluacionBn.buscar()}"
-									update="dtbcriterioEvaluacion" icon="ui-icon-search"
+									update="dtbcriterioEvaluacion" icon="pi pi-search"
 									styleClass="secondary"></p:commandButton>
 								<p:commandButton title="Nuevo" update=":frm_par_013_1"
 									action="#{CriterioEvaluacionBn.nuevo()}"
 									oncomplete="PF('dialog_13_1').show()"
-									icon="ui-icon-open-in-new" styleClass="secondary"></p:commandButton>
+									icon="pi pi-tablet" styleClass="secondary"></p:commandButton>
 							</div>
 						</p:column>
 					</p:row>
 				</f:facet>
 			</p:panelGrid>
-			<p:dataTable paginator="true" rows="7" reflow="true"
-				tableStyle="table-layout: auto;" style="margin-bottom:20px"
+			<p:dataTable paginator="true" rows="10" reflow="true"
+				tableStyle="table-layout: auto" paginatorPosition="bottom"
 				emptyMessage="No existe Criterio Evaluacion"
 				id="dtbcriterioEvaluacion"
 				value="#{CriterioEvaluacionBn.criterioEvaluaciones}"
@@ -79,14 +79,12 @@
 					<h:outputText value="#{criterioEvaluacion.estado.descripcion}"></h:outputText>
 				</p:column>
 				<p:column width="30" headerText="Editar">
-					<p:commandButton icon="ui-icon-pencil" title="Editar"
-						
+					<p:commandButton icon="pi pi-pencil" title="Editar"
 						action="#{CriterioEvaluacionBn.modificar(criterioEvaluacion)}"
 						oncomplete="PF('dialog_13_1').show()" update=":frm_par_013_1"></p:commandButton>
 				</p:column>
 				<p:column width="30" headerText="Detalle">
-					<p:commandButton icon="ui-icon-pencil" title="Editar"
-						
+					<p:commandButton icon="pi pi-pencil" title="Editar"
 						action="#{CriterioEvaluacionBn.modificar(criterioEvaluacion)}"
 						oncomplete="PF('dialog_13_2').show()" update=":frm_par_013_2"></p:commandButton>
 				</p:column>

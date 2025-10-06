@@ -20,7 +20,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
@@ -480,7 +480,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucion, appMain.getUsuario());
 			CheckListEjecucionAdjuntoEt reg = new CheckListEjecucionAdjuntoEt();
 			reg.setCheckListEjecucion(checkListEjecucion);
-			reg.setFile(event.getFile().getInputstream());
+			reg.setFile(event.getFile().getInputStream());
 			nombreArchivoR = moveChar(event.getFile().getFileName());
 			nombreArchivo = nombreArchivoR.replace(" ", "_");
 			reg.setNombreAdjunto(nombreArchivo);
@@ -1445,7 +1445,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			for (CheckListProcesoEjecucionFormularioEt formulario : pro01Frm03List) {
 				iCheckListProEjeFormDao.guardarCheckListProEjeForm(formulario, usuario);
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_eje_001_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_eje_001_1').hide();");
 			cargarForularioCheckList(checkListEjecucion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1488,7 +1488,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			for (CheckListProcesoEjecucionFormularioEt formulario : pro02Frm03List) {
 				iCheckListProEjeFormDao.guardarCheckListProEjeForm(formulario, usuario);
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_eje_001_2').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_eje_001_2').hide();");
 			cargarForularioCheckList(checkListEjecucion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1531,7 +1531,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			for (CheckListProcesoEjecucionFormularioEt formulario : pro03Frm03List) {
 				iCheckListProEjeFormDao.guardarCheckListProEjeForm(formulario, usuario);
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_eje_001_3').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_eje_001_3').hide();");
 			cargarForularioCheckList(checkListEjecucion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1574,7 +1574,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			for (CheckListProcesoEjecucionFormularioEt formulario : pro04Frm03List) {
 				iCheckListProEjeFormDao.guardarCheckListProEjeForm(formulario, usuario);
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_eje_001_4').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_eje_001_4').hide();");
 			cargarForularioCheckList(checkListEjecucion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1617,7 +1617,7 @@ public class CheckListEjecucionBean extends BaseBean implements Serializable {
 			for (CheckListProcesoEjecucionFormularioEt formulario : pro05Frm03List) {
 				iCheckListProEjeFormDao.guardarCheckListProEjeForm(formulario, usuario);
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_eje_001_5').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_eje_001_5').hide();");
 			cargarForularioCheckList(checkListEjecucion);
 		} catch (Exception e) {
 			e.printStackTrace();

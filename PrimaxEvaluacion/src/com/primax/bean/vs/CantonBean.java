@@ -12,7 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -124,7 +124,7 @@ public class CantonBean extends BaseBean implements Serializable {
 			}
 			buscar();
 			showInfo("Dato Guardado", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_04_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_04_1').hide();");
 		} catch (EntidadNoGrabadaException e) {
 			e.printStackTrace();
 		}

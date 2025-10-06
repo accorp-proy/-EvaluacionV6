@@ -53,7 +53,7 @@ public class ProcesoDao extends GenericDao<ProcesoEt, Long> implements IProcesoD
 	public List<ProcesoEt> getProcesoList(UsuarioEt usuario,TipoChecKListEt tipoChecKList, String condicion) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM ProcesoEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.tipoChecKList.evaluacion in (:evaluaciones) ");
 		}
 		if (tipoChecKList != null) {
@@ -66,7 +66,7 @@ public class ProcesoDao extends GenericDao<ProcesoEt, Long> implements IProcesoD
 		TypedQuery<ProcesoEt> query = em.createQuery(sql.toString(), ProcesoEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

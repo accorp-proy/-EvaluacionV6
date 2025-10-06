@@ -14,17 +14,18 @@
 		</f:facet>
 		<h:form id="frm_par_009_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{TipoCargoBn.guardar()}" update=":frm_par_009"
 					oncomplete="PF('dialog_09_1').hide()" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Descripción Cargo " />
-				<p:inputText
+				<p:inputText styleClass="w100"
 					value="#{TipoCargoBn.tipoCargoSeleccionado.descripcion}"
 					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Firma" />
 				<p:inputText value="#{TipoCargoBn.tipoCargoSeleccionado.firma}"
+				styleClass="w100"
 					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
 				<p:selectOneMenu style="width:50% !important" editable="false"

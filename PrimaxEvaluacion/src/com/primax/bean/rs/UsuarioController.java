@@ -13,7 +13,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.UsuarioBean;
@@ -190,8 +190,7 @@ public class UsuarioController extends BaseBean implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		RequestContext.getCurrentInstance().execute("PF('dialog_04').hide()");
+		PrimeFaces.current().executeInitScript("PF('dialog_04').hide()");
 	}
 
 	public void eliminaRol(RolUsuarioEt rolUsuario) {

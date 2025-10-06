@@ -17,10 +17,10 @@
 			<p:growl showDetail="false" id="mensajes">
 			</p:growl>
 			<br />
-			<p:panelGrid columns="5" layout="grid" styleClass="fullsize sinborde"
+			<p:panelGrid columns="6" layout="grid" styleClass="fullsize sinborde"
 				style="width:100%" id="pngGneral3">
 				<p:outputLabel value="Nombre" />
-				<p:inputText
+				<p:inputText styleClass="w100"
 					value="#{parametroGeneralBn.parametroGeneralPadreSeleccionado.nombreLista}"
 					required="true"
 					requiredMessage="El Nombre del parametro es requerido"></p:inputText>
@@ -40,13 +40,13 @@
 					<p:outputLabel value="Valor"></p:outputLabel>
 					<p:outputLabel value="Orden"></p:outputLabel>
 					<p:outputLabel></p:outputLabel>
-					<p:inputText
+					<p:inputText styleClass="w75"
 						value="#{parametroGeneralBn.parametroGeneralHijoSeleccionado.nombreLista}"></p:inputText>
 					<p:inputTextarea title="Ingrese Valor o Descripción"
 						id="inpTextArea1"
 						value="#{parametroGeneralBn.parametroGeneralHijoSeleccionado.valorLista}"
 						rows="4" styleClass="w100" maxlength="1000" style="width:100%"></p:inputTextarea>
-					<p:inputText title="Ingrese Orden de la lista"
+					<p:inputText title="Ingrese Orden de la lista" styleClass="w50"
 						value="#{parametroGeneralBn.parametroGeneralHijoSeleccionado.orden}"></p:inputText>
 					<p:commandButton value="Agregar" process="@this gridHijos"
 						action="#{parametroGeneralBn.agregarHijo()}"
@@ -72,10 +72,10 @@
 						<h:outputText value="#{hij.orden}" />
 					</p:column>
 					<p:column style="text-align:center">
-						<p:commandButton icon="ui-icon-pencil" title="Editar"
+						<p:commandButton icon=" pi pi-pencil" title="Editar"
 							action="#{parametroGeneralBn.cargarParametroHijoSeleccionado(hij)}"
 							update=":frm_002_1:gridHijos"></p:commandButton>
-						<p:commandButton icon="ui-icon-trash" title="Eliminar"
+						<p:commandButton icon="pi pi-trash" title="Eliminar"
 							action="#{parametroGeneralBn.eliminarParametroHijo(hij)}"
 							update=":frm_002_1:gridHijos,dtbHijo"></p:commandButton>
 					</p:column>

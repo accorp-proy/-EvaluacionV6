@@ -13,7 +13,7 @@
 					<p:row>
 						<p:column>
 							<div align="left">
-								<p:outputLabel value="Estación "></p:outputLabel>
+								<p:outputLabel value="Estación " style="font-weight: bold;"></p:outputLabel>
 								<p:outputLabel value="par_006.xhtml"
 									rendered="#{appMain.usuario.idUsuario eq 1}"></p:outputLabel>
 							</div>
@@ -22,19 +22,19 @@
 							<div align="right">
 								<p:inputText id="inpBusqueda" value="#{agenciaBn.textoBusqueda}"></p:inputText>
 								<p:commandButton title="Buscar" action="#{agenciaBn.buscar()}"
-									update="dtbAgencia" icon="ui-icon-search"
+									update="dtbAgencia" icon="pi pi-search"
 									styleClass="secondary"></p:commandButton>
 								<p:commandButton title="Nuevo" update=":frm_006_1"
 									action="#{agenciaBn.nuevo()}"
 									oncomplete="PF('dialog_06_1').show()"
-									icon="ui-icon-open-in-new" styleClass="secondary"></p:commandButton>
+									icon="pi pi-tablet" styleClass="secondary"></p:commandButton>
 							</div>
 						</p:column>
 					</p:row>
 				</f:facet>
 			</p:panelGrid>
 			<p:dataTable paginator="true" reflow="true" rows="15"
-				tableStyle="table-layout: auto" style="margin-bottom:20px"
+				tableStyle="table-layout: auto" paginatorPosition="bottom" 
 				id="dtbAgencia" emptyMessage="No existe agencias"
 				value="#{agenciaBn.agencias}" var="agencia">
 				<p:column headerText="Código Estación">
@@ -54,7 +54,7 @@
 				</p:column>
 				<p:column width="40" headerText="Editar">
 					<div align="right">
-						<p:commandButton icon="ui-icon-pencil" update=":frm_006_1"
+						<p:commandButton icon="pi pi-pencil" update=":frm_006_1"
 							process="@this frm_par_006" oncomplete="PF('dialog_06_1').show()"
 							action="#{agenciaBn.modificar(agencia)}" title="Editar">
 						</p:commandButton>

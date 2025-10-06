@@ -10,112 +10,119 @@
 			<h:outputScript library="js" name="calendar.js" />
 			<p:growl showDetail="true" id="mensajes">
 			</p:growl>
-			<p:panelGrid styleClass="sinborde w110" columns="10" layout="grid">
-				<p:row>
-					<p:fieldset legend="Reporte estatus de evaluacion">
-						<p:panelGrid columns="10" styleClass="sinborde" layout="grid">
-							<p:column>
-								<p:selectOneMenu style="width:65px !important" id="cmbUsuario"
-									rendered="#{CheckListEjecutadoBn.condicionA}"
-									value="#{CheckListEjecutadoBn.usuarioSeleccionado}"
-									converter="#{usuarioConverter}">
-									<f:selectItem itemLabel="Usuario" />
-									<f:selectItems value="#{CheckListEjecutadoBn.listUsuario}"
-										var="usuario" itemLabel="#{usuario.nombreUsuario}"
-										itemValue="#{usuario}"></f:selectItems>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:60px !important" id="cmbZona"
-									value="#{CheckListEjecutadoBn.zonaSeleccionada}"
-									converter="#{zonaConverter}">
-									<f:selectItem itemLabel="Zona" />
-									<f:selectItems value="#{CheckListEjecutadoBn.tipoZonaList}"
-										var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
-									<p:ajax event="change" update="frm_rpt_001:cmbEstacion"></p:ajax>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu id="cmbEstacion" style="width:70px !important"
-									value="#{CheckListEjecutadoBn.estacionSeleccionada}"
-									converter="#{agenciaConverter}" var="t" filter="true"
-									filterMatchMode="contains">
-									<f:selectItem itemLabel="Estación" />
-									<f:selectItems value="#{CheckListEjecutadoBn.estacionList}"
-										var="estacion" itemLabel="#{estacion.nombreAgencia}"
-										itemValue="#{estacion}" />
-									<p:column>
-										<h:outputText value="#{t.nombreAgencia}" />
-									</p:column>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu id="cmbEvaluacion"
-									style="width:80px !important"
-									value="#{CheckListEjecutadoBn.evaluacionSeleccionada}"
-									converter="#{evaluacionConverter}">
-									<f:selectItem itemLabel="Evaluación" />
-									<f:selectItems value="#{CheckListEjecutadoBn.evaluacionList}"
-										var="evaluacion" itemValue="#{evaluacion}"
-										itemLabel="#{evaluacion.descripcion}" />
-									<p:ajax event="change" update="frm_rpt_001:cmbTipoCheck"></p:ajax>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu id="cmbTipoCheck"
-									style="width:100px !important"
-									value="#{CheckListEjecutadoBn.tipoChecKListSeleccionado}"
-									converter="#{tipoCheckListConverter}">
-									<f:selectItem itemLabel="Tipo CheckList" />
-									<f:selectItems value="#{CheckListEjecutadoBn.tiposChecKList}"
-										var="tipoCheckList" itemValue="#{tipoCheckList}"
-										itemLabel="#{tipoCheckList.descripcion}" />
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:100px !important"
-									id="cmbNivelEvaluacion"
-									value="#{CheckListEjecutadoBn.nivelEvaluacionSeleccionado}"
-									converter="#{nivelEvaluacionConverter}">
-									<f:selectItem itemLabel="Nivel Evaluación" />
-									<f:selectItems
-										value="#{CheckListEjecutadoBn.nivelEvaluacionList}"
-										var="nivelEvaluacion" itemValue="#{nivelEvaluacion}"
-										itemLabel="#{nivelEvaluacion.descripcion}" />
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{CheckListEjecutadoBn.fDesde}" size="10"
-									placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
-									pattern="dd/MM/yyy" locale="es">
-								</p:calendar>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{CheckListEjecutadoBn.fHasta}" size="10"
-									placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
-									pattern="dd/MM/yyy" locale="es">
-								</p:calendar>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:70px !important" editable="false"
-									value="#{CheckListEjecutadoBn.estadoCheckListSeleccionado}">
-									<f:selectItems value="#{CheckListEjecutadoBn.estadoCheckList}" />
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:commandButton title="Botón permite realizar busqueda"
-									icon="ui-icon-search" action="#{CheckListEjecutadoBn.buscar()}"
-									update="dtbCheckListEjecucion">
-								</p:commandButton>
-							</p:column>
-						</p:panelGrid>
-					</p:fieldset>
-				</p:row>
-			</p:panelGrid>
+			<p:fieldset legend="Reporte estatus de evaluacion">
+				
+					<div class="col-12">
+						<div class="card">
+							<div class="ui-fluid formgrid grid">
+								<div class="field col-12 md:col-2">
+									<p:selectOneMenu id="cmbUsuario"
+										rendered="#{CheckListEjecutadoBn.condicionA}"
+										value="#{CheckListEjecutadoBn.usuarioSeleccionado}"
+										converter="#{usuarioConverter}">
+										<f:selectItem itemLabel="Usuario" />
+										<f:selectItems value="#{CheckListEjecutadoBn.listUsuario}"
+											var="usuario" itemLabel="#{usuario.nombreUsuario}"
+											itemValue="#{usuario}"></f:selectItems>
+									</p:selectOneMenu>
+								</div>
+								<div class="field col-12 md:col-2">
+									<p:selectOneMenu id="cmbZona"
+										value="#{CheckListEjecutadoBn.zonaSeleccionada}"
+										converter="#{zonaConverter}">
+										<f:selectItem itemLabel="Zona" />
+										<f:selectItems value="#{CheckListEjecutadoBn.tipoZonaList}"
+											var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
+										<p:ajax event="change" update="frm_rpt_001:cmbEstacion"></p:ajax>
+									</p:selectOneMenu>
+								</div>
+
+								<div class="field col-12 md:col-1">
+									<p:selectOneMenu id="cmbEstacion"
+										value="#{CheckListEjecutadoBn.estacionSeleccionada}"
+										converter="#{agenciaConverter}" var="t" filter="true"
+										filterMatchMode="contains">
+										<f:selectItem itemLabel="Estación" />
+										<f:selectItems value="#{CheckListEjecutadoBn.estacionList}"
+											var="estacion" itemLabel="#{estacion.nombreAgencia}"
+											itemValue="#{estacion}" />
+										<p:column>
+											<h:outputText value="#{t.nombreAgencia}" />
+										</p:column>
+									</p:selectOneMenu>
+								</div>
+
+								<div class="field col-12 md:col-1">
+									<p:selectOneMenu id="cmbEvaluacion"
+										style="width:80px !important"
+										value="#{CheckListEjecutadoBn.evaluacionSeleccionada}"
+										converter="#{evaluacionConverter}">
+										<f:selectItem itemLabel="Evaluación" />
+										<f:selectItems value="#{CheckListEjecutadoBn.evaluacionList}"
+											var="evaluacion" itemValue="#{evaluacion}"
+											itemLabel="#{evaluacion.descripcion}" />
+										<p:ajax event="change" update="frm_rpt_001:cmbTipoCheck"></p:ajax>
+									</p:selectOneMenu>
+								</div>
+
+								<div class="field col-12 md:col-1">
+									<p:selectOneMenu id="cmbTipoCheck"
+										value="#{CheckListEjecutadoBn.tipoChecKListSeleccionado}"
+										converter="#{tipoCheckListConverter}">
+										<f:selectItem itemLabel="Tipo CheckList" />
+										<f:selectItems value="#{CheckListEjecutadoBn.tiposChecKList}"
+											var="tipoCheckList" itemValue="#{tipoCheckList}"
+											itemLabel="#{tipoCheckList.descripcion}" />
+									</p:selectOneMenu>
+								</div>
+
+								<div class="field col-12 md:col-1">
+									<p:selectOneMenu id="cmbNivelEvaluacion"
+										value="#{CheckListEjecutadoBn.nivelEvaluacionSeleccionado}"
+										converter="#{nivelEvaluacionConverter}">
+										<f:selectItem itemLabel="Nivel Evaluación" />
+										<f:selectItems
+											value="#{CheckListEjecutadoBn.nivelEvaluacionList}"
+											var="nivelEvaluacion" itemValue="#{nivelEvaluacion}"
+											itemLabel="#{nivelEvaluacion.descripcion}" />
+									</p:selectOneMenu>
+								</div>
+
+								<div class="field col-12 md:col-1">
+									<p:calendar value="#{CheckListEjecutadoBn.fDesde}" 
+										placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
+										pattern="dd/MM/yyy" locale="es">
+									</p:calendar>
+								</div>
+								<div class="field col-12 md:col-1">
+									<p:calendar value="#{CheckListEjecutadoBn.fHasta}"
+										placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
+										pattern="dd/MM/yyy" locale="es">
+									</p:calendar>
+								</div>
+								<div class="field col-12 md:col-1">
+									<p:selectOneMenu  editable="false"
+										value="#{CheckListEjecutadoBn.estadoCheckListSeleccionado}">
+										<f:selectItems value="#{CheckListEjecutadoBn.estadoCheckList}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="field col-12 md:col-1">
+									<p:commandButton title="Botón permite realizar busqueda"
+										icon="pi pi-search"
+										action="#{CheckListEjecutadoBn.buscar()}"
+										update="dtbCheckListEjecucion">
+									</p:commandButton>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+			</p:fieldset>
+
 
 			<div align="center">
 				<p:dataTable paginator="true" rows="7" reflow="true"
-					tableStyle="table-layout: auto;" style="margin-bottom:20px"
+					tableStyle="table-layout: auto" paginatorPosition="bottom" 
 					emptyMessage="No existe CheckList Ejecutados"
 					id="dtbCheckListEjecucion"
 					value="#{CheckListEjecutadoBn.checkListEjecuciones}"
@@ -211,7 +218,7 @@
 					-->
 					<p:column width="5" headerText="Reportes">
 						<div align="center">
-							<p:commandButton icon="ui-icon-event-available"
+							<p:commandButton icon="pi pi-print"
 								update=":frm_rpt_001_1"
 								action="#{CheckListEjecutadoBn.checkListR(checkEjecucion)}"
 								title="Botón permite descargar y visualizar reportes"

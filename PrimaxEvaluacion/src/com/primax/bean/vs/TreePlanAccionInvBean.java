@@ -15,7 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
@@ -257,7 +257,7 @@ public class TreePlanAccionInvBean extends BaseBean implements Serializable {
 			}
 			iPlanAccionInvCategoriaDao.guardarPlanAccionInvCategoria(plnAcionInvCatSeleccionado, usuario);
 			showInfo("Dato Guardado", FacesMessage.SEVERITY_INFO, null, null);
-			RequestContext.getCurrentInstance().execute("PF('dlg_par_025_4').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_par_025_4').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método guardar " + " " + e.getMessage());
@@ -345,7 +345,7 @@ public class TreePlanAccionInvBean extends BaseBean implements Serializable {
 			PlanAccionInvCategoriaAdjuntoEt reg = new PlanAccionInvCategoriaAdjuntoEt();
 			reg.setNombreAdjunto(nombreArchivo);
 			reg.setPlanAccionInvCategoria(plnAcionInvCatSeleccionado);
-			reg.setFile(event.getFile().getInputstream());
+			reg.setFile(event.getFile().getInputStream());
 			for (PlanAccionInvCategoriaAdjuntoEt doc : planAccionInvCategoria.getPlanAccionInvCategoriaAdjunto()) {
 				if (doc.getNombreAdjunto().equals(reg.getNombreAdjunto())) {
 					showInfo("" + Mensajes._ERROR_UPLOAD_DOCUMENTO.getDescripcion(), FacesMessage.SEVERITY_ERROR);

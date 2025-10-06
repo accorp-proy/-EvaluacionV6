@@ -13,7 +13,7 @@
 		<h:form id="frm_eje_008">
 			<h:outputScript library="js" name="calendar.js" />
 			<div align="right">
-				<p:commandButton icon="ui-icon-check" process="@this frm_eje_008"
+				<p:commandButton icon="pi pi-save" process="@this frm_eje_008"
 					action="#{CheckListEjecucionCtrlBn.guardarDocPendiente()}"
 					title="Guardar"></p:commandButton>
 			</div>
@@ -56,7 +56,7 @@
 						value="#{CheckListEjecucionCtrlBn.checkListProcesoEjecucionTienda.checkListKpiEjecucionB}">
 						<f:facet name="header">
 							<div align="right">
-								<p:commandButton id="btnAnadirProducto" icon="ui-icon-add"
+								<p:commandButton id="btnAnadirProducto" icon="pi pi-plus"
 									action="#{CheckListEjecucionCtrlBn.anadirProductoCaducado()}"
 									update="fdt02" process="@this fdt02"
 									title="Agregar Productos caducados en percha"></p:commandButton>
@@ -83,7 +83,7 @@
 						</p:column>
 						<p:column headerText="Eliminar" style="width:10px">
 							<div align="center">
-								<p:commandButton id="btnEliminar" icon="ui-icon-delete"
+								<p:commandButton id="btnEliminar" icon="pi pi-trash"
 									update="fdt02" process="@this fdt02"
 									action="#{CheckListEjecucionCtrlBn.quitarProductoCaducado(checkListB)}"></p:commandButton>
 							</div>

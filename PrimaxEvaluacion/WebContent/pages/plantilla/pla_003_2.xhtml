@@ -13,13 +13,13 @@
 				rendered="#{appMain.usuario.idUsuario eq 1}"></p:outputLabel>
 		</f:facet>
 		<h:form id="frm_pla_003_2">
-			<p:panelGrid styleClass="sinborde w100">
+			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:row>
 					<p:column>
 						<h:outputLabel value="CheckList" />
 					</p:column>
 					<p:column>
-						<p:commandButton icon="fa fa-file-pdf-o"
+						<p:commandButton icon="pi pi-file-pdf"
 							title="Botón permite descargar en formato Pdf" immediate="true"
 							ajax="false"
 							actionListener="#{ReporteBn.imprimirExcel(1,appMain.usuario.nombreUsuario,PlantillaGeneradaBn.checkListSeleccionadoR.idCheckList.toString(),PlantillaGeneradaBn.checkListSeleccionadoR.tipoChecKList.descripcion,PlantillaGeneradaBn.checkListSeleccionadoR.codigo,PlantillaGeneradaBn.checkListSeleccionadoR.evaluacion.idEvaluacion.toString(),null,null,null,null,null,false)}">
@@ -32,7 +32,7 @@
 						<h:outputLabel value="Matriz" />
 					</p:column>
 					<p:column>
-						<p:commandButton icon="fa fa-file-pdf-o"
+						<p:commandButton icon="pi pi-file-pdf"
 							title="Botón permite descargar en formato Excel"
 							disabled="#{PlantillaGeneradaBn.checkListSeleccionadoR.evaluacion.idEvaluacion ne 2 and PlantillaGeneradaBn.checkListSeleccionadoR.evaluacion.idEvaluacion ne 4}"
 							immediate="true" ajax="false"
@@ -46,7 +46,7 @@
 						<h:outputLabel value="Informe Dinámico" />
 					</p:column>
 					<p:column>
-						<p:commandButton value="Previa" icon="ui-icon-print"
+						<p:commandButton value="Previa" icon=" pi pi-print"
 							title="Generar Vista Previa Informe Dinámico"
 							update=":frm_pla_rpt_003" styleClass="secondary"
 							oncomplete="PF('dlg_pla_rpt_003').show()"
@@ -55,6 +55,6 @@
 				</p:row>
 			</p:panelGrid>
 		</h:form>
-<ui:include src="/pages/reporte/plantilla/pla_rpt_003.xhtml"></ui:include>
+		<ui:include src="/pages/reporte/plantilla/pla_rpt_003.xhtml"></ui:include>
 	</p:dialog>
 </ui:composition>

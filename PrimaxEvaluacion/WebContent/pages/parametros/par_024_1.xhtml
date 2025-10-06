@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_024_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{CategoriaInventarioBn.guardar()}"
 					update=":frm_par_024,:frm_par_024:msg"
 					oncomplete="PF('dialog_24_1').hide()" />
@@ -24,7 +24,7 @@
 				<p:outputLabel
 					value="#{CategoriaInventarioBn.categoriaInventarioSeleccionado.codigo}"></p:outputLabel>
 				<p:outputLabel value="Tipo Inventario :" />
-				<p:selectOneMenu style="width:80% !important" required="true"
+				<p:selectOneMenu required="true"
 					value="#{CategoriaInventarioBn.tipoInventarioSeleccionado}"
 					converter="#{tipoInventarioConverter}">
 					<f:selectItem itemLabel="Tipo Inventario" />
@@ -35,9 +35,10 @@
 				<p:outputLabel value="Categoría " />
 				<p:inputText
 					value="#{CategoriaInventarioBn.categoriaInventarioSeleccionado.descripcion}"
-					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
+					required="true" requiredMessage="Valor de Nombre es requerido"
+					styleClass="w75"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{CategoriaInventarioBn.categoriaInventarioSeleccionado.estado}">
 					<f:selectItems value="#{CategoriaInventarioBn.estadosActIna}" />
 				</p:selectOneMenu>

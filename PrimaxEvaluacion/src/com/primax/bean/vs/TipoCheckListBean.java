@@ -11,18 +11,18 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.jpa.enums.EstadoEnum;
-import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.EvaluacionUsuarioEt;
+import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.IUsuarioDao;
-import com.primax.srv.idao.IEvaluacionDao;
 
 @Named("TipoCheckListBn")
 @ViewScoped
@@ -75,7 +75,7 @@ public class TipoCheckListBean extends BaseBean implements Serializable {
 			tipoChecListSeleccionado.setEvaluacion(evaluacionSeleccionado);
 			iTipoChecListDao.guardaTipoChecList(tipoChecListSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_11_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_11_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

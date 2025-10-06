@@ -14,21 +14,21 @@
 		</f:facet>
 		<h:form id="frm_par_22_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{TipoInventarioBn.guardar()}" update=":frm_par_022" />
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Tipo de Inventario " />
-				<p:inputText
+				<p:inputText styleClass="w100"
 					value="#{TipoInventarioBn.tipoInventarioSeleccionado.descripcion}"
 					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Código"></p:outputLabel>
-				<p:inputText
+				<p:inputText styleClass="w100"
 					value="#{TipoInventarioBn.tipoInventarioSeleccionado.codigo}"
 					requiredMessage="Codigo es requerido" title="Ingrese codigo ">
 				</p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{TipoInventarioBn.tipoInventarioSeleccionado.estado}">
 					<f:selectItems value="#{TipoInventarioBn.estadosActIna}" />
 				</p:selectOneMenu>

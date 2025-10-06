@@ -184,7 +184,7 @@
   </context-param>
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>ultima-orange</param-value>
+    <param-value>atlantis-orange</param-value>
   </context-param>
   <context-param>
     <param-name>primefaces.FONT_AWESOME</param-name>
@@ -192,6 +192,6 @@
   </context-param>
   <context-param>
     <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-    <param-value>/WEB-INF/primefaces-ultima.taglib.xml</param-value>
+    <param-value>/WEB-INF/primefaces-atlantis.taglib.xml</param-value>
   </context-param>
 </web-app>

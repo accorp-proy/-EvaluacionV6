@@ -128,7 +128,7 @@
 			<p:dataTable id="dtbArqueoCajaChica" var="arqueoCaja"
 				value="#{CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.arqueoCajaGeneral}"
 				sortBy="#{arqueoCaja.orden}" expandableRowGroups="true">
-				<p:headerRow>
+				<p:headerRow groupBy="#{arqueoCaja.orden}" >
 					<p:column colspan="3">
 						<h:outputText value="#{arqueoCaja.subDescripcion}" />
 					</p:column>

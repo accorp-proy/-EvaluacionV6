@@ -12,7 +12,7 @@
 		</f:facet>
 		<h:form id="frm_004_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon=" pi pi-save"
 					action="#{cantonBn.guardar()}" update=":frm_par_004"></p:commandButton>
 			</div>
 			<p:panelGrid columns="2" styleClass="fullsize sinborde"
@@ -32,6 +32,7 @@
 				<p:outputLabel value="Codigo Inec :"></p:outputLabel>
 				<p:inputText value="#{cantonBn.cantonSeleccionado.inecCanton}"
 					requiredMessage="Codigo de Inec es requerido"
+					styleClass="w100"
 					title="Ingrese codigo de canton del Inec">
 				</p:inputText>
 				<p:outputLabel> Estado :</p:outputLabel>

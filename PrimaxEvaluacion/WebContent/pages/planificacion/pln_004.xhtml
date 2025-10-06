@@ -12,19 +12,18 @@
 		</f:facet>
 		<h:form id="frm_pln_004">
 			<div align="right">
-				<p:commandButton icon="ui-icon-save" process="frm_pln_004"
+				<p:commandButton icon="pi pi-save" process="frm_pln_004"
 					update=":frm_pln_002" styleClass="secondary" title="Guardar"
 					action="#{PlanificacionBn.anadirCheckList()}">
 				</p:commandButton>
 			</div>
-			<p:panelGrid styleClass="sinborde w100">
+			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:row>
 					<p:column>
-						<p:outputLabel value="Auditor"></p:outputLabel>
+						<p:outputLabel value="Auditor" styleClass="w100" ></p:outputLabel>
 					</p:column>
 					<p:column>
-						<p:selectOneMenu id="cmbAuditor" style="width:100% !important"
-							converter="#{usuarioConverter}"
+						<p:selectOneMenu id="cmbAuditor" converter="#{usuarioConverter}"
 							value="#{PlanificacionBn.usuarioSeleccionado}">
 							<f:selectItem itemLabel="Auditor" />
 							<f:selectItems value="#{PlanificacionBn.usuarioSeleccionados}"

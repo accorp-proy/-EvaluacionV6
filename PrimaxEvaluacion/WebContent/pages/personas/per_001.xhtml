@@ -13,7 +13,7 @@
 			</p:growl>
 			<p:toolbar>
 				<f:facet name="left">
-					<p:outputLabel value="Datos de Personas"></p:outputLabel>
+					<p:outputLabel value="Datos de Personas "></p:outputLabel>
 					<span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
@@ -33,7 +33,8 @@
 						update=":frm_per_001:dataPers" />
 				</f:facet>
 			</p:toolbar>
-			<p:dataTable paginator="true" rows="30" reflow="true"
+			<p:dataTable paginator="true" rows="10" reflow="true"
+				tableStyle="table-layout: auto" paginatorPosition="bottom"
 				emptyMessage="No existen persona para el criterio de consulta"
 				id="dataPers" value="#{personaBn.personas}" var="pers">
 				<p:column headerText="Identificación">
@@ -57,7 +58,7 @@
 				</p:column>
 				<p:column width="30">
 					<div align="right">
-						<p:commandButton icon="ui-icon-pencil" process="@this"
+						<p:commandButton icon="pi pi-pencil" process="@this"
 							action="#{personaBn.modificar(pers)}"
 							oncomplete="PF('dlg_per_01').show()" update=":frm_per_0011"
 							title="Editar">

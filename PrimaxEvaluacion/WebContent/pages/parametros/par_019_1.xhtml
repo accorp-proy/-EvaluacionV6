@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_019_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{NivelColorBn.guardar()}" update=":frm_par_019"
 					oncomplete="PF('dialog_19_1').hide()" />
 			</div>
@@ -26,12 +26,13 @@
 				<p:outputLabel value="Descripción" />
 				<p:inputText
 					value="#{NivelColorBn.nivelColorSeleccionado.descripcion}"
-					required="true" requiredMessage="Valor de Nombre es requerido"></p:inputText>
+					styleClass="w100" required="true"
+					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Código" />
 				<p:inputText value="#{NivelColorBn.nivelColorSeleccionado.color}"
-					required="true" requiredMessage="Código Color RGB"></p:inputText>
+					styleClass="w100" required="true" requiredMessage="Código Color RGB"></p:inputText>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{NivelColorBn.nivelColorSeleccionado.estado}">
 					<f:selectItems value="#{NivelColorBn.estadosActIna}" />
 				</p:selectOneMenu>

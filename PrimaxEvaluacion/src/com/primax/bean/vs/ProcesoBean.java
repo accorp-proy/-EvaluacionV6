@@ -12,7 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -98,7 +98,7 @@ public class ProcesoBean extends BaseBean implements Serializable {
 			procesoSeleccionado.setTipoChecKList(tipoChecKListSeleccionado);
 			iProcesoDao.guardarProceso(procesoSeleccionado, usuario);
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_10_2').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_10_2').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

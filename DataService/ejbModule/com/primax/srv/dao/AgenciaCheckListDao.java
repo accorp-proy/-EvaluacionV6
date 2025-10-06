@@ -96,7 +96,7 @@ public class AgenciaCheckListDao extends GenericDao<AgenciaCheckListEt, Long> im
 		sql = new StringBuilder("FROM AgenciaCheckListEt o ");
 		sql.append(" WHERE o.estado   = :estado  ");
 		sql.append(" AND   o.agencia  = :agencia ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.checkList.evaluacion in (:evaluaciones) ");
 		}
 		if (nivelEvaluacion != null) {
@@ -111,7 +111,7 @@ public class AgenciaCheckListDao extends GenericDao<AgenciaCheckListEt, Long> im
 		sql.append(" ORDER BY  o.idAgenciaCheckList   ");
 		TypedQuery<AgenciaCheckListEt> query = em.createQuery(sql.toString(), AgenciaCheckListEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

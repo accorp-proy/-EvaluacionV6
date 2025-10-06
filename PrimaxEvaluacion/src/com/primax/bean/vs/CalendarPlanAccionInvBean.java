@@ -2,9 +2,9 @@ package com.primax.bean.vs;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,8 +17,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.schedule.ScheduleEntryResizeEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
@@ -98,6 +98,14 @@ public class CalendarPlanAccionInvBean extends BaseBean implements Serializable 
 		titulo = "CONTROL DE INVENTARIO";
 
 	}
+	
+	public Date convertToD(LocalDateTime dateToConvert) {
+		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	public LocalDateTime convertToL(Date dateToConvert) {
+	    return LocalDateTime.ofInstant(
+	      dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
 
 	public void iniCalendarInventario() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -106,7 +114,7 @@ public class CalendarPlanAccionInvBean extends BaseBean implements Serializable 
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
 						String tema = "";
 						String estado = "";
@@ -114,11 +122,12 @@ public class CalendarPlanAccionInvBean extends BaseBean implements Serializable 
 						String estacion = "";
 						// String inventario = "";
 						String responsable = "";
-
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
 						UsuarioEt usuario = appMain.getUsuario();
 						ResponsableEt responsableC = iResponsableDao
 								.getResponsableEstacion(usuario.getPersonaUsuario());
-						planAccionIventarios = iPlanAccionInventarioDao.getPlanAccionInventarioList(desde, hasta,
+						planAccionIventarios = iPlanAccionInventarioDao.getPlanAccionInventarioList(desdeD, hastaD,
 								responsableC.getAgencia());
 						DefaultScheduleEvent scheduleEventAllDay;
 						for (PlanAccionInventarioEt planificacion : planAccionIventarios) {
@@ -151,12 +160,13 @@ public class CalendarPlanAccionInvBean extends BaseBean implements Serializable 
 									break;
 							}
 
-							String strDate = dateFormat
-									.format(planificacion.getPlanificacionInventario().getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getPlanificacionInventario().getAgencia().getNombreAgencia(), fechaD,
-									fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getPlanificacionInventario().getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+//							scheduleEventAllDay = new DefaultScheduleEvent(
+//									planificacion.getPlanificacionInventario().getAgencia().getNombreAgencia(), fechaD,
+//									fechaD, tema);
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanAccionInventario()));
 							scheduleEventAllDay.setDescription(leyenda0);
@@ -164,7 +174,7 @@ public class CalendarPlanAccionInvBean extends BaseBean implements Serializable 
 							eventModel.addEvent(scheduleEventAllDay);
 						}
 
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}

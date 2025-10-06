@@ -81,7 +81,7 @@
 			</p:panelGrid>
 			<p:dataTable paginator="true" rows="7" reflow="true"
 				rendered="#{dashboardBn.visualizar eq 'false'}"
-				tableStyle="table-layout: auto;" style="margin-bottom:20px"
+				tableStyle="table-layout: auto" paginatorPosition="bottom" 
 				emptyMessage="No existe Formatos" id="dtbCheckList"
 				value="#{dashboardBn.planificacionSeleccionada.checkListEjecucion}"
 				var="checkList">
@@ -98,13 +98,13 @@
 					<h:outputText value="#{checkList.estadoCheckList.descripcion}"></h:outputText>
 				</p:column>
 				<p:column width="30px" headerText="Ejecutar">
-					<p:commandButton icon="ui-icon-event-available"
+					<p:commandButton icon="pi pi-external-link"
 						title="Botón permite ejecutar checkList"
 						rendered="#{checkList.estadoCheckList.descripcion eq 'AGENDADA'}"
 						action="#{dashboardBn.modificarCheckListEjecucion(checkList)}"
 						onclick="PF('dlg_conf_1').show()"
 						disabled="#{dashboardBn.validarFecha()}"></p:commandButton>
-					<p:commandButton icon="ui-icon-event-available"
+					<p:commandButton icon="pi pi-external-link"
 						title="Botón permite continuar ejecucion de checkList"
 						rendered="#{checkList.estadoCheckList.descripcion eq 'EN EJECUCION'}"
 						action="#{dashboardBn.modificarCheckListEjecucion(checkList)}"></p:commandButton>

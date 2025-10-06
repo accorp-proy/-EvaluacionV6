@@ -9,80 +9,77 @@
 		<h:form id="frm_rpt_018">
 			<p:growl showDetail="true" id="mensajes">
 			</p:growl>
-			<p:panelGrid styleClass="sinborde w120" columns="9" layout="grid">
-				<p:row>
-					<p:fieldset legend="Reporte plan de acción inventario">
-						<p:panelGrid columns="9" styleClass="sinborde w120" layout="grid">
-							<p:column>
-								<p:selectOneMenu style="width:80px !important" id="cmbZona"
-									value="#{ConsultaPlanAccionInvBn.zonaSeleccionada}"
-									converter="#{zonaConverter}">
-									<f:selectItem itemLabel="Zona" />
-									<f:selectItems value="#{ConsultaPlanAccionInvBn.tipoZonaList}"
-										var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
-									<p:ajax event="change" update="frm_rpt_018:cmbEstacion"></p:ajax>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu id="cmbEstacion" style="width:80px !important"
-									value="#{ConsultaPlanAccionInvBn.estacionSeleccionada}"
-									converter="#{agenciaConverter}" var="t" filter="true"
-									filterMatchMode="contains">
-									<f:selectItem itemLabel="Estación" />
-									<f:selectItems value="#{ConsultaPlanAccionInvBn.estacionList}"
-										var="estacion" itemLabel="#{estacion.nombreAgencia}"
-										itemValue="#{estacion}" />
-									<p:column>
-										<h:outputText value="#{t.nombreAgencia}" />
-									</p:column>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:80px !important"
-									id="cmbTipoInventario"
-									value="#{ConsultaPlanAccionInvBn.tipoInventarioSeleccionado}"
-									converter="#{tipoInventarioConverter}">
-									<f:selectItem itemLabel="Tipo Inventario" />
-									<f:selectItems
-										value="#{ConsultaPlanAccionInvBn.tipoInventarioList}"
-										var="tipoInv" itemLabel="#{tipoInv.descripcion}"
-										itemValue="#{tipoInv}"></f:selectItems>
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{ConsultaPlanAccionInvBn.fDesde}" size="10"
-									placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
-									pattern="dd/MM/yyy" locale="es">
-								</p:calendar>
-							</p:column>
-							<p:column>
-								<p:calendar value="#{ConsultaPlanAccionInvBn.fHasta}" size="10"
-									placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
-									pattern="dd/MM/yyy" locale="es">
-								</p:calendar>
-							</p:column>
-							<p:column>
-								<p:selectOneMenu style="width:100px !important" editable="false"
-									title="Estados plan de acción"
-									value="#{ConsultaPlanAccionInvBn.estadoPlanAccionSeleccionado}">
-									<f:selectItems
-										value="#{ConsultaPlanAccionInvBn.estadoPlanAccion}" />
-								</p:selectOneMenu>
-							</p:column>
-							<p:column>
-								<p:commandButton title="Botón permite realizar busqueda"
-									icon="ui-icon-search"
-									action="#{ConsultaPlanAccionInvBn.buscar()}"
-									update="dtbPlnAccionT">
-								</p:commandButton>
-							</p:column>
-						</p:panelGrid>
-					</p:fieldset>
-				</p:row>
-			</p:panelGrid>
+			<div class="col-12">
+				<div class="card">
+					<h5>Reporte plan de acción inventario</h5>
+					<div class="ui-fluid formgrid grid">
+						<div class="field col-12 md:col-2">
+							<p:selectOneMenu id="cmbZona"
+								value="#{ConsultaPlanAccionInvBn.zonaSeleccionada}"
+								converter="#{zonaConverter}">
+								<f:selectItem itemLabel="Zona" />
+								<f:selectItems value="#{ConsultaPlanAccionInvBn.tipoZonaList}"
+									var="zona" itemLabel="#{zona.nombreZona}" itemValue="#{zona}"></f:selectItems>
+								<p:ajax event="change" update="frm_rpt_018:cmbEstacion"></p:ajax>
+							</p:selectOneMenu>
+						</div>
+						<div class="field col-12 md:col-2">
+							<p:selectOneMenu id="cmbEstacion"
+								value="#{ConsultaPlanAccionInvBn.estacionSeleccionada}"
+								converter="#{agenciaConverter}" var="t" filter="true"
+								filterMatchMode="contains">
+								<f:selectItem itemLabel="Estación" />
+								<f:selectItems value="#{ConsultaPlanAccionInvBn.estacionList}"
+									var="estacion" itemLabel="#{estacion.nombreAgencia}"
+									itemValue="#{estacion}" />
+								<p:column>
+									<h:outputText value="#{t.nombreAgencia}" />
+								</p:column>
+							</p:selectOneMenu>
+						</div>
+						<div class="field col-12 md:col-2">
+							<p:selectOneMenu id="cmbTipoInventario"
+								value="#{ConsultaPlanAccionInvBn.tipoInventarioSeleccionado}"
+								converter="#{tipoInventarioConverter}">
+								<f:selectItem itemLabel="Tipo Inventario" />
+								<f:selectItems
+									value="#{ConsultaPlanAccionInvBn.tipoInventarioList}"
+									var="tipoInv" itemLabel="#{tipoInv.descripcion}"
+									itemValue="#{tipoInv}"></f:selectItems>
+							</p:selectOneMenu>
+						</div>
+						<div class="field col-12 md:col-1">
+							<p:calendar value="#{ConsultaPlanAccionInvBn.fDesde}"
+								placeholder="Fecha Desde" title="Fecha Desde" navigator="true"
+								pattern="dd/MM/yyy" locale="es">
+							</p:calendar>
+						</div>
+						<div class="field col-12 md:col-1">
+							<p:calendar value="#{ConsultaPlanAccionInvBn.fHasta}"
+								placeholder="Fecha Hasta" title="Fecha Hasta" navigator="true"
+								pattern="dd/MM/yyy" locale="es">
+							</p:calendar>
+						</div>
+						<div class="field col-12 md:col-2">
+							<p:selectOneMenu editable="false" title="Estados plan de acción"
+								value="#{ConsultaPlanAccionInvBn.estadoPlanAccionSeleccionado}">
+								<f:selectItems
+									value="#{ConsultaPlanAccionInvBn.estadoPlanAccion}" />
+							</p:selectOneMenu>
+						</div>
+						<div class="field col-12 md:col-2">
+							<p:commandButton title="Botón permite realizar busqueda"
+								icon=" pi pi-search"
+								action="#{ConsultaPlanAccionInvBn.buscar()}"
+								update="dtbPlnAccionT">
+							</p:commandButton>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div align="center">
 				<p:dataTable paginator="true" rows="7" reflow="true"
-					tableStyle="table-layout: auto;" style="margin-bottom:20px"
+					tableStyle="table-layout: auto" paginatorPosition="bottom"
 					emptyMessage="No existe Formatos" id="dtbPlnAccionT"
 					value="#{ConsultaPlanAccionInvBn.planAccionInventarioTipos}"
 					var="plnAccTip">
@@ -113,7 +110,7 @@
 						<div align="center">
 							<p:commandButton title="Descargar en formato PDF"
 								disabled="#{plnAccTip.estadoPlanAccionInv.descripcion ne 'INGRESADO'}"
-								icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+								icon="pi pi-file-pdf" immediate="true" ajax="false"
 								actionListener="#{ReporteBn.imprimirExcel(29,appMain.usuario.nombreUsuario,plnAccTip.idPlanAccionInventarioTipo.toString(),plnAccTip.planAccionInventario.planificacionInventario.agencia.idAgencia.toString(),'0',null,null,null,null,null,null,false)}">
 								<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 							</p:commandButton>

@@ -11,7 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
@@ -68,8 +68,8 @@ public class CheckListEtiquetaBean extends BaseBean implements Serializable {
 		try {
 			UsuarioEt usuario = appMain.getUsuario();
 			iCheckListEtiquetaDao.guardarCheckListEtiqueta(checkListEtiquetaSeleccionado, usuario);
-			showInfo("Informaci�n Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_23_1').hide();");
+			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
+			PrimeFaces.current().executeInitScript("PF('dialog_23_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

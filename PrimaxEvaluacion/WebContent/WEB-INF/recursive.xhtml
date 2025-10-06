@@ -4,26 +4,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pu="http://primefaces.org/ultima">
+	xmlns:pa="http://primefaces.org/atlantis">
+
 	<c:forEach items="#{menues}" var="rolmenu">
 		<c:if test="#{rolmenu.menu.menuPadre eq null}">
-			<c:if
-				test="#{rolmenu.menu.urlMenu ne null and not empty rolmenu.menu.urlMenu}">
-				<p:menuitem value="#{rolmenu.menu.descMenu}"
-					url="#{rolmenu.menu.urlMenu}" icon="#{rolmenu.menu.icoMenu}"
-					actionListener="#{appMain.fijarMenuAccesos(rolmenu)}" ajax="false" />
-			</c:if>
-			<c:if
-				test="#{rolmenu.menu.urlMenu eq null or empty rolmenu.menu.urlMenu}">
-				<p:submenu icon="#{rolmenu.menu.icoMenu}"
-					label="#{rolmenu.menu.descMenu}">
-					<c:if test="#{not empty rolmenu.rolMenuRec}">
-						<ui:include src="/WEB-INF/recursive.xhtml">
-							<ui:param name="menues" value="#{rolmenu.rolMenuRec}" />
-						</ui:include>
-					</c:if>
-				</p:submenu>
-			</c:if>
+			<pa:tab icon="#{rolmenu.menu.icoMenu}"
+				title="#{rolmenu.menu.descMenu}">
+				<h:form>
+					<pa:menu widgetVar="me">
+						<c:if test="#{not empty rolmenu.rolMenuRec}">
+							<ui:include src="/WEB-INF/recursive.xhtml">
+								<ui:param name="menues" value="#{rolmenu.rolMenuRec}" />
+							</ui:include>
+						</c:if>
+					</pa:menu>
+				</h:form>
+			</pa:tab>
 		</c:if>
 		<c:if
 			test="#{rolmenu.menu.menuPadre ne null and not empty rolmenu.rolMenuRec}">
@@ -36,8 +32,9 @@
 		</c:if>
 		<c:if
 			test="#{rolmenu.menu.menuPadre ne null and empty rolmenu.rolMenuRec}">
-			<p:menuitem value="#{rolmenu.menu.descMenu}"
-				url="#{rolmenu.menu.urlMenu}" icon="#{rolmenu.menu.icoMenu}"
+			<p:menuitem id="menuItem" value="#{rolmenu.menu.descMenu}"
+				outcome="#{rolmenu.menu.urlMenu}" icon="#{rolmenu.menu.icoMenu}"
+				process="@this menuItem" title="jema"
 				actionListener="#{appMain.fijarMenuAccesos(rolmenu)}" ajax="false" />
 		</c:if>
 	</c:forEach>

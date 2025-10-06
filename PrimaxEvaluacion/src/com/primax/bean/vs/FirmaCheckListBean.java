@@ -2,9 +2,9 @@ package com.primax.bean.vs;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +17,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.LazyScheduleModel;
@@ -115,6 +114,13 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 		inicializarCalendario();
 
 	}
+	public Date convertToD(LocalDateTime dateToConvert) {
+		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	public LocalDateTime convertToL(Date dateToConvert) {
+	    return LocalDateTime.ofInstant(
+	      dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
 
 	public void inicializarCalendario() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -123,11 +129,13 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
 						UsuarioEt usuario = appMain.getUsuario();
 						planificaciones = iPlanificacionDao.getPlanificacionList(evaluacionSeleccionada,
-								tipoChecKListSeleccionado, desde, hasta, usuario);
+								tipoChecKListSeleccionado, desdeD, hastaD, usuario);
 						DefaultScheduleEvent scheduleEventAllDay;
 						for (PlanificacionEt planificacion : planificaciones) {
 							String tema = "schedule-blue";
@@ -148,9 +156,12 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 								}
 							}
 							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+//							scheduleEventAllDay = new DefaultScheduleEvent(
+//									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacion()));
 							scheduleEventAllDay.setDescription(planificacion.getAgencia().getNombreAgencia());
@@ -158,7 +169,7 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 
 							eventModel.addEvent(scheduleEventAllDay);
 						}
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}
@@ -423,7 +434,7 @@ public class FirmaCheckListBean extends BaseBean implements Serializable {
 		return dateTime.plusDays(((int) (Math.random() * 30)));
 	}
 
-	public void onEventResize(ScheduleEntryResizeEvent event) {
+	public void onEventResize(org.primefaces.event.schedule.ScheduleEntryResizeEvent event) {
 
 	}
 

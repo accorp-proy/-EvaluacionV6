@@ -164,11 +164,11 @@ public class UsuarioBean extends BaseBean implements Serializable {
 				usuarioSeleccionado.getPersonaUsuario().setPersonaImagen(imagen);
 
 			}
-			usuarioSeleccionado.getPersonaUsuario().getPersonaImagen().setImgUsuario(event.getFile().getContents());
+			usuarioSeleccionado.getPersonaUsuario().getPersonaImagen().setImgUsuario(event.getFile().getContent());
 			usuarioSeleccionado.getPersonaUsuario().getPersonaImagen().setNombreImagen(event.getFile().getFileName());
 			iGeneralUtilsDao.creaRuta(usuarioSeleccionado.getIdUsuario(), pathProyecto + File.separatorChar
 					+ pathImagenTemp + File.separatorChar + PersonaEnum.USUARIO.getDescripcion());
-			String rutaTmp = iGeneralUtilsDao.guardaImagenTemporal(event.getFile().getContents(),
+			String rutaTmp = iGeneralUtilsDao.guardaImagenTemporal(event.getFile().getContent(),
 					WebAppUtil.getWebPath(), PersonaEnum.USUARIO.getDescripcion(), usuarioSeleccionado.getIdUsuario(),
 					event.getFile().getFileName(), true);
 			System.out.println("rutaTmp " + rutaTmp);

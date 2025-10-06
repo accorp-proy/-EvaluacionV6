@@ -13,7 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
@@ -157,7 +157,7 @@ public class GerenciaCriterioEBean extends BaseBean implements Serializable {
 			CheckListKpiEjecucionAdjuntoEt reg = new CheckListKpiEjecucionAdjuntoEt();
 			reg.setNombreAdjunto(nombreArchivo);
 			reg.setCheckListKpiEjecucion(checkListKpiEjecucionSeleccionado);
-			reg.setFile(event.getFile().getInputstream());
+			reg.setFile(event.getFile().getInputStream());
 			for (CheckListKpiEjecucionAdjuntoEt doc : checkListKpiEjecucion.getCheckListKpiEjecucionAdjunto()) {
 				if (doc.getNombreAdjunto().equals(reg.getNombreAdjunto())) {
 					showInfo("" + Mensajes._ERROR_UPLOAD_DOCUMENTO.getDescripcion(), FacesMessage.SEVERITY_ERROR);
@@ -209,7 +209,7 @@ public class GerenciaCriterioEBean extends BaseBean implements Serializable {
 			}
 			iCheckListKpiEjecucionDao.guardarCheckListKpiEjecucion(checkListKpiEjecucionSeleccionado, usuario);
 			showInfo("Dato Guardado", FacesMessage.SEVERITY_INFO, null, null);
-			RequestContext.getCurrentInstance().execute("PF('dlg_ger_003_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_ger_003_1').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método guardar " + " " + e.getMessage());

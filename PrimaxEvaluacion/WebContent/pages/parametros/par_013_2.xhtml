@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_013_2">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{CriterioEvaluacionBn.guardar()}" update=":frm_par_013" />
 			</div>
 			<p:dataTable id="fdt01"
@@ -26,7 +26,7 @@
 				<f:facet name="header">
 					<h:outputLabel value="#{CriterioEvaluacionBn.tituloDetlle}" />
 					<div align="right">
-						<p:commandButton icon="ui-icon-add" id="btnAnadirDetalle"
+						<p:commandButton icon="pi pi-plus" id="btnAnadirDetalle"
 							process="@this fdt01" update="fdt01"
 							action="#{CriterioEvaluacionBn.anadirCriterioEvaluacionDetalle()}"></p:commandButton>
 					</div>
@@ -51,7 +51,7 @@
 				</p:column>
 				<p:column width="15" headerText="Editar">
 					<div align="center">
-						<p:commandButton id="btnEditar" icon="ui-icon-pencil"
+						<p:commandButton id="btnEditar" icon="pi pi-pencil"
 							action="#{CriterioEvaluacionBn.modificarDetalle(criterioEvaluacionDetalle)}"
 							oncomplete="PF('dialog_13_3').show()" update=":frm_par_013_3"
 							process="@this fdt01" />
@@ -61,7 +61,7 @@
 					<div align="center">
 						<p:commandButton
 							action="#{CriterioEvaluacionBn.quitarCriterioEvaluacionDetalle(criterioEvaluacionDetalle)}"
-							id="btnEliminar" icon="ui-icon-delete" update="fdt01"
+							id="btnEliminar" icon="pi pi-trash" update="fdt01"
 							process="@this fdt01" />
 					</div>
 				</p:column>

@@ -54,7 +54,7 @@ public class CriterioEvaluacionDao extends GenericDao<CriterioEvaluacionEt, Long
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CriterioEvaluacionEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (evaluacion != null) {
@@ -70,7 +70,7 @@ public class CriterioEvaluacionDao extends GenericDao<CriterioEvaluacionEt, Long
 		TypedQuery<CriterioEvaluacionEt> query = em.createQuery(sql.toString(), CriterioEvaluacionEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

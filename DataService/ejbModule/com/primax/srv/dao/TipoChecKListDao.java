@@ -55,7 +55,7 @@ public class TipoChecKListDao extends GenericDao<TipoChecKListEt, Long> implemen
 	public List<TipoChecKListEt> getTipoChecList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM TipoChecKListEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (condicion != null && !condicion.isEmpty()) {
@@ -65,7 +65,7 @@ public class TipoChecKListDao extends GenericDao<TipoChecKListEt, Long> implemen
 		TypedQuery<TipoChecKListEt> query = em.createQuery(sql.toString(), TipoChecKListEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

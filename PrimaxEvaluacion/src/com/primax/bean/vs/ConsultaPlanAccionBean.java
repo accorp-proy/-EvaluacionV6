@@ -17,6 +17,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
+
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.enm.gen.RutaFileEnum;
@@ -32,12 +35,12 @@ import com.primax.jpa.param.NivelEvaluacionEt;
 import com.primax.jpa.param.ParametrosGeneralesEt;
 import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.ZonaEt;
+import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.pla.CheckListEjecucionPlnAdjuntoEt;
 import com.primax.jpa.sec.RolEt;
 import com.primax.jpa.sec.RolUsuarioEt;
 import com.primax.jpa.sec.UsuarioEt;
-import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.srv.idao.IAgenciaDao;
 import com.primax.srv.idao.ICheckListEjecucionDao;
 import com.primax.srv.idao.ICheckListEjecucionPlnAdjuntoDao;
@@ -49,9 +52,6 @@ import com.primax.srv.idao.IRolEtDao;
 import com.primax.srv.idao.ITipoChecKListDao;
 import com.primax.srv.idao.IUsuarioDao;
 import com.primax.srv.idao.IZonaDao;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
 
 @Named("ConsultaPlanAccionBn")
 @ViewScoped
@@ -301,7 +301,7 @@ public class ConsultaPlanAccionBean extends BaseBean implements Serializable {
 			CheckListEjecucionPlnAdjuntoEt reg = new CheckListEjecucionPlnAdjuntoEt();
 			reg.setNombreAdjunto(nombreArchivo);
 			reg.setCheckListEjecucion(checkListEjecucionSeleccionado);
-			reg.setFile(event.getFile().getInputstream());
+			reg.setFile(event.getFile().getInputStream());
 			for (CheckListEjecucionPlnAdjuntoEt doc : checkListEjecucion.getCheckListEjecucionPlnAdjunto()) {
 				if (doc.getNombreAdjunto().equals(reg.getNombreAdjunto())) {
 					showInfo("" + Mensajes._ERROR_UPLOAD_DOCUMENTO.getDescripcion(), FacesMessage.SEVERITY_ERROR);
@@ -343,7 +343,7 @@ public class ConsultaPlanAccionBean extends BaseBean implements Serializable {
 			}
 			iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucionSeleccionado, usuario);
 			showInfo("Dato Guardado", FacesMessage.SEVERITY_INFO, null, null);
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_005_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_005_1').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método guardar " + " " + e.getMessage());

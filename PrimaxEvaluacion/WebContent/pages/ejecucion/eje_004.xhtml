@@ -16,14 +16,14 @@
 				columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-6">
 				<p:column>
 					<p:commandButton title="Descargar en formato Pdf"
-						icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+						icon="pi pi-file-pdf" immediate="true" ajax="false"
 						actionListener="#{ReporteBn.imprimirExcel(5,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.idCheckListKpiEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),appMain.usuario.personaUsuario.nombreCompleto,null,null,null,null,null,null,false)}">
 						<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 					</p:commandButton>
 				</p:column>
 				<p:column>
 					<p:commandButton title="Descargar en formato Excel"
-						icon="fa fa-file-excel-o" immediate="true" ajax="false"
+						icon="pi pi-file-excel" immediate="true" ajax="false"
 						actionListener="#{ReporteBn.imprimirExcel(5,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.idCheckListKpiEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),appMain.usuario.personaUsuario.nombreCompleto,null,null,null,null,null,null,true)}">
 						<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 					</p:commandButton>
@@ -98,7 +98,7 @@
 			<p:dataTable id="dtbArqueoFondoSuelto" var="arqueoCaja"
 				value="#{CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.arqueoFondoSuelto}"
 				sortBy="#{arqueoCaja.orden}" expandableRowGroups="true">
-				<p:headerRow id="headerR">
+				<p:headerRow id="headerR" groupBy="#{arqueoCaja.orden}" >
 					<p:column colspan="5">
 						<h:outputText value="#{arqueoCaja.subDescripcion}" />
 					</p:column>

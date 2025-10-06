@@ -14,13 +14,13 @@
         </f:facet>
        <title>.:PRIMAX:.</title>
 	<link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/iconos/icono.png"/>
-        <h:outputScript name="js/ripple.js" library="ultima-layout" />
+        <h:outputScript name="js/ripple.js" library="atlantis-layout" />
     </h:head>
 
     <h:body styleClass="exception-body error-page">
     
         <div class="exception-type">
-            <p:graphicImage name="images/error.svg" library="ultima-layout" />
+            <p:graphicImage name="images/error.svg" library="atlantis-layout" />
         </div>
         
         <div class="card exception-panel">
@@ -30,8 +30,8 @@
             <p:button outcome="/dashboard" value="Homepage" styleClass="secondary"/>
         </div>
         
-        <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
-        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/ripple.css" library="atlantis-layout" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="atlantis-layout" />
     </h:body>
 
 </html>

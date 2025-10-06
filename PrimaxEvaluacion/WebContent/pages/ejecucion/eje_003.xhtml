@@ -12,11 +12,11 @@
 		</f:facet>
 		<h:form id="frm_eje_003">
 			<p:growl showDetail="false" id="mensajes"></p:growl>
-			<p:panelGrid columns="5" styleClass="sinborde w120" layout="grid"
+			<p:panelGrid columns="6" styleClass="sinborde w120" layout="grid"
 				columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-6">
 				<p:column>
 					<p:commandButton title="Descargar en formato Pdf"
-						update="@this frm_eje_003" icon="fa fa-file-pdf-o"
+						update="@this frm_eje_003" icon="pi pi-file-pdf"
 						immediate="true" ajax="false"
 						actionListener="#{ReporteBn.imprimirExcel(4,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.idCheckListKpiEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.tipoEstacion.descripcion,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.auditor eq null ? null : CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.auditor.personaUsuario.nombreCompleto,null,null,null,null,null,false)}">
 						<p:fileDownload value="#{appMain.download}"></p:fileDownload>
@@ -24,13 +24,13 @@
 				</p:column>
 				<p:column>
 					<p:commandButton title="Descargar en formato Excel"
-						icon="fa fa-file-excel-o" immediate="true" ajax="false"
+						icon="pi pi-file-excel" immediate="true" ajax="false"
 						actionListener="#{ReporteBn.imprimirExcel(4,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.idCheckListKpiEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.tipoEstacion.descripcion,CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.auditor eq null ? null : CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.auditor.personaUsuario.nombreCompleto,null,null,null,null,null,true)}">
 						<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 					</p:commandButton>
 				</p:column>
 				<p:column>
-					<p:commandButton id="btnFirmar" icon="fa fa-pencil-square-o"
+					<p:commandButton id="btnFirmar" icon="pi pi-pencil"
 						process="@this frm_eje_003" oncomplete="PF('dlg_eje_013').show()"
 						action="#{CheckListEjecucionCtrlBn.nuevoFirmaArqueoCaja()}"
 						update=":frm_eje_013,frm_eje_003:mensajes"
@@ -45,7 +45,7 @@
 				</p:column>
 				<p:column>
 					<div align="right">
-						<p:commandButton icon="ui-icon-check" process="@this frm_eje_003"
+						<p:commandButton icon="pi pi-save" process="@this frm_eje_003"
 							update=":frm_eje_002:tabWiwe0:dtbCheckList,frm_eje_003:mensajes"
 							title="Permite guardar arqueo caja Pista o Tienda"
 							action="#{CheckListEjecucionCtrlBn.guardarArqueoCaja()}" />
@@ -146,7 +146,7 @@
 			<p:dataTable id="dtbArqueoCaja" var="arqueoCaja"
 				value="#{CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.arqueoCaja}"
 				sortBy="#{arqueoCaja.orden}" expandableRowGroups="true">
-				<p:headerRow>
+				<p:headerRow groupBy="#{arqueoCaja.orden}">
 					<p:column colspan="4">
 						<h:outputText value="#{arqueoCaja.subDescripcion}" />
 					</p:column>
@@ -185,7 +185,7 @@
 			<p:column>
 				<div align="right">
 					<p:commandButton title="Permite Eliminar Arqueo de Caja chica"
-						icon="fa fa-close" onclick="PF('dlg_conf_3').show()" />
+						icon="pi pi-trash" onclick="PF('dlg_conf_3').show()" />
 				</div>
 			</p:column>
 			<p:panelGrid columns="2" styleClass="sinborde w100">

@@ -81,13 +81,14 @@ public class MenuRolBean extends BaseBean implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void cargarNodosSelect(TreeNode nodo, RolMenuEt rolMenu) {
 		if (nodo.getData().equals(rolMenu)) {
 			nodo.setSelected(true);
 		}
 		if (nodo.getChildCount() > 0) {
 			for (int j = 0; j < nodo.getChildCount(); j++) {
-				cargarNodosSelect(nodo.getChildren().get(j), rolMenu);
+				cargarNodosSelect((TreeNode) nodo.getChildren().get(j), rolMenu);
 			}
 		}
 	}

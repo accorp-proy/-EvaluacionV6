@@ -12,14 +12,14 @@
 		</f:facet>
 		<h:form>
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon="pi pi-save"
 					action="#{MenuRolBn.guardarSoloRol()}"
 					oncomplete="PF('dlg_seg_005').hide()"
 					update=":f_00:dat_rol,:f_00:mensajes"></p:commandButton>
 			</div>
 			<p:panelGrid columns="2" styleClass="fullSize sinborde">
 				<h:outputText value="Nombre de Rol" />
-				<p:inputText value="#{MenuRolBn.rolSeleccionado.nomRol}"
+				<p:inputText value="#{MenuRolBn.rolSeleccionado.nomRol}" styleClass="w100"
 					onblur="value=value.toUpperCase()"></p:inputText>
 				<p:outputLabel> Estado</p:outputLabel>
 				<p:selectOneMenu value="#{MenuRolBn.rolSeleccionado.estado}">

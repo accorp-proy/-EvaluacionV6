@@ -14,7 +14,7 @@
 		</f:facet>
 		<h:form id="frm_par_023_1">
 			<div align="right">
-				<p:commandButton title="Guardar" icon="ui-icon-check"
+				<p:commandButton title="Guardar" icon=" pi pi-save"
 					action="#{CheckListEtiquetaBn.guardar()}" update=":frm_par_023"
 					oncomplete="PF('dialog_23_1').hide()" />
 			</div>
@@ -27,14 +27,14 @@
 				<p:outputLabel value="Nombre" />
 				<p:inputText
 					value="#{CheckListEtiquetaBn.checkListEtiquetaSeleccionado.nombre}"
-					maxlength="50" required="true"
+					maxlength="50" required="true" styleClass="w100"
 					requiredMessage="Valor de Nombre es requerido"></p:inputText>
 				<p:outputLabel value="Descripción" />
 				<p:inputTextarea
 					value="#{CheckListEtiquetaBn.checkListEtiquetaSeleccionado.descripcion}"
-					maxlength="100"></p:inputTextarea>
+					maxlength="100" styleClass="w100" ></p:inputTextarea>
 				<p:outputLabel value="Sección" />
-				<p:selectOneMenu id="cmbSeccion" style="width:200px !important"
+				<p:selectOneMenu id="cmbSeccion" style="width:100px !important"
 					value="#{CheckListEtiquetaBn.checkListEtiquetaSeleccionado.parSeccion}"
 					converter="#{parametrosConverter}">
 					<f:selectItems value="#{CheckListEtiquetaBn.parSeccionList}"
@@ -42,7 +42,7 @@
 						itemLabel="#{seccion.nombreLista}" />
 				</p:selectOneMenu>
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu style="width:50% !important" editable="false"
+				<p:selectOneMenu  editable="false"
 					value="#{CheckListEtiquetaBn.checkListEtiquetaSeleccionado.estado}">
 					<f:selectItems value="#{CheckListEtiquetaBn.estadosActIna}" />
 				</p:selectOneMenu>

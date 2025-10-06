@@ -13,7 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DualListModel;
 
 import com.primax.bean.ss.AppMain;
@@ -227,7 +227,7 @@ public class PlantillaGeneradaBean extends BaseBean implements Serializable {
 				}
 			}
 			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
-			RequestContext.getCurrentInstance().execute("PF('dialog_03_1').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_03_1').hide();");
 			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();

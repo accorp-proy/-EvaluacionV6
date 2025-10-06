@@ -17,7 +17,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DualListModel;
 
 import com.primax.bean.ss.AppMain;
@@ -805,7 +805,7 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 				checkListProcesoSeleccionado.setCheckListProcesoFormulario(new ArrayList<>());
 			}
 			checkListProcesoSeleccionado.getCheckListProcesoFormulario().add(checkListFrmSeleccionado);
-			RequestContext.getCurrentInstance().execute("PF('dialog_01_7').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_01_7').hide();");
 			cargarFormulario(checkListProcesoSeleccionado);
 			checkListFrmSeleccionado = null;
 
@@ -819,7 +819,7 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 		try {
 			UsuarioEt usuario = appMain.getUsuario();
 			iCheckListProcesoFormularioDao.guardarCheckListProcesoFormulario(checkListFrmSeleccionadoM, usuario);
-			RequestContext.getCurrentInstance().execute("PF('dialog_01_8').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_01_8').hide();");
 			cargarFormulario(checkListProcesoSeleccionado);
 			checkListFrmSeleccionadoM = null;
 		} catch (Exception e) {
@@ -1056,7 +1056,7 @@ public class PlantillaCriterioGeneralBean extends BaseBean implements Serializab
 				proceso.setVisualizarReporte(true);
 			}
 			iCheckListProcesoDao.guardarCheckListProceso(proceso, usuario);
-			RequestContext.getCurrentInstance().execute("PF('dialog_001_4').hide();");
+			PrimeFaces.current().executeInitScript("PF('dialog_001_4').hide();");
 			checkListKpiSeleccionado = null;
 		} catch (Exception e) {
 			e.printStackTrace();

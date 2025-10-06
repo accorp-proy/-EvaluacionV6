@@ -15,13 +15,12 @@
 		<h:form id="frm_006_1">
 			<p:messages id="msg" autoUpdate="true" closable="true"></p:messages>
 			<div align="right">
-				<p:commandButton icon="ui-icon-check"
-					update=":frm_006_1,:frm_par_006" action="#{agenciaBn.guardar()}"
-					title="Guardar"></p:commandButton>
+				<p:commandButton icon="pi pi-save" update=":frm_006_1,:frm_par_006"
+					action="#{agenciaBn.guardar()}" title="Guardar"></p:commandButton>
 			</div>
 			<p:tabView id="tabWiwe0">
 				<p:tab id="tab00" title="Estación">
-					<p:panelGrid styleClass="sinborde w100">
+					<p:panelGrid columns="2" styleClass="fullsize sinborde">
 						<p:row>
 							<p:column>
 								<p:outputLabel value="Estación"></p:outputLabel>
@@ -147,14 +146,14 @@
 					</p:panelGrid>
 				</p:tab>
 				<p:tab id="tab01" title="Tipo Estación">
-					<p:panelGrid styleClass="sinborde w100">
+					<p:panelGrid columns="2" styleClass="fullsize sinborde">
 						<p:row>
 							<p:column>
 								<p:outputLabel value="# Visitas"></p:outputLabel>
 							</p:column>
 							<p:column>
 								<p:spinner value="#{agenciaBn.agenciaSeleccionada.numVisita}"
-									size="1" min="1" max="50"></p:spinner>
+									styleClass="w75" size="1" min="1" max="50"></p:spinner>
 							</p:column>
 						</p:row>
 						<p:row>
@@ -162,7 +161,7 @@
 								<p:outputLabel value="Frecuencia Visita"></p:outputLabel>
 							</p:column>
 							<p:column>
-								<p:selectOneMenu style="width:80px !important"
+								<p:selectOneMenu
 									value="#{agenciaBn.frecuenciaVisitaSeleccionado}"
 									converter="#{frecuenciaVisitaConverter}">
 									<f:selectItem itemLabel="Frecuencia Visita" />
@@ -170,7 +169,7 @@
 										var="frecuenciaV" itemValue="#{frecuenciaV}"
 										itemLabel="#{frecuenciaV.descripcion}" />
 								</p:selectOneMenu>
-								<p:commandButton icon="fa fa-eye" update=":frm_006_2"
+								<p:commandButton icon="pi pi-eye" update=":frm_006_2"
 									oncomplete="PF('dialog_06_2').show()"></p:commandButton>
 							</p:column>
 						</p:row>
@@ -211,16 +210,12 @@
 				<p:tab id="tab02" title="Responsables">
 					<p:dataTable id="fdt01" emptyMessage="No Existen Responsables"
 						paginator="true" rows="5" var="responsable"
-						value="#{agenciaBn.responsables}" reflow="true"
-						tableStyle="table-layout: auto;">
+						
+						value="#{agenciaBn.responsables}" reflow="true">
 						<f:facet name="header">
-							<h:outputLabel />
-							<div align="right">
-								<p:commandButton id="btnResponsable" icon="ui-icon-add"
-									action="#{agenciaBn.anadirResponsable()}"
-									title="Agregar Responsable" process="@this fdt01"
-									update="fdt01"></p:commandButton>
-							</div>
+							<p:commandButton id="btnResponsable" icon="pi pi-plus"
+								action="#{agenciaBn.anadirResponsable()}"
+								title="Agregar Responsable" process="@this fdt01" update="fdt01"></p:commandButton>
 						</f:facet>
 						<p:column headerText="Identificación" style="width:100px">
 							<p:inputMask id="inpIde" mask="9999999999"
@@ -247,7 +242,7 @@
 						</p:column>
 						<p:column style="width:45px">
 							<div align="center">
-								<p:commandButton id="btnEliminar" icon="ui-icon-delete"
+								<p:commandButton id="btnEliminar" icon="pi pi-trash"
 									action="#{agenciaBn.quitarResponsable(responsable)}"
 									update="fdt01" process="@this fdt01"></p:commandButton>
 							</div>
@@ -258,7 +253,7 @@
 					<p:dataTable id="fdt02" emptyMessage="No Existen checkList"
 						var="agenciaCheckList" paginator="true" rows="5"
 						value="#{agenciaBn.agenciaSeleccionada.agenciaCheckList}"
-						reflow="true" tableStyle="table-layout: auto;">
+						reflow="true" tableStyle="table-layout: auto" paginatorPosition="bottom" >
 						<p:column headerText="Código">
 							<h:outputText value="#{agenciaCheckList.checkList.codigo}"
 								style="width:40px" />
@@ -275,7 +270,7 @@
 						</p:column>
 						<p:column style="width:45px">
 							<div align="center">
-								<p:commandButton id="btnEliminar" icon="ui-icon-delete"
+								<p:commandButton id="btnEliminar" icon="pi pi-trash"
 									action="#{agenciaBn.quitarCheckList(agenciaCheckList)}"
 									update="fdt02" process="@this fdt02"></p:commandButton>
 							</div>

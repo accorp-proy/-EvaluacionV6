@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,9 +17,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.schedule.ScheduleEntryResizeEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.LazyScheduleModel;
@@ -170,7 +172,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 					enviarEmail(planificacionSeleccionada);
 				}
 				iPlanificacionDao.guardarPlanificacion(planificacionSeleccionada, usuario);
-				RequestContext.getCurrentInstance().execute("PF('dlg_pln_002').hide();");
+				PrimeFaces.current().executeInitScript("PF('dlg_pln_002').hide();");
 				inicializarObj();
 				buscar();
 			} else {
@@ -268,7 +270,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 		try {
 			checkListSeleccionado.setUsuarioAsignado(usuarioSeleccionado);
 			checkListSeleccionado.setNombreAuditor(usuarioSeleccionado.getNombreUsuario());
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_004').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').hide();");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método guardarAuditor " + " " + e.getMessage());
@@ -409,7 +411,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 				checkListEjecucion.getCheckListPieFirmaEjecucion().add(checkListPieFirmaEje);
 			}
 			planificacionSeleccionada.getCheckListEjecucion().add(checkListEjecucion);
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_004').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').hide();");
 			usuarioSeleccionado = null;
 			agenciaCheckListSeleccionado = null;
 		} catch (Exception e) {
@@ -514,7 +516,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			showInfo("Notificación", FacesMessage.SEVERITY_ERROR, null,
 					"Por favor seleccione un checkList para continuar.");
 		} else {
-			getRequestContext().execute("PF('dlg_pln_004').show()");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').show()");
 		}
 
 	}
@@ -548,7 +550,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 					checkListProcesoEjecucion.setVisualizar(false);
 				}
 			}
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_006').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_006').hide();");
 			checkListProcesoEjecucionSeleccionados = new ArrayList<CheckListProcesoEjecucionEt>();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -591,6 +593,14 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			System.out.println("Error :Método buscarHabilitados " + " " + e.getMessage());
 		}
 	}
+	
+	public Date convertToD(LocalDateTime dateToConvert) {
+		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	public LocalDateTime convertToL(Date dateToConvert) {
+	    return LocalDateTime.ofInstant(
+	      dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
 
 	public void inicializarCalendario() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -600,11 +610,13 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public void loadEvents(Date desde, Date hasta) {
+				public void loadEvents(LocalDateTime desde, LocalDateTime hasta) {
 					try {
+						Date desdeD = convertToD(desde);
+						Date hastaD = convertToD(hasta);
 						planificaciones = iPlanificacionDao.getPlanificacionList(usuario, evaluacionSeleccionada,
-								tipoChecKListSeleccionado, desde, hasta);
-						DefaultScheduleEvent scheduleEventAllDay;
+								tipoChecKListSeleccionado, desdeD, hastaD);
+						DefaultScheduleEvent<PlanificacionEt> scheduleEventAllDay;
 						String estado = "";
 						String codigo = "";
 						String estacion = "";
@@ -644,17 +656,19 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 									break;
 								}
 							}
-							String strDate = dateFormat.format(planificacion.getFechaPlanificacion());
-							Date fechaD = dateFormat.parse(strDate);
-							scheduleEventAllDay = new DefaultScheduleEvent(
-									planificacion.getAgencia().getNombreAgencia(), fechaD, fechaD, tema);
+							LocalDateTime fechaD = convertToL(planificacion.getFechaPlanificacion());
+							scheduleEventAllDay = new DefaultScheduleEvent<>();
+							scheduleEventAllDay.setStartDate(fechaD);
+							scheduleEventAllDay.setEndDate(fechaD);
+							scheduleEventAllDay.setStyleClass(tema);
+							scheduleEventAllDay.setTitle(planificacion.getAgencia().getNombreAgencia());
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacion()));
 							scheduleEventAllDay.setDescription(leyenda0);
 							scheduleEventAllDay.setAllDay(true);
 							eventModel.addEvent(scheduleEventAllDay);
 						}
-					} catch (EntidadNoEncontradaException | ParseException e) {
+					} catch (EntidadNoEncontradaException e) {
 						e.printStackTrace();
 						System.out.println("Error :Método cargarCheckList " + " " + e.getMessage());
 					}
@@ -690,7 +704,7 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 		try {
 			bloqueo = false;
 			inicializarObj();
-			Date date = (Date) selectEvent.getObject();
+			LocalDateTime dateL = (LocalDateTime) selectEvent.getObject();
 			Calendar calendar0 = Calendar.getInstance();
 			Calendar calendar1 = Calendar.getInstance();
 			int hour = calendar1.get(Calendar.HOUR);
@@ -698,9 +712,10 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			int second = calendar1.get(Calendar.SECOND);
 			int m = calendar1.get(Calendar.AM_PM);
 			calendar1.setTime(new Date());
-			calendar0.setTime(date);
+			Date dateD = convertToD(dateL);
+			calendar0.setTime(dateD);
 			int month = calendar1.get(Calendar.MONTH);
-			calendar0.add(Calendar.DATE, 1);
+			//calendar0.add(Calendar.DATE, 1);
 			calendar0.set(Calendar.HOUR, hour);
 			calendar0.set(Calendar.MINUTE, minute);
 			calendar0.set(Calendar.SECOND, second);
@@ -710,8 +725,8 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 			planificacionSeleccionada.setPlanificacionAuditor(new ArrayList<>());
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa ");
 			String strDate = dateFormat.format(calendar0.getTime());
-			date = dateFormat.parse(strDate);
-			planificacionSeleccionada.setFechaPlanificacion(date);
+			dateD = dateFormat.parse(strDate);
+			planificacionSeleccionada.setFechaPlanificacion(dateD);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			System.out.println("Error :Método onDateSelect " + " " + e.getMessage());
@@ -823,18 +838,18 @@ public class PlanificacionBean extends BaseBean implements Serializable {
 		for (int i = 0; i < selectedNodes.length; i++) {
 			CheckListEt checkList = (CheckListEt) selectedNodes[i].getData();
 			checkListSeleccionado = checkList;
-			getRequestContext().execute("PF('dlg_pln_004').show()");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').show()");
 			break;
 		}
 		if (checkListSeleccionado == null) {
 			showInfo("Notificación", FacesMessage.SEVERITY_ERROR, null,
 					"Por favor seleccione checkList para continuar.");
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_004').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').hide();");
 		}
 		if (usuarioSeleccionados.isEmpty()) {
 			showInfo("Notificación", FacesMessage.SEVERITY_ERROR, null,
 					"Por favor seleccione un auditor para continuar.");
-			RequestContext.getCurrentInstance().execute("PF('dlg_pln_004').hide();");
+			PrimeFaces.current().executeInitScript("PF('dlg_pln_004').hide();");
 		}
 	}
 

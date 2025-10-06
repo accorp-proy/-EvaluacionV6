@@ -81,7 +81,7 @@ public class EvaluacionDao extends GenericDao<EvaluacionEt, Long> implements IEv
 	public List<EvaluacionEt> getEvaluacionList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM EvaluacionEt o ");
 		sql.append(" WHERE o.estado  = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o in (:evaluaciones) ");
 		}
 		if (condicion != null && !condicion.isEmpty()) {
@@ -91,7 +91,7 @@ public class EvaluacionDao extends GenericDao<EvaluacionEt, Long> implements IEv
 		TypedQuery<EvaluacionEt> query = em.createQuery(sql.toString(), EvaluacionEt.class);
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}

@@ -159,7 +159,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 			sql.append(" AND o.usuarioAsignado = :usuario ");
 			sql.append(" AND o.planificacion.agencia.zona in (:zonas) ");
 		}
-		if (usuarioEvaluacion != null) {
+		if (usuarioEvaluacion != null && !usuarioEvaluacion.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		if (estacion != null) {
@@ -196,7 +196,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 			query.setParameter("usuario", usuario);
 
 		}
-		if (usuarioEvaluacion != null) {
+		if (usuarioEvaluacion != null && !usuarioEvaluacion.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}
@@ -589,7 +589,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o ");
 		sql.append(" WHERE o.estado        = :estado   ");
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			sql.append(" AND o.evaluacion in (:evaluaciones) ");
 		}
 		sql.append(" AND o.planificacion   = :planificacion ");
@@ -597,7 +597,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
 		query.setParameter("estado", EstadoEnum.ACT);
 		query.setParameter("planificacion", planificacion);
-		if (usuario != null) {
+		if (usuario != null && !usuario.getEvaluacionUsuario().isEmpty()) {
 			for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}
