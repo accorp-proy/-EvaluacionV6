@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<directory xmlns="http://www.eclipse.org/mylyn/discovery/directory/">
+<entry url="plugins/com.jboss.devstudio.central.discovery.earlyaccess_12.0.0.Final-v20220127-1409-B939.jar" permitCategories="true"/>
+<entry url="plugins/com.jboss.devstudio.central.discovery_12.0.0.Final-v20220127-1409-B939.jar" permitCategories="true"/>
+</directory>

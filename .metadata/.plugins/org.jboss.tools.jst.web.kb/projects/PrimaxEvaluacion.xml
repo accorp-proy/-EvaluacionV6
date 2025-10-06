@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kb-project>
+ <depends-on-projects>
+  <project name="Entities"/>
+  <project name="Enumerations"/>
+  <project name="Exceptions"/>
+  <project name="DataService"/>
+ </depends-on-projects>
+ <used-by-projects/>
+ <paths>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/ecj-4.3.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/resource/api/main/jboss-connector-api_1.7_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-css-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/all-themes-1.0.10.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-cert-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-server-deprecated-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jasperreports-6.2.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-entity-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-server-http-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-password-impl-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-bridge-1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/dynamicreports-core-4.1.0.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-util-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-x500-cert-util-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/xml-apis-ext-1.3.04.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-basic-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-permission-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/slf4j-log4j12-1.6.6.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/quartz-2.2.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-scram-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/resteasy/resteasy-jaxb-provider/main/resteasy-jaxb-provider-4.7.4.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/security/jacc/api/main/jboss-jacc-api_1.5_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-oauth2-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/sun.misc.BASE64Decoder.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/mail/api/main/jakarta.mail-1.6.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-x500-principal-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/guava-18.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-oauth2-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/batch/api/main/jboss-batch-api_1.0_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/primefaces-13.0.0.jar">
+   <libraries>
+    <library class="faces-config">
+     <id class="model-object"
+      path="FileSystems/lib-primefaces-13.0.0.jar/meta-inf/faces-config.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-primefaces-13.0.0.jar/meta-inf/primefaces-p.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-gs2-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jackson-databind-2.1.4.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-xml-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-credential-store-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/poi-ooxml-schemas-3.11-20141221.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-util-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/poi-3.11-20141221.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/xml/ws/api/main/jboss-jaxws-api_2.3_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/enterprise/concurrent/api/main/jboss-concurrency-api_1.0_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-localuser-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/velocity-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/el/api/main/jboss-el-api_3.0_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jsoup-1.10.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/xmlbeans-2.6.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-realm-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-external-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/security/auth/message/api/main/jboss-jaspi-api_1.1_spec-2.0.1.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/servlet-api-2.5.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/jstl/api/main/taglibs-standard-spec-1.2.6-RC1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-form-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/log4j-api-2.17.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-external-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/log4j-core-2.17.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/validation/api/main/jakarta.validation-api-2.0.2.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-asn1-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/dmr/main/jboss-dmr-1.6.1.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-gvt-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/logging/main/jboss-logging-3.4.3.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-beanutils-1.9.2.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/dynamicreports-adhoc-4.1.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-x500-cert-acme-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/hibernate/validator/main/hibernate-validator-6.0.23.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-otp-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/json/api/main/jakarta.json-api-1.1.6.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-bearer-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/ultima-theme-1.0.9.jar">
+   <libraries>
+    <library class="faces-config">
+     <id class="model-object"
+      path="FileSystems/lib-ultima-theme-1.0.9.jar/meta-inf/faces-config.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-ultima-theme-1.0.9.jar/meta-inf/primefaces-ultima.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/barcode4j-2.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jxl-2.6.10.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/poi-scratchpad-3.11-20141221.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/ejb3/main/jboss-ejb3-ext-api-2.3.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jackson-core-2.1.4.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/slf4j-api-1.6.6.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/spring-beans-2.5.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-util-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/jstl/api/main/taglibs-standard-compat-1.2.6-RC1.jar">
+   <libraries>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-compat-1.2.6-RC1.jar/meta-inf/c-1_0.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-compat-1.2.6-RC1.jar/meta-inf/fmt-1_0.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-compat-1.2.6-RC1.jar/meta-inf/sql-1_0.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-compat-1.2.6-RC1.jar/meta-inf/x-1_0.tld" project="DataService"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-client-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/xalan-2.7.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/serializer-2.7.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-anim-1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/bcprov-jdk14-138.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/CKFinderPlugin-Watermark-2.6.2.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/picketbox/main/picketbox-infinispan-5.0.3.Final-redhat-00008.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/orb/api/main/openjdk-orb-8.1.7.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/CKFinder-2.6.2.1.jar">
+   <libraries>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-CKFinder-2.6.2.1.jar/meta-inf/ckfinder.tld" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/poi-excelant-3.11-20141221.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/persistence/api/main/jakarta.persistence-api-2.2.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/resources-ckeditor-6.1.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/enterprise/api/main/jakarta.enterprise.cdi-api-2.0.2.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-lang3-3.3.2.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/annotation/api/main/jboss-annotations-api_1.3_spec-2.0.1.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-digest-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/junit-4.11.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/quartz-jobs-2.2.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/atlantis-theme-6.0.0.jar">
+   <libraries>
+    <library class="faces-config">
+     <id class="model-object"
+      path="FileSystems/lib-atlantis-theme-6.0.0.jar/meta-inf/faces-config.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-atlantis-theme-6.0.0.jar/meta-inf/primefaces-atlantis.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/hsqldb-1.8.0.10.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-anonymous-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-digest-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_4.0_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/gson-2.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/itext-2.1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/core-2.3.0.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/spring-core-2.5.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/dynamicreports-googlecharts-4.1.0.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-net-3.3.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-base-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-provider-util-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-svg-dom-1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/CKFinderPlugin-ImageResize-2.6.2.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/jms/api/main/jboss-jms-api_2.0_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/xml/soap/api/main/jboss-saaj-api_1.4_spec-1.0.2.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/inject/api/main/jakarta.inject-api-1.0.5.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/jws/api/main/jsr181-api-1.0-MR1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/transaction/api/main/jboss-transaction-api_1.3_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-realm-jdbc-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-realm-token-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/xml-apis-1.3.04.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/management/j2ee/api/main/jboss-j2eemgmt-api_1.1_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/picketbox/main/picketbox-commons-1.0.0.final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/jstl/api/main/taglibs-standard-impl-1.2.6-RC1.jar">
+   <libraries>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/c-1_0-rt.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/c-1_1.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/c.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/fmt-1_0-rt.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/fmt.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/fn.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/permittedtaglibs.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/scriptfree.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/sql-1_0-rt.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/sql.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/x-1_0-rt.tld" project="DataService"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-taglibs-standard-impl-1.2.6-RC1.jar/meta-inf/x.tld" project="DataService"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jcommon-1.0.23.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-auth-util-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-awt-util-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-server-sasl-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/CKFinderPlugin-FileEditor-2.6.2.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/poi-ooxml-3.11-20141221.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-json-util-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-credential-source-impl-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-plain-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/interceptor/api/main/jboss-interceptors-api_1.2_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-spnego-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-gssapi-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/as/controller-client/main/wildfly-controller-client-18.1.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/c3p0-0.9.1.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_2.1_spec-2.0.2.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-x500-cert-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/xml/rpc/api/main/jboss-jaxrpc-api_1.1_spec-2.0.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-digester-2.1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/websocket/api/main/jboss-websocket-api_1.1_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-util-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/xml/bind/api/main/jboss-jaxb-api_2.3_spec-2.0.1.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/joda-time-2.9.2.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jfreechart-1.0.19.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-credential-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jackson-annotations-2.1.4.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/picketbox/main/picketbox-5.0.3.Final-redhat-00008.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/jboss/resteasy/resteasy-multipart-provider/main/resteasy-multipart-provider-4.7.4.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-security-manager-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-keystore-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/thumbnailator-0.4.8.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-security-manager-action-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/faces/api/main/jboss-jsf-api_2.3_spec-3.1.0.SP01.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-scram-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-digest-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/activation/api/main/jakarta.activation-1.2.2.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-digest-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/groovy-all-2.4.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/common/main/wildfly-common-1.6.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/json-20080701.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-auth-server-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-ext-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-encryption-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-realm-ldap-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/barbecue-1.5-beta1.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-audit-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-mechanism-http-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-dom-1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/avalon-framework-impl-4.2.0.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/bootstrap-1.0.10.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/primefaces-extensions-13.0.13.jar">
+   <libraries>
+    <library class="faces-config">
+     <id class="model-object"
+      path="FileSystems/lib-primefaces-extensions-13.0.13.jar/meta-inf/faces-config.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-primefaces-extensions-13.0.13.jar/meta-inf/primefaces-extensions.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-script-1.7.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-sasl-gssapi-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-lang-2.5.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/jasperreports-fonts-6.0.0.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/jsp/api/main/jboss-jsp-api_2.3_spec-2.0.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/wsdl4j/api/main/wsdl4j-1.6.3.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/omnifaces-2.6.jar">
+   <libraries>
+    <library class="faces-config">
+     <id class="model-object"
+      path="FileSystems/lib-omnifaces-2.6.jar/meta-inf/faces-config.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-omnifaces-2.6.jar/meta-inf/omnifaces-functions.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+    <library class="facelet">
+     <id class="model-object"
+      path="FileSystems/lib-omnifaces-2.6.jar/meta-inf/omnifaces-ui.taglib.xml" project="PrimaxEvaluacion"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-http-sso-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-ssl-1.19.0.Final.jar"/>
+  <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/wildfly/security/elytron-base/main/wildfly-elytron-x500-1.19.0.Final.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/batik-parser-1.7.jar"/>
+  <path value="C:/JMAJI/espacioTrabajo/DesarrolloEvaluacionV6/PrimaxEvaluacion/WebContent/WEB-INF/lib/commons-io-2.4.jar"/>
+ </paths>
+ <validation>
+  <el/>
+ </validation>
+ <aliases>
+  <alias path="/PrimaxEvaluacion/WebContent/WEB-INF/recursive.xhtml" value="%0"/>
+  <alias path="/PrimaxEvaluacion/WebContent/WEB-INF/menu.xhtml" value="%1"/>
+ </aliases>
+ <includes>
+  <page path="%0">
+   <include path="%0">
+    <var len="6" name="menues" off="665" value="#{rolmenu.rolMenuRec}"/>
+   </include>
+   <include path="%0">
+    <var len="6" name="menues" off="1044" value="#{rolmenu.rolMenuRec}"/>
+   </include>
+   <include path="%0">
+    <var len="6" name="menues" off="1044" value="#{rolmenu.rolMenuRec}"/>
+   </include>
+  </page>
+  <page path="%1">
+   <include path="%0">
+    <var len="6" name="menues" off="429" value="#{appMain.modulos}"/>
+   </include>
+  </page>
+ </includes>
+ <uris>
+  <uri value="http://primefaces.org/atlantis">
+   <prefix>pa</prefix>
+  </uri>
+  <uri value="http://java.sun.com/jsf/core">
+   <prefix>f</prefix>
+  </uri>
+  <uri value="http://java.sun.com/jsf/html">
+   <prefix>h</prefix>
+  </uri>
+  <uri value="http://primefaces.org/ui">
+   <prefix>p</prefix>
+  </uri>
+ </uris>
+</kb-project>

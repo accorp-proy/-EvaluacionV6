@@ -268,7 +268,5 @@ public class AgenciaEt extends EntityBase implements Serializable {
 				return true;
 		}
 		return false;
-
 	}
-
 }

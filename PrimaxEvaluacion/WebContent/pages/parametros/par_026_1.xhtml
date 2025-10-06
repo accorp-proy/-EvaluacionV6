@@ -4,14 +4,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
-	<p:dialog modal="true" widgetVar="dlg_par_026_1" id="dlg_par_026_1"
+	<p:dialog modal="true" widgetVar="dialog_26_1" id="dialog_26_1"
 		closeOnEscape="true" hideEffect="drop" showHeader="true"
 		appendTo="@(body)" resizable="false" responsive="true">
 		<h:form id="frm_par_026_1">
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Subir Archivo" />
-				<p:fileUpload update=":frm_con_001:msg,:frm_con_001:dtbCab"
-					fileUploadListener="#{CargaArchivoConsumoBn.listenerConsumo}"
+				<p:fileUpload update=":frm_par_026:msg,:frm_par_026:dtbFaltanteInv"
+					fileUploadListener="#{FaltanteInventarioBn.listenerInv}"
 					mode="advanced" label="Cargar" auto="true"
 					allowTypes="/(\.|\/)(xlsx|xls|csv)$/" />
 			</p:panelGrid>
