@@ -2,8 +2,30 @@
 <section name="Workbench">
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
-			<item value="nombreAgencia"/>
+			<item value="FaltanteInventarioEt"/>
+			<item value="faltanteDet"/>
+			<item value="iCheckListEjecucionDao"/>
+			<item value="totCantidad"/>
+			<item value="getGenerarFaltInvResumen"/>
+			<item value="checkListEjecucion"/>
+			<item value="dialog_26_1"/>
+			<item value="mensajes"/>
+			<item value="redi"/>
+			<item value="redireccionar"/>
+			<item value="ejecutando"/>
+			<item value="iResponsableDao"/>
+			<item value="buscar"/>
+			<item value="Ejecuci"/>
+			<item value="IPlanAccionInventarioTipoDao"/>
+		</list>
+		<list key="replacehistory">
+			<item value="FaltanteDetalleEt"/>
+			<item value="dlg_pln_018"/>
+			<item value="frm_pln_017"/>
+			<item value="InvFaltanteEjecucionBn"/>
+			<item value="invFaltanteBn"/>
 		</list>
 	</section>
 </section>

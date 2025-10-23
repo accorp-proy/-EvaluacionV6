@@ -1,0 +1,66 @@
+package com.primax.srv.dao;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PreDestroy;
+import javax.ejb.Remove;
+import javax.ejb.Stateful;
+import javax.ejb.StatefulTimeout;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TypedQuery;
+
+import com.primax.exc.gen.EntidadNoEncontradaException;
+import com.primax.jpa.enums.EstadoEnum;
+import com.primax.jpa.param.FaltanteDetalleEt;
+import com.primax.jpa.param.FaltanteInventarioEt;
+import com.primax.srv.dao.base.GenericDao;
+import com.primax.srv.idao.IFaltanteDetalleDao;
+
+@Stateful
+@StatefulTimeout(unit = TimeUnit.HOURS, value = 8)
+public class FaltanteDetalleDao extends GenericDao<FaltanteDetalleEt, Long> implements IFaltanteDetalleDao {
+
+	public FaltanteDetalleDao() {
+		super(FaltanteDetalleEt.class);
+	}
+
+	private StringBuilder sql;
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<FaltanteDetalleEt> getFaltanteDetByCat(FaltanteInventarioEt faltanteInv, String descripcion) throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM FaltanteDetalleEt o    ");
+		sql.append(" WHERE o.estado = :estado   ");
+		sql.append(" AND o.faltanteInventario = :faltanteInv ");
+		sql.append(" AND o.categoria = :categoria ");
+		TypedQuery<FaltanteDetalleEt> query = em.createQuery(sql.toString(), FaltanteDetalleEt.class);
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("categoria", descripcion);
+		query.setParameter("faltanteInv", faltanteInv);
+		List<FaltanteDetalleEt> result = query.getResultList();
+		return result;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public String limpiarReporte(Long idFaltanteInv) {
+		StoredProcedureQuery query = this.em.createNamedStoredProcedureQuery("getEliminarFaltInvResumen");
+		query.setParameter("idFaltanteInv", idFaltanteInv);
+		String respuesta = (String) query.getOutputParameterValue("respuesta");
+		return respuesta;
+	}
+
+	@Remove
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public void remove() {
+		System.out.println("Finalizado Statefull Bean : " + this.getClass().getCanonicalName());
+	}
+
+	@PreDestroy
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public void detached() {
+		System.out.println("Terminado Statefull Bean : " + this.getClass().getCanonicalName());
+	}
+
+}

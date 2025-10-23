@@ -745,4 +745,6 @@
 <public publicId="-//Hibernate/Hibernate Mapping DTD 3.0//EN" uri="file:///C:/JMAJI/Eclipse/eclipse/plugins/org.hibernate.eclipse.mapper_5.4.23.v20231123-1018/dtd/hibernate-mapping-3.0.dtd"/>
 <public publicId="-//Hibernate/Hibernate Configuration DTD 3.0//EN" uri="file:///C:/JMAJI/Eclipse/eclipse/plugins/org.hibernate.eclipse.mapper_5.4.23.v20231123-1018/dtd/hibernate-configuration-3.0.dtd"/>
 <public publicId="-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" uri="file:///C:/JMAJI/Eclipse/eclipse/plugins/org.hibernate.eclipse.mapper_5.4.23.v20231123-1018/dtd/hibernate-reverse-engineering-3.0.dtd"/>
+<public publicId="http://schemas.xmlsoap.org/ws/2004/03/partner-link/" uri="jar:file:/C:/JMAJI/Eclipse/eclipse/plugins/org.eclipse.bpel.ui_1.1.2.Final-v20180621-1835.jar!/schemas/wsbpel_plinkType.xsd"/>
+<public publicId="http://schemas.xmlsoap.org/ws/2004/03/business-process/" uri="jar:file:/C:/JMAJI/Eclipse/eclipse/plugins/org.eclipse.bpel.ui_1.1.2.Final-v20180621-1835.jar!/schemas/wsbpel_msgprop.xsd"/>
 </catalog>

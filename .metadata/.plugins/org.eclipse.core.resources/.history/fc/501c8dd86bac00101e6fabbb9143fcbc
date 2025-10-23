@@ -1,0 +1,336 @@
+package com.primax.bean.vs;
+
+import java.io.InputStream;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
+
+import com.primax.bean.ss.AppMain;
+import com.primax.bean.vs.base.BaseBean;
+import com.primax.jpa.param.FaltanteDetalleEt;
+import com.primax.jpa.param.FaltanteInventarioEt;
+import com.primax.jpa.pla.CheckListEjecucionEt;
+import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.ICheckListEjecucionDao;
+import com.primax.srv.idao.IFaltanteInventarioDao;
+import com.primax.srv.idao.IResponsableDao;
+import com.primax.util.POIReader;
+import com.primax.util.RowPoi;
+
+@Named("InvFaltanteEjecucionBn")
+@ViewScoped
+public class InventarioFaltanteEjecucionBean extends BaseBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EJB
+	private IResponsableDao iResponsableDao;
+	@EJB
+	private IFaltanteInventarioDao iFaltanteInvDao;
+	@EJB
+	private ICheckListEjecucionDao iCheckListEjecucionDao;
+
+	private Double totCantidad = 0D;
+	private Double totVariacion = 0D;
+	private FaltanteInventarioEt faltanteInvSelecc;
+
+	@Inject
+	private AppMain appMain;
+
+	@Override
+	protected void init() {
+		inicializarObj();
+		buscar();
+	}
+
+	public void buscar() {
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			faltanteInvSelecc = iFaltanteInvDao.getFaltanteInvEjecucion(usuario);
+			if (faltanteInvSelecc != null) {
+				// mostrarTotal(checkListEjecucion);
+				// mostrarTotalCalificacion(checkListEjecucion);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método buscar " + " " + e.getMessage());
+		}
+
+	}
+
+	public void inicializarObj() {
+
+	}
+
+	public void listenerInv(FileUploadEvent event) {
+		FaltanteInventarioEt cab = null;
+		try {
+			String nombre = event.getFile().getFileName();
+			FaltanteInventarioEt cabExiste = new FaltanteInventarioEt();
+			// cabExiste = iCabeceraConsumoDao.getCabeceraByNombre(nombre);
+			if (cabExiste != null && cabExiste.getIdFaltanteInventario() != null) {
+				showInfo("El nombre del Archivo ya existe, por favor cambielo e intente nuevamente",
+						FacesMessage.SEVERITY_ERROR);
+				return;
+			}
+			UsuarioEt usuario = appMain.getUsuario();
+			cab = faltanteInvSelecc;
+			cab.setFechaCargaArchivo(new Date());
+			cab.setFaltanteDetalle(new ArrayList<>());
+			cab.setUsuarioRegistra(usuario);
+			InputStream is = event.getFile().getInputStream();
+			String tipo = nombre.substring(nombre.length() - 4).toUpperCase();
+			List<RowPoi> listCols;
+			if (tipo.equals("XLSX")) {
+				listCols = POIReader.getColumsFromXLSXFile(is, 0, false, "");
+				cab.setFaltanteDetalle(procesarRegistrosInv(listCols, cab));
+			} else if (tipo.equals("XLS")) {
+				listCols = POIReader.getColumsFromXLSFile(is, 0, false, "");
+				cab.setFaltanteDetalle(procesarRegistrosInv(listCols, cab));
+			}
+			cab.setCantidadRegistro((long) cab.getFaltanteDetalle().size());
+			iFaltanteInvDao.guardarFaltanteInv(cab, usuario);
+			iFaltanteInvDao.generar(cab.getIdFaltanteInventario(), usuario.getIdUsuario());
+			PrimeFaces.current().executeScript("PF('dlg_pln_018').hide();");
+			showInfo("Archivo cargado con éxito ", FacesMessage.SEVERITY_INFO);
+			buscar();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			showInfo("Error Archivo cargado ", FacesMessage.SEVERITY_INFO);
+			System.out.println("Error :Método listenerInv " + " " + e.getMessage());
+		}
+	}
+
+	private List<FaltanteDetalleEt> procesarRegistrosInv(List<RowPoi> list, FaltanteInventarioEt cab)
+			throws ParseException {
+		List<FaltanteDetalleEt> faltanteDets = new ArrayList<>();
+		try {
+			int rg = list.size();
+			for (int i = 1; i <= list.size(); i++) {
+				System.out.println(i);
+				if (i == rg) {
+					break;
+				}
+				FaltanteDetalleEt det = new FaltanteDetalleEt();
+				det.setFaltanteInventario(cab);
+				det.setUsuarioRegistra(cab.getUsuarioRegistra());
+				det.setNroDocumento(list.get(i).getCells().get(0).getValue() == null ? null
+						: list.get(i).getCells().get(0).getValue().toString());
+				det.setPosicion(list.get(i).getCells().get(1).getValue() == null ? null
+						: Long.parseLong(list.get(i).getCells().get(1).getValue().toString()));
+				det.setCentro(list.get(i).getCells().get(2).getValue() == null ? null
+						: list.get(i).getCells().get(2).getValue().toString());
+				det.setAlmacen(list.get(i).getCells().get(3).getValue() == null ? null
+						: list.get(i).getCells().get(3).getValue().toString());
+				det.setContabilizacion(list.get(i).getCells().get(4).getValue() == null ? null
+						: list.get(i).getCells().get(4).getValue().toString());
+				det.setMaterial(list.get(i).getCells().get(5).getValue() == null ? null
+						: list.get(i).getCells().get(5).getValue().toString());
+				det.setReferencia(list.get(i).getCells().get(6).getValue() == null ? null
+						: list.get(i).getCells().get(6).getValue().toString());
+				det.setNombreProducto(list.get(i).getCells().get(7).getValue() == null ? null
+						: list.get(i).getCells().get(7).getValue().toString());
+				det.setCantidadTeorica(list.get(i).getCells().get(8).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(8).getValue().toString()));
+				det.setCantidadContada(list.get(i).getCells().get(9).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(9).getValue().toString()));
+				det.setCantidadDiferencia(list.get(i).getCells().get(10).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(10).getValue().toString()));
+				det.setValorDifVenPositivo(list.get(i).getCells().get(11).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(11).getValue().toString()));
+				det.setValorDifVenNegativo(list.get(i).getCells().get(12).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(12).getValue().toString()));
+				det.setEstatusInv(list.get(i).getCells().get(13).getValue() == null ? null
+						: list.get(i).getCells().get(13).getValue().toString());
+				det.setContadoPor(list.get(i).getCells().get(14).getValue() == null ? null
+						: list.get(i).getCells().get(14).getValue().toString());
+				det.setCostoUnitario(list.get(i).getCells().get(15).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(15).getValue().toString()));
+				det.setCostoVariacion(list.get(i).getCells().get(16).getValue() == null ? null
+						: Double.parseDouble(list.get(i).getCells().get(16).getValue().toString()));
+				det.setCategoria(list.get(i).getCells().get(17).getValue() == null ? null
+						: list.get(i).getCells().get(17).getValue().toString());
+				faltanteDets.add(det);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			showInfo("Error Archivo cargado ", FacesMessage.SEVERITY_INFO);
+			System.out.println("Error :Método procesarRegistrosInv " + " " + e.getMessage());
+		}
+		return faltanteDets;
+	}
+
+	public void guardar() {
+		String pagina = "";
+		String mensaje = "";
+		try {
+			mensaje = validarguardar();
+			if (!mensaje.equals("")) {
+				showInfo(mensaje, FacesMessage.SEVERITY_WARN);
+				return;
+			}
+			// UsuarioEt usuario = appMain.getUsuario();
+			FacesContext contex = FacesContext.getCurrentInstance();
+			// checkListEjecucion.setEstadoPlanAccion(EstadoPlanAccionEnum.INGRESADO);
+			// iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucion,
+			// usuario);
+			pagina = "/PrimaxEvaluacion/pages/main.jsf";
+			contex.getExternalContext().redirect(pagina);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardar " + " " + e.getMessage());
+		}
+	}
+
+	public String validarguardar() {
+		String mensaje = "";
+		try {
+//			for (CheckListProcesoEjecucionEt checkListProceso : checkListEjecucion.getCheckListProcesoEjecucion()) {
+//				for (CheckListKpiEjecucionEt checkListKpi : checkListProceso.getCheckListKpiEjecucion()) {
+//					if (checkListKpi.getComentarioPlanAccion() == null) {
+//						mensaje = "Por favor ingresar plan de acción del KPI " + " " + checkListKpi.getDescripcion();
+//						break;
+//					}
+//				}
+//			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método mensaje " + " " + e.getMessage());
+		}
+		return mensaje;
+	}
+
+	public void retroceder() {
+		String pagina = "";
+		try {
+			FacesContext contex = FacesContext.getCurrentInstance();
+			pagina = "/PrimaxEvaluacion/pages/main.jsf";
+			contex.getExternalContext().redirect(pagina);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método retroceder " + " " + e.getMessage());
+		}
+	}
+
+	public Long sumarProceso(CheckListProcesoEjecucionEt checkListProcesoEjecucion) {
+		Long totalPuntajeD = 0L;
+		try {
+			for (int i = 0; i < checkListProcesoEjecucion.getCheckListKpiEjecucion().size(); i++) {
+				if (checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getkPICritico() == null) {
+					totalPuntajeD += checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getProcesoDetalle()
+							.getPuntaje();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método sumarProceso " + " " + e.getMessage());
+		}
+		return totalPuntajeD;
+	}
+
+	public Long sumarProcesoCalificacion(CheckListProcesoEjecucionEt checkListProcesoEjecucion) {
+		Long totalPuntajeD = 0L;
+		try {
+			for (int i = 0; i < checkListProcesoEjecucion.getCheckListKpiEjecucion().size(); i++) {
+				if (checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getkPICritico() == null
+						&& checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).isSumar()) {
+					totalPuntajeD += checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getPuntajeEjecucion();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método sumarProceso " + " " + e.getMessage());
+		}
+		return totalPuntajeD;
+	}
+
+	public void mostrarTotal(FaltanteInventarioEt faltanteInv) {
+	
+		try {
+			totCantidad = faltanteInv.getFaltanteResumen().stream().mapToDouble(p -> p.getCantidad().sum());
+			totalPuntaje = totalKpi;
+			System.out.println("Total Puntaje" + " " + totalPuntaje);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método mostrarTotal " + " " + e.getMessage());
+		}
+	}
+
+	public void mostrarTotalCalificacion(CheckListEjecucionEt checkListEjecucion) {
+		totalPuntajeCalificacion = 0L;
+		Long totalKpi = 0L;
+		try {
+			for (CheckListProcesoEjecucionEt checkListProcesoEjecucion : checkListEjecucion
+					.getCheckListProcesoEjecucion()) {
+				totalKpi += checkListProcesoEjecucion.getCheckListKpiEjecucion().stream().filter(p -> p.isSumar())
+						.mapToLong(p -> p.getPuntajeEjecucion()).sum();
+			}
+			totalPuntajeCalificacion = totalKpi;
+			System.out.println("Total Puntaje Calificación" + " " + totalPuntajeCalificacion);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método mostrarTotal " + " " + e.getMessage());
+		}
+	}
+
+	public Long getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+	public void setTotalPuntaje(Long totalPuntaje) {
+		this.totalPuntaje = totalPuntaje;
+	}
+
+	public AppMain getAppMain() {
+		return appMain;
+	}
+
+	public void setAppMain(AppMain appMain) {
+		this.appMain = appMain;
+	}
+
+	public Long getTotalPuntajeCalificacion() {
+		return totalPuntajeCalificacion;
+	}
+
+	public void setTotalPuntajeCalificacion(Long totalPuntajeCalificacion) {
+		this.totalPuntajeCalificacion = totalPuntajeCalificacion;
+	}
+
+	public FaltanteInventarioEt getFaltanteInvSelecc() {
+		return faltanteInvSelecc;
+	}
+
+	public void setFaltanteInvSelecc(FaltanteInventarioEt faltanteInvSelecc) {
+		this.faltanteInvSelecc = faltanteInvSelecc;
+	}
+
+	@Override
+	protected void onDestroy() {
+		iResponsableDao.remove();
+		iCheckListEjecucionDao.remove();
+	}
+}

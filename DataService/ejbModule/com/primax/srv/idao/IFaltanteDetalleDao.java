@@ -1,0 +1,18 @@
+package com.primax.srv.idao;
+
+import java.util.List;
+
+import com.primax.exc.gen.EntidadNoEncontradaException;
+import com.primax.jpa.param.FaltanteDetalleEt;
+import com.primax.jpa.param.FaltanteInventarioEt;
+import com.primax.srv.dao.base.IGenericDao;
+
+public interface IFaltanteDetalleDao extends IGenericDao<FaltanteDetalleEt, Long> {
+
+	public void remove();
+
+	public String limpiarReporte(Long idFaltanteInv);
+
+	public List<FaltanteDetalleEt> getFaltanteDetByCat(FaltanteInventarioEt faltanteInv, String descripcion) throws EntidadNoEncontradaException;
+
+}

@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteInventarioDao"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.pla.CheckListEjecucionEt"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.primefaces.PrimeFaces"/>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteResumenEt"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteDetalleEt"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteInventarioEt"/>
+    <fullyQualifiedTypeName name="java.lang.StrictMath"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteDetalleDao"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+</qualifiedTypeNameHistroy>
