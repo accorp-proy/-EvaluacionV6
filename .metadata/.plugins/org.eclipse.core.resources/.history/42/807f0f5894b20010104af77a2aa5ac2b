@@ -1,0 +1,12 @@
+package com.primax.srv.dao;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.ejb.Stateful;
+import javax.ejb.StatefulTimeout;
+
+@Stateful
+@StatefulTimeout(unit = TimeUnit.HOURS, value = 8)
+public class CategoriaFaltanteDao {
+
+}

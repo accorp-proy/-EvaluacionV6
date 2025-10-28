@@ -8,8 +8,11 @@
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteResumenEt"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteDetalleEt"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteInventarioEt"/>
-    <fullyQualifiedTypeName name="java.lang.StrictMath"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteDetalleDao"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.primax.srv.dao.base.IGenericDao"/>
+    <fullyQualifiedTypeName name="java.lang.Long"/>
+    <fullyQualifiedTypeName name="java.lang.StrictMath"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.CategoriaFaltanteEt"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

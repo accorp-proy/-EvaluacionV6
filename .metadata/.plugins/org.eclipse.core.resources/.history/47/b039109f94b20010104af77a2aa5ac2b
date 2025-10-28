@@ -1,0 +1,8 @@
+package com.primax.srv.idao;
+
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.srv.dao.base.IGenericDao;
+
+public interface ICategoriaFaltanteDao extends IGenericDao<CategoriaFaltanteEt, Long> {
+
+}

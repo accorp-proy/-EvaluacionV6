@@ -42,6 +42,10 @@ public class FaltanteDetalleEt extends EntityBase implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_faltante_inventario")
 	private FaltanteInventarioEt faltanteInventario;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_categoria_faltante")
+	private CategoriaFaltanteEt categoriaFaltante;
 
 	@Column(name = "nro_documento", length = 50)
 	private String nroDocumento;
@@ -269,6 +273,14 @@ public class FaltanteDetalleEt extends EntityBase implements Serializable {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public CategoriaFaltanteEt getCategoriaFaltante() {
+		return categoriaFaltante;
+	}
+
+	public void setCategoriaFaltante(CategoriaFaltanteEt categoriaFaltante) {
+		this.categoriaFaltante = categoriaFaltante;
 	}
 
 	@Override

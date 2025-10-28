@@ -9,7 +9,7 @@
 		<h:form id="frm_pln_017">
 			<p:growl showDetail="false" id="msg">
 			</p:growl>
-			<p:panelGrid styleClass="sinborde w100">
+			<p:panelGrid>
 				<p:row>
 					<p:column>
 						<p:commandButton action="#{InvFaltanteEjecucionBn.retroceder()}"
@@ -68,7 +68,8 @@
 					</p:column>
 				</p:row>
 			</p:panelGrid>
-			<p:dataTable id="dtbFaltanteR" var="resumen" styleClass="w100"
+			<p:dataTable id="dtbFaltanteR" var="resumen" scrollable="true"
+				scrollHeight="300"
 				value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteResumen}"
 				emptyMessage="No existen Procesos">
 				<f:facet name="header">
@@ -77,11 +78,15 @@
 				<p:column headerText="Categoría ">
 					<h:outputText value="#{resumen.descripcion}"></h:outputText>
 				</p:column>
-				<p:column headerText="Cantidad diferencia  ">
-					<h:outputText value="#{resumen.cantidad}"></h:outputText>
+				<p:column headerText="Cantidad Diferencia">
+					<h:outputText value="#{resumen.cantidad}">
+						<f:convertNumber pattern="##0.00" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Variación Costo  ">
-					<h:outputText value="#{resumen.variacion}"></h:outputText>
+					<h:outputText value="#{resumen.variacion}">
+						<f:convertNumber pattern="##0.00" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Ver">
 					<p:commandButton icon="pi pi-eye" process="@this dtbFaltanteR"
@@ -91,11 +96,17 @@
 				</p:column>
 				<p:columnGroup type="footer">
 					<p:row>
-						<p:column colspan="1" headerText="Total: " />
-						<p:column style="font-weight:bold"
-							footerText="#{InvFaltanteEjecucionBn.totCantidad}" />
-						<p:column style="font-weight:bold"
-							footerText="#{InvFaltanteEjecucionBn.totVariacion}" />
+						<p:column style="text-align:left" footerText="Total:" />
+						<p:column>
+							<f:facet name="footer">
+								<h:outputText value="#{InvFaltanteEjecucionBn.totCantidadS}" />
+							</f:facet>
+						</p:column>
+						<p:column>
+							<f:facet name="footer">
+								<h:outputText value="#{InvFaltanteEjecucionBn.totVariacionS}" />
+							</f:facet>
+						</p:column>
 					</p:row>
 				</p:columnGroup>
 			</p:dataTable>
@@ -109,15 +120,30 @@
 					<p:outputLabel value="#{detalle.nombreProducto}" />
 				</p:column>
 				<p:column headerText="Cantidad teórica">
-					<p:outputLabel value="#{detalle.cantidadTeorica}" />
+					<p:outputLabel value="#{detalle.cantidadTeorica}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Cantidad contada">
-					<p:outputLabel value="#{detalle.cantidadContada}" />
+					<p:outputLabel value="#{detalle.cantidadContada}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Cantidad diferencia">
-					<p:outputLabel value="#{detalle.cantidadDiferencia}" />
+					<p:outputLabel value="#{detalle.cantidadDiferencia}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
 				</p:column>
-
+				<p:column headerText="Costo Unitario">
+					<p:outputLabel value="#{detalle.costoUnitario}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Variación Costo">
+					<p:outputLabel value="#{detalle.costoVariacion}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
+				</p:column>
 			</p:dataTable>
 
 		</h:form>

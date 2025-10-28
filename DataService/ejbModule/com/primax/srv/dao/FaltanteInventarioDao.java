@@ -174,9 +174,9 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		query.setParameter("estado", EstadoEnum.ACT);
 		List<FaltanteInventarioEt> result = query.getResultList();
 		FaltanteInventarioEt consultado = getUnique(result);
-		if (consultado != null) {
-			consultado.getFaltanteDetalle().size();
-		}
+//		if (consultado != null) {
+//			consultado.getFaltanteDetalle().size();
+//		}
 		return consultado;
 	}
 

@@ -1,0 +1,165 @@
+package com.primax.bean.vs;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.primefaces.PrimeFaces;
+
+import com.primax.bean.ss.AppMain;
+import com.primax.bean.vs.base.BaseBean;
+import com.primax.jpa.enums.EstadoEnum;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.param.TipoInventarioEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.ICategoriaFaltanteDao;
+import com.primax.srv.idao.ICategoriaInventarioDao;
+import com.primax.srv.idao.ITipoInventarioDao;
+
+@Named("CategoriaFaltanteBn")
+@ViewScoped
+public class CategoriaFaltanteBean extends BaseBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EJB
+	private ITipoInventarioDao iTipoInventarioDao;
+	@EJB
+	private ICategoriaFaltanteDao iCategoriaFaltanteDao;
+
+	@Inject
+	private AppMain appMain;
+
+	private String condicion;
+	private TipoInventarioEt tipoInventarioSeleccionado;
+	private List<CategoriaFaltanteEt> categoriasFaltante;
+	private CategoriaFaltanteEt catFaltanteSeleccionado;
+
+	@Override
+	protected void init() {
+		inicializarObj();
+		buscar();
+	}
+
+	public void inicializarObj() {
+		tipoInventarioSeleccionado = null;
+		catFaltanteSeleccionado = new CategoriaFaltanteEt();
+	}
+
+	public void buscar() {
+		try {
+			categoriasFaltante = iCategoriaFaltanteDao.getCategoriaFaltanteList(condicion);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método buscar " + " " + e.getMessage());
+		}
+	}
+
+	public void guardar() {
+		try {
+			if (tipoInventarioSeleccionado == null) {
+				showInfo("Por favor Seleccione Tipo de Inventario", FacesMessage.SEVERITY_ERROR, "msg", null);
+				return;
+			}
+			if (catFaltanteSeleccionado.getDescripcion().equals("")) {
+				showInfo("Por favor ingrese descripción", FacesMessage.SEVERITY_ERROR, "msg", null);
+				return;
+			}
+			UsuarioEt usuario = appMain.getUsuario();
+			catFaltanteSeleccionado.setTipoInventario(tipoInventarioSeleccionado);
+			catFaltanteSeleccionado.setDescripcion(catFaltanteSeleccionado.getDescripcion().toUpperCase().trim());
+			iCategoriaFaltanteDao.guardarCatFaltante(catFaltanteSeleccionado, usuario);
+			showInfo("Información Grabada con Éxito ", FacesMessage.SEVERITY_INFO);
+			PrimeFaces.current().executeScript("PF('dialog_30_1').hide();");
+			buscar();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardar " + " " + e.getMessage());
+		}
+	}
+
+	public void nuevo() {
+		try {
+			catFaltanteSeleccionado = new CategoriaFaltanteEt();
+			catFaltanteSeleccionado.setCodigo(iCategoriaInventarioDao.getCodigoCategoriaInv());
+			catFaltanteSeleccionado.setOrden(iCategoriaInventarioDao.getOrdenCategoriaInv());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método nuevo " + " " + e.getMessage());
+		}
+	}
+
+	public void modificar(CategoriaFaltanteEt categoriaInventario) {
+		catFaltanteSeleccionado = categoriaInventario;
+		tipoInventarioSeleccionado = categoriaInventario.getTipoInventario();
+
+	}
+
+	public List<TipoInventarioEt> getTipoInventarioList() {
+		List<TipoInventarioEt> tiposInventario = new ArrayList<TipoInventarioEt>();
+		try {
+			tiposInventario = iTipoInventarioDao.getTipoInventarioList(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método getTipoInventarioList " + " " + e.getMessage());
+		}
+		return tiposInventario;
+	}
+
+	public SelectItem[] getEstadosActIna() {
+		SelectItem[] items = new SelectItem[2];
+		items[0] = new SelectItem(EstadoEnum.ACT, EstadoEnum.ACT.getDescripcion());
+		items[1] = new SelectItem(EstadoEnum.INA, EstadoEnum.INA.getDescripcion());
+		return items;
+	}
+
+	public String getCondicion() {
+		return condicion;
+	}
+
+	public void setCondicion(String condicion) {
+		this.condicion = condicion;
+	}
+
+	public TipoInventarioEt getTipoInventarioSeleccionado() {
+		return tipoInventarioSeleccionado;
+	}
+
+	public void setTipoInventarioSeleccionado(TipoInventarioEt tipoInventarioSeleccionado) {
+		this.tipoInventarioSeleccionado = tipoInventarioSeleccionado;
+	}
+
+	public List<CategoriaFaltanteEt> getCategoriasInventario() {
+		return categoriasInventario;
+	}
+
+	public void setCategoriasInventario(List<CategoriaFaltanteEt> categoriasInventario) {
+		this.categoriasInventario = categoriasInventario;
+	}
+
+	public CategoriaFaltanteEt getcatFaltanteSeleccionado() {
+		return catFaltanteSeleccionado;
+	}
+
+	public void setcatFaltanteSeleccionado(CategoriaFaltanteEt catFaltanteSeleccionado) {
+		this.catFaltanteSeleccionado = catFaltanteSeleccionado;
+	}
+
+	@Override
+	protected void onDestroy() {
+		iTipoInventarioDao.remove();
+		iCategoriaInventarioDao.remove();
+	}
+
+}

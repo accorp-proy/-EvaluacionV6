@@ -26,7 +26,6 @@ import org.primefaces.model.ScheduleModel;
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.exc.gen.EntidadNoEncontradaException;
-import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
@@ -205,9 +204,6 @@ public class InventarioFaltanteBean extends BaseBean implements Serializable {
 	public void modificarCheckListEjecucion(CheckListEjecucionEt checkListEjecucion) {
 		try {
 			checkListEjecucionSeleccionado = checkListEjecucion;
-			if (checkListEjecucionSeleccionado.getEstadoCheckList().equals(EstadoCheckListEnum.EN_EJECUCION)) {
-				redireccionar();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método modificar " + " " + e.getMessage());

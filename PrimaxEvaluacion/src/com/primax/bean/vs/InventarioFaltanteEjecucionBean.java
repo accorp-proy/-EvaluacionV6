@@ -2,6 +2,7 @@ package com.primax.bean.vs;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,13 +20,13 @@ import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
+import com.primax.jpa.param.CategoriaFaltanteEt;
 import com.primax.jpa.param.FaltanteDetalleEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.FaltanteResumenEt;
-import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
 import com.primax.jpa.sec.UsuarioEt;
-import com.primax.srv.idao.ICheckListEjecucionDao;
+import com.primax.srv.idao.ICategoriaFaltanteDao;
 import com.primax.srv.idao.IFaltanteDetalleDao;
 import com.primax.srv.idao.IFaltanteInventarioDao;
 import com.primax.srv.idao.IResponsableDao;
@@ -47,9 +48,13 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 	private IFaltanteInventarioDao iFaltanteInvDao;
 	@EJB
 	private IFaltanteDetalleDao iFaltanteDetalleDao;
+	@EJB
+	private ICategoriaFaltanteDao iCategoriaFaltanteDao;
 
 	private Double totCantidad = 0D;
 	private Double totVariacion = 0D;
+	private String totCantidadS = "0";
+	private String totVariacionS = "0";
 	private List<FaltanteDetalleEt> faltanteDet;
 	private FaltanteInventarioEt faltanteInvSelecc;
 
@@ -116,6 +121,7 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 			mostrarTotal(cab);
 			PrimeFaces.current().executeScript("PF('dlg_pln_018').hide();");
 			showInfo("Archivo cargado con éxito ", FacesMessage.SEVERITY_INFO);
+			buscar();
 		} catch (Exception e) {
 			e.printStackTrace();
 			showInfo("Error Archivo cargado ", FacesMessage.SEVERITY_INFO);
@@ -172,6 +178,16 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 						: Double.parseDouble(list.get(i).getCells().get(16).getValue().toString()));
 				det.setCategoria(list.get(i).getCells().get(17).getValue() == null ? null
 						: list.get(i).getCells().get(17).getValue().toString());
+				String descCat = det.getCategoria().toString();
+				CategoriaFaltanteEt catFaltante = iCategoriaFaltanteDao.getCatFaltanteExiste(descCat);
+				if (catFaltante == null) {
+					catFaltante = new CategoriaFaltanteEt();
+					catFaltante.setTop(false);
+					catFaltante.setDescripcion(descCat);
+					catFaltante.setUsuarioRegistra(cab.getUsuarioRegistra());
+					iCategoriaFaltanteDao.guardarCatFaltante(catFaltante, cab.getUsuarioRegistra());
+				}
+				det.setCategoriaFaltante(catFaltante);
 				faltanteDets.add(det);
 
 			}
@@ -281,10 +297,12 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 	}
 
 	public void mostrarTotal(FaltanteInventarioEt faltanteInv) {
-
+		DecimalFormat format = new DecimalFormat("###,###.##");
 		try {
 			totCantidad = faltanteInv.getFaltanteResumen().stream().mapToDouble(p -> p.getCantidad()).sum();
 			totVariacion = faltanteInv.getFaltanteResumen().stream().mapToDouble(p -> p.getVariacion()).sum();
+			totCantidadS = format.format(totCantidad);
+			totVariacionS = format.format(totVariacion);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método mostrarTotal " + " " + e.getMessage());
@@ -331,10 +349,27 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 		this.faltanteDet = faltanteDet;
 	}
 
+	public String getTotCantidadS() {
+		return totCantidadS;
+	}
+
+	public void setTotCantidadS(String totCantidadS) {
+		this.totCantidadS = totCantidadS;
+	}
+
+	public String getTotVariacionS() {
+		return totVariacionS;
+	}
+
+	public void setTotVariacionS(String totVariacionS) {
+		this.totVariacionS = totVariacionS;
+	}
+
 	@Override
 	protected void onDestroy() {
 		iResponsableDao.remove();
 		iFaltanteInvDao.remove();
 		iFaltanteDetalleDao.remove();
+		iCategoriaFaltanteDao.remove();
 	}
 }

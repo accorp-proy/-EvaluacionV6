@@ -89,6 +89,16 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 	@Where(clause = "estado = 'ACT'")
 	private List<FaltanteDetalleEt> faltanteDetalle;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
+	@OrderBy("idFaltanteTopPositivo ")
+	@Where(clause = "estado = 'ACT'")
+	private List<FaltanteTopPositivoEt> faltanteTopPositivo;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
+	@OrderBy("idfaltanteTopNegativo ")
+	@Where(clause = "estado = 'ACT'")
+	private List<FaltanteTopNegativoEt> faltanteTopNegativo;
+
 	public FaltanteInventarioEt() {
 		this.ejecutando = false;
 		this.cantidadRegistro = 0L;
@@ -180,6 +190,22 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 
 	public void setFaltanteResumen(List<FaltanteResumenEt> faltanteResumen) {
 		this.faltanteResumen = faltanteResumen;
+	}
+
+	public List<FaltanteTopPositivoEt> getFaltanteTopPositivo() {
+		return faltanteTopPositivo;
+	}
+
+	public void setFaltanteTopPositivo(List<FaltanteTopPositivoEt> faltanteTopPositivo) {
+		this.faltanteTopPositivo = faltanteTopPositivo;
+	}
+
+	public List<FaltanteTopNegativoEt> getFaltanteTopNegativo() {
+		return faltanteTopNegativo;
+	}
+
+	public void setFaltanteTopNegativo(List<FaltanteTopNegativoEt> faltanteTopNegativo) {
+		this.faltanteTopNegativo = faltanteTopNegativo;
 	}
 
 	@Override

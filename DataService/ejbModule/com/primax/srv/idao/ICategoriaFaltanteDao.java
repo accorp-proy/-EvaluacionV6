@@ -1,0 +1,25 @@
+package com.primax.srv.idao;
+
+import java.util.List;
+
+import com.primax.exc.gen.EntidadNoEncontradaException;
+import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.dao.base.IGenericDao;
+
+public interface ICategoriaFaltanteDao extends IGenericDao<CategoriaFaltanteEt, Long> {
+
+	public void remove();
+
+	public CategoriaFaltanteEt getCatFaltante(long id);
+
+	
+
+	public CategoriaFaltanteEt getCatFaltanteExiste(String desc) throws EntidadNoEncontradaException;
+	
+	public List<CategoriaFaltanteEt> getCategoriaFaltanteList(String condicion) throws EntidadNoEncontradaException;
+
+	public void guardarCatFaltante(CategoriaFaltanteEt catFaltante, UsuarioEt usuario) throws EntidadNoGrabadaException;
+
+}

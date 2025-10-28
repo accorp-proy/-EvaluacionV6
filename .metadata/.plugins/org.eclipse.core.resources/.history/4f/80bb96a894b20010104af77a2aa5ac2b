@@ -1,0 +1,12 @@
+package com.primax.srv.idao;
+
+import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.dao.base.IGenericDao;
+
+public interface ICategoriaFaltanteDao extends IGenericDao<CategoriaFaltanteEt, Long> {
+
+	public void guardarCatFaltante(CategoriaFaltanteEt catFaltante, UsuarioEt usuario) throws EntidadNoGrabadaException;
+
+}
