@@ -78,9 +78,9 @@ public class CategoriaFaltanteDao extends GenericDao<CategoriaFaltanteEt, Long> 
 	public CategoriaFaltanteEt getCatFaltanteExiste(String desc) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CategoriaFaltanteEt o ");
 		sql.append(" WHERE o.estado  = :estado ");
-		sql.append(" AND o.descripcion = :desc ");
+		sql.append(" AND o.codigo = :codigo ");
 		TypedQuery<CategoriaFaltanteEt> query = em.createQuery(sql.toString(), CategoriaFaltanteEt.class);
-		query.setParameter("desc", desc.toUpperCase());
+		query.setParameter("codigo", desc.toUpperCase());
 		query.setParameter("estado", EstadoEnum.ACT);
 		List<CategoriaFaltanteEt> result = query.getResultList();
 		return getUnique(result);

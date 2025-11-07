@@ -13,7 +13,7 @@
 				<p:row>
 					<p:column>
 						<p:commandButton action="#{InvFaltanteEjecucionBn.retroceder()}"
-							icon="pi pi-mail-reply" title="Botón permite retroceder"></p:commandButton>
+							icon="pi pi-arrow-circle-left" title="Botón permite retroceder"></p:commandButton>
 					</p:column>
 					<p:column>
 						<p:outputLabel value="Fecha Control:"></p:outputLabel>
@@ -68,6 +68,167 @@
 					</p:column>
 				</p:row>
 			</p:panelGrid>
+			<p:fieldset legend="Consolidado Top" toggleable="true"
+				toggleSpeed="500">
+				<p:panelGrid columns="2" styleClass="fullsize sinborde"
+					style="width:100%">
+					<p:dataTable id="dtbTopN" var="topN" scrollable="true"
+						scrollHeight="300"
+						value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteTopNegativo}"
+						emptyMessage="No existen Procesos">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputLabel value="Top Consolidado Negativo" />
+							</div>
+						</f:facet>
+						<p:column headerText="Producto ">
+							<h:outputText value="#{topN.nombreProducto}"></h:outputText>
+						</p:column>
+						<p:column headerText="Categoría ">
+							<h:outputText value="#{topN.categoriaFaltante.descripcion}"></h:outputText>
+						</p:column>
+						<p:column headerText="Cantidad Diferencia">
+							<h:outputText value="#{topN.cantidad}">
+								<f:convertNumber pattern="##0.00" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Variación Costo  ">
+							<h:outputText value="#{topN.variacion}">
+								<f:convertNumber pattern="##0.00" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Comentario Control">
+							<div align="left">
+								<p:inputTextarea id="inpTextArea0"
+									value="#{topN.comentarioControl}" rows="4" styleClass="w100"
+									maxlength="500">
+									<p:ajax event="change" process="@this dtbTopN"
+										listener="#{InvFaltanteEjecucionBn.guardarDet()}" />
+								</p:inputTextarea>
+							</div>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column />
+								<p:column style="text-align:left" footerText="Total:" />
+								<p:column>
+									<f:facet name="footer">
+										<h:outputText value="#{InvFaltanteEjecucionBn.totCantNS}" />
+									</f:facet>
+								</p:column>
+								<p:column>
+									<f:facet name="footer">
+										<h:outputText value="#{InvFaltanteEjecucionBn.totVarNS}" />
+									</f:facet>
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<p:dataTable id="dtbTopP" var="topP" scrollable="true"
+						scrollHeight="300"
+						value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteTopPositivo}"
+						emptyMessage="No existen Procesos">
+						<f:facet name="header">
+							<div align="center">
+								<h:outputLabel value="Top Consolidado Positivo" />
+							</div>
+						</f:facet>
+						<p:column headerText="Producto ">
+							<h:outputText value="#{topP.nombreProducto}"></h:outputText>
+						</p:column>
+						<p:column headerText="Categoría">
+							<h:outputText value="#{topP.categoriaFaltante.descripcion}"></h:outputText>
+						</p:column>
+						<p:column headerText="Cantidad Diferencia">
+							<h:outputText value="#{topP.cantidad}">
+								<f:convertNumber pattern="##0.00" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Variación Costo  ">
+							<h:outputText value="#{topP.variacion}">
+								<f:convertNumber pattern="##0.00" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Comentario Control">
+							<div align="left">
+								<p:inputTextarea id="inpTextArea0"
+									value="#{topP.comentarioControl}" rows="4" styleClass="w100"
+									maxlength="500">
+									<p:ajax event="change" process="@this dtbTopP"
+										listener="#{InvFaltanteEjecucionBn.guardarDet()}" />
+								</p:inputTextarea>
+							</div>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column />
+								<p:column style="text-align:left" footerText="Total:" />
+								<p:column>
+									<f:facet name="footer">
+										<h:outputText value="#{InvFaltanteEjecucionBn.totCantPS}" />
+									</f:facet>
+								</p:column>
+								<p:column>
+									<f:facet name="footer">
+										<h:outputText value="#{InvFaltanteEjecucionBn.totVarPS}" />
+									</f:facet>
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+
+				</p:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Top Por Categoría" toggleable="true"
+				toggleSpeed="500">
+				<p:panelGrid id="pnlFiltro" columns="4"
+					styleClass="fullsize sinborde" style="width:100%">
+					<p:selectOneRadio id="oneCondicion" layout="responsive" columns="2"
+						value="#{InvFaltanteEjecucionBn.condicionSeleccionada}">
+						<f:selectItems value="#{InvFaltanteEjecucionBn.condiciones}"
+							var="condicion" itemLabel="#{condicion}" itemValue="#{condicion}" />
+					</p:selectOneRadio>
+					<p:selectOneMenu id="cmbFaltTop"
+						value="#{InvFaltanteEjecucionBn.faltanteCatTopSelecc}"
+						converter="#{faltanteCatTopConverter}">
+						<f:selectItems
+							value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteCategoriaTop}"
+							var="top" itemLabel="#{top.categoriaFaltante.descripcion}"
+							itemValue="#{top}">
+						</f:selectItems>
+						<p:ajax event="change" process="@this pnlFiltro"
+							listener="#{InvFaltanteEjecucionBn.eventSeleccionCatTop}"
+							update="dtbTopC" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<p:dataTable id="dtbTopC" var="topC" scrollable="true"
+					scrollHeight="300"
+					value="#{InvFaltanteEjecucionBn.faltanteCategorias}"
+					emptyMessage="No existen Procesos">
+					<f:facet name="header">
+						<div align="center">
+							<h:outputLabel value="Top Categoría" />
+						</div>
+					</f:facet>
+					<p:column headerText="Producto ">
+						<h:outputText value="#{topC.nombreProducto}"></h:outputText>
+					</p:column>
+					<p:column headerText="Categoría">
+						<h:outputText value="#{topC.categoriaFaltante.descripcion}"></h:outputText>
+					</p:column>
+					<p:column headerText="Cantidad Diferencia">
+						<h:outputText value="#{topC.cantidad}">
+							<f:convertNumber pattern="##0.00" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Variación Costo  ">
+						<h:outputText value="#{topC.variacion}">
+							<f:convertNumber pattern="##0.00" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
 			<p:dataTable id="dtbFaltanteR" var="resumen" scrollable="true"
 				scrollHeight="300"
 				value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteResumen}"
@@ -96,17 +257,11 @@
 				</p:column>
 				<p:columnGroup type="footer">
 					<p:row>
-						<p:column style="text-align:left" footerText="Total:" />
-						<p:column>
-							<f:facet name="footer">
-								<h:outputText value="#{InvFaltanteEjecucionBn.totCantidadS}" />
-							</f:facet>
-						</p:column>
-						<p:column>
-							<f:facet name="footer">
-								<h:outputText value="#{InvFaltanteEjecucionBn.totVariacionS}" />
-							</f:facet>
-						</p:column>
+						<p:column style="font-weight:bold" footerText="Total:" />
+						<p:column style="font-weight:bold"
+							footerText="#{InvFaltanteEjecucionBn.totCantidadS}" />
+						<p:column style="font-weight:bold"
+							footerText="#{InvFaltanteEjecucionBn.totVariacionS}" />
 					</p:row>
 				</p:columnGroup>
 			</p:dataTable>
@@ -145,11 +300,11 @@
 					</p:outputLabel>
 				</p:column>
 			</p:dataTable>
-
 		</h:form>
 		<ui:include src="/pages/planificacion/pln_018.xhtml"></ui:include>
 		<p:confirmDialog widgetVar="dlg_conf_0" header="Confirmar"
-			appendTo="@(body)" message="Esta seguro de guardar Plan de Acción ?"
+			appendTo="@(body)"
+			message="Esta seguro de guardar Inventario Faltante ?"
 			severity="alert" closeOnEscape="true" showEffect="fade"
 			hideEffect="fade">
 			<div align="center">

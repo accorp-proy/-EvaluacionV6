@@ -15,7 +15,10 @@ import javax.persistence.TypedQuery;
 import com.primax.enm.gen.ActionAuditedEnum;
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoEnum;
+import com.primax.jpa.enums.EstadoPlanAccionEnum;
+import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.TipoInventarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
@@ -187,6 +190,22 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		query.setParameter("idUsuario", idUsuario);
 		String respuesta = (String) query.getOutputParameterValue("respuesta");
 		return respuesta;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<FaltanteInventarioEt> getCheckListPlanAccion(AgenciaEt agencia) throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM FaltanteInventarioEt o ");
+		sql.append(" WHERE o.estado          = :estado   ");
+		sql.append(" AND o.estadoCheckList   = :estadoCheckList ");
+		sql.append(" AND o.estadoPlanAccion  = :estadoPlanAccion ");
+		sql.append(" AND o.agencia = :agencia ");
+		TypedQuery<FaltanteInventarioEt> query = em.createQuery(sql.toString(), FaltanteInventarioEt.class);
+		query.setParameter("agencia", agencia);
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		query.setParameter("estadoPlanAccion", EstadoPlanAccionEnum.PENDIENTE);
+		List<FaltanteInventarioEt> result = query.getResultList();
+		return result;
 	}
 	
 	@Remove

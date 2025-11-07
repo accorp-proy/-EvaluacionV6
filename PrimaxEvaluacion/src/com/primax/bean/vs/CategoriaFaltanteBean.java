@@ -40,8 +40,6 @@ public class CategoriaFaltanteBean extends BaseBean implements Serializable {
 	private AppMain appMain;
 
 	private String condicion;
-	private List<String> condiciones;
-	private String condicionSeleccionada;
 	private TipoInventarioEt tipoInventarioSeleccionado;
 	private List<CategoriaFaltanteEt> categoriasFaltante;
 	private CategoriaFaltanteEt catFaltanteSeleccionado;
@@ -55,9 +53,6 @@ public class CategoriaFaltanteBean extends BaseBean implements Serializable {
 	public void inicializarObj() {
 		tipoInventarioSeleccionado = null;
 		catFaltanteSeleccionado = new CategoriaFaltanteEt();
-		condiciones = new ArrayList<String>();
-		condiciones.add("Top-Positivo");
-		condiciones.add("Top-Negativo");
 	}
 
 	public void buscar() {
@@ -80,11 +75,6 @@ public class CategoriaFaltanteBean extends BaseBean implements Serializable {
 				showInfo("Por favor ingrese descripción", FacesMessage.SEVERITY_ERROR, "msg", null);
 				return;
 			}
-			if (condicionSeleccionada.equals("Top-Positivo")) {
-				catFaltanteSeleccionado.setCondicion(true);
-			} else {
-				catFaltanteSeleccionado.setCondicion(false);
-			}
 			catFaltanteSeleccionado.setTipoInventario(tipoInventarioSeleccionado);
 			catFaltanteSeleccionado.setDescripcion(catFaltanteSeleccionado.getDescripcion().toUpperCase().trim());
 			iCategoriaFaltanteDao.guardarCatFaltante(catFaltanteSeleccionado, usuario);
@@ -98,11 +88,6 @@ public class CategoriaFaltanteBean extends BaseBean implements Serializable {
 	}
 
 	public void modificar(CategoriaFaltanteEt categoriaInventario) {
-		if (categoriaInventario.isCondicion()) {
-			condicionSeleccionada = "Top-Positivo";
-		} else {
-			condicionSeleccionada = "Top-Negativo";
-		}
 		catFaltanteSeleccionado = categoriaInventario;
 		tipoInventarioSeleccionado = categoriaInventario.getTipoInventario();
 
@@ -164,22 +149,6 @@ public class CategoriaFaltanteBean extends BaseBean implements Serializable {
 
 	public void setCategoriasFaltante(List<CategoriaFaltanteEt> categoriasFaltante) {
 		this.categoriasFaltante = categoriasFaltante;
-	}
-
-	public String getCondicionSeleccionada() {
-		return condicionSeleccionada;
-	}
-
-	public void setCondicionSeleccionada(String condicionSeleccionada) {
-		this.condicionSeleccionada = condicionSeleccionada;
-	}
-
-	public List<String> getCondiciones() {
-		return condiciones;
-	}
-
-	public void setCondiciones(List<String> condiciones) {
-		this.condiciones = condiciones;
 	}
 
 	@Override

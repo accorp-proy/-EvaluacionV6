@@ -1,0 +1,121 @@
+package com.primax.bean.vs;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import com.primax.bean.ss.AppMain;
+import com.primax.bean.vs.base.BaseBean;
+import com.primax.jpa.enums.EstadoCheckListEnum;
+import com.primax.jpa.param.FaltanteInventarioEt;
+import com.primax.jpa.param.ResponsableEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.IFaltanteInventarioDao;
+import com.primax.srv.idao.IResponsableDao;
+import com.primax.srv.idao.IUsuarioDao;
+
+@Named("ConsultaPlanAccionFBn")
+@ViewScoped
+public class ConsultaPlanAccionFBean extends BaseBean implements Serializable {
+
+	private static final long serialVersionUID = -734535679991041247L;
+
+	@EJB
+	private IUsuarioDao iUsuarioDao;
+	@EJB
+	private IResponsableDao iResponsableDao;
+	@EJB
+	private IFaltanteInventarioDao iFaltanteInvDao;
+
+	private FaltanteInventarioEt faltanteInvSeleccionado;
+	private List<FaltanteInventarioEt> faltantesInventario;
+
+	@Inject
+	private AppMain appMain;
+
+	@Override
+	protected void init() {
+		buscar();
+
+	}
+
+	public void redireccionar() {
+		String pagina = "";
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			List<FaltanteInventarioEt> faltantesInvEjecutando = iFaltanteInvDao.getFaltanteInveEjecutando(usuario);
+			if (faltantesInvEjecutando != null && !faltantesInvEjecutando.isEmpty()) {
+				for (FaltanteInventarioEt faltantesInvC : faltantesInvEjecutando) {
+					faltantesInvC.setEjecutando(false);
+					iFaltanteInvDao.guardarFaltanteInv(faltantesInvC, usuario);
+				}
+			}
+			if (faltanteInvSeleccionado != null) {
+				faltanteInvSeleccionado.setEjecutando(true);
+				FacesContext contex = FacesContext.getCurrentInstance();
+				pagina = "/PrimaxEvaluacionPruebas/pages/planificacion/pln_020.xhtml";
+				iFaltanteInvDao.guardarFaltanteInv(faltanteInvSeleccionado, usuario);
+				contex.getExternalContext().redirect(pagina);
+			}
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método redireccionar " + " " + e.getMessage());
+		}
+	}
+
+	public void guardar() {
+		try {
+			redireccionar();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardar " + " " + e.getMessage());
+		}
+
+	}
+
+	public void buscar() {
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			ResponsableEt responsable = iResponsableDao.getResponsableEstacion(usuario.getPersonaUsuario());
+			faltantesInventario = iFaltanteInvDao.getCheckListPlanAccion(responsable.getAgencia());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método buscar " + " " + e.getMessage());
+		}
+	}
+
+	public void modificar(FaltanteInventarioEt faltanteInv) {
+		faltanteInvSeleccionado = faltanteInv;
+	}
+
+	public FaltanteInventarioEt getFaltanteInvSeleccionado() {
+		return faltanteInvSeleccionado;
+	}
+
+	public void setFaltanteInvSeleccionado(FaltanteInventarioEt faltanteInvSeleccionado) {
+		this.faltanteInvSeleccionado = faltanteInvSeleccionado;
+	}
+
+	public List<FaltanteInventarioEt> getFaltantesInventario() {
+		return faltantesInventario;
+	}
+
+	public void setFaltantesInventario(List<FaltanteInventarioEt> faltantesInventario) {
+		this.faltantesInventario = faltantesInventario;
+	}
+
+	@Override
+	protected void onDestroy() {
+		iUsuarioDao.remove();
+		iFaltanteInvDao.remove();
+		iResponsableDao.remove();
+	}
+
+}

@@ -44,6 +44,7 @@ public enum EnumNaming {
 	ICriterioEvaluacionDao("CriterioEvaluacionDao"),
 	ICheckListEjecucionDao("CheckListEjecucionDao"),
 	ICategoriaInventarioDao("CategoriaInventarioDao"),
+	IFaltanteCategoriaTopDao("FaltanteCategoriaTopDao"),
 	ISeguimientoPlanAccionDao("SeguimientoPlanAccionDao"),
 	ICheckListKpiEjecucionDao("CheckListKpiEjecucionDao"),
 	INivelEvaluacionDetalleDao("NivelEvaluacionDetalleDao"),

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +30,8 @@ import org.hibernate.envers.Audited;
 
 import com.primax.enm.gen.ActionAuditedEnum;
 import com.primax.jpa.base.EntityBase;
+import com.primax.jpa.enums.EstadoCheckListEnum;
+import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.sec.UsuarioEt;
 
@@ -79,6 +83,17 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 	@Column(name = "cantidad_registro")
 	private Long cantidadRegistro;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "estado_check_List")
+	private EstadoCheckListEnum estadoCheckList;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "estado_plan_accion")
+	private EstadoPlanAccionEnum estadoPlanAccion;
+
+	@Column(name = "plan_accion")
+	private boolean planAccion;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
 	@OrderBy("idFaltanteResumen ")
 	@Where(clause = "estado = 'ACT'")
@@ -99,7 +114,18 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 	@Where(clause = "estado = 'ACT'")
 	private List<FaltanteTopNegativoEt> faltanteTopNegativo;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
+	@OrderBy("idFaltanteCategoria ")
+	@Where(clause = "estado = 'ACT'")
+	private List<FaltanteCategoriaEt> faltanteCategoria;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
+	@OrderBy("idFaltanteCategoriaTop ")
+	@Where(clause = "estado = 'ACT'")
+	private List<FaltanteCategoriaTopEt> faltanteCategoriaTop;
+
 	public FaltanteInventarioEt() {
+		this.planAccion = false;
 		this.ejecutando = false;
 		this.cantidadRegistro = 0L;
 	}
@@ -206,6 +232,46 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 
 	public void setFaltanteTopNegativo(List<FaltanteTopNegativoEt> faltanteTopNegativo) {
 		this.faltanteTopNegativo = faltanteTopNegativo;
+	}
+
+	public EstadoCheckListEnum getEstadoCheckList() {
+		return estadoCheckList;
+	}
+
+	public void setEstadoCheckList(EstadoCheckListEnum estadoCheckList) {
+		this.estadoCheckList = estadoCheckList;
+	}
+
+	public EstadoPlanAccionEnum getEstadoPlanAccion() {
+		return estadoPlanAccion;
+	}
+
+	public void setEstadoPlanAccion(EstadoPlanAccionEnum estadoPlanAccion) {
+		this.estadoPlanAccion = estadoPlanAccion;
+	}
+
+	public boolean isPlanAccion() {
+		return planAccion;
+	}
+
+	public void setPlanAccion(boolean planAccion) {
+		this.planAccion = planAccion;
+	}
+
+	public List<FaltanteCategoriaEt> getFaltanteCategoria() {
+		return faltanteCategoria;
+	}
+
+	public void setFaltanteCategoria(List<FaltanteCategoriaEt> faltanteCategoria) {
+		this.faltanteCategoria = faltanteCategoria;
+	}
+
+	public List<FaltanteCategoriaTopEt> getFaltanteCategoriaTop() {
+		return faltanteCategoriaTop;
+	}
+
+	public void setFaltanteCategoriaTop(List<FaltanteCategoriaTopEt> faltanteCategoriaTop) {
+		this.faltanteCategoriaTop = faltanteCategoriaTop;
 	}
 
 	@Override

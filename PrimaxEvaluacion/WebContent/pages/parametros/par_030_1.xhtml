@@ -37,18 +37,6 @@
 					value="#{CategoriaFaltanteBn.catFaltanteSeleccionado.descripcion}"
 					required="true" requiredMessage="Valor de Nombre es requerido"
 					styleClass="w75"></p:inputText>
-				<p:outputLabel value="Top" />
-				<p:selectBooleanCheckbox
-					value="#{CategoriaFaltanteBn.catFaltanteSeleccionado.top}"></p:selectBooleanCheckbox>
-				<p:outputLabel value="Tipo Top" />
-				<h:panelGroup>
-					<p:selectOneRadio id="oneCondicion" layout="responsive" columns="1"
-						required="true" requiredMessage="Seleccione Top-Positivo o Top-Negativo"
-						value="#{CategoriaFaltanteBn.condicionSeleccionada}">
-						<f:selectItems value="#{CategoriaFaltanteBn.condiciones}"
-							var="condicion" itemLabel="#{condicion}" itemValue="#{condicion}" />
-					</p:selectOneRadio>
-				</h:panelGroup>
 				<p:outputLabel> Estado </p:outputLabel>
 				<p:selectOneMenu editable="false"
 					value="#{CategoriaFaltanteBn.catFaltanteSeleccionado.estado}">

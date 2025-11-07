@@ -1,0 +1,113 @@
+package com.primax.jpa.param;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
+
+import com.primax.enm.gen.ActionAuditedEnum;
+import com.primax.jpa.base.EntityBase;
+import com.primax.jpa.sec.UsuarioEt;
+
+@Entity
+@Table(name = "FALTANTE_TOP_POSITIVO_ET")
+@Audited
+
+public class FaltanteTopPositivoEt extends EntityBase implements Serializable {
+
+	private static final long serialVersionUID = -3318332355036766787L;
+
+	@Id
+	@SequenceGenerator(name = "sec_faltante_top_positivo_et", sequenceName = "seq_faltante_top_positivo_et", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(generator = "sec_faltante_top_positivo_et", strategy = GenerationType.SEQUENCE)
+	@Column(name = "id_faltante_top_positivo")
+	private Long idFaltanteTopPositivo;
+
+	@ManyToOne
+	@JoinColumn(name = "id_faltante_inventario")
+	private FaltanteInventarioEt faltanteInventario;
+
+	@ManyToOne
+	@JoinColumn(name = "id_categoria_faltante")
+	private CategoriaFaltanteEt categoriaFaltante;
+
+	@Column(name = "cantidad")
+	private Double cantidad;
+
+	@Column(name = "variacion")
+	private Double variacion;
+
+	public FaltanteTopPositivoEt() {
+		this.cantidad = 0D;
+		this.variacion = 0D;
+	}
+
+	public FaltanteInventarioEt getFaltanteInventario() {
+		return faltanteInventario;
+	}
+
+	public void setFaltanteInventario(FaltanteInventarioEt faltanteInventario) {
+		this.faltanteInventario = faltanteInventario;
+	}
+
+	public CategoriaFaltanteEt getCategoriaFaltante() {
+		return categoriaFaltante;
+	}
+
+	public void setCategoriaFaltante(CategoriaFaltanteEt categoriaFaltante) {
+		this.categoriaFaltante = categoriaFaltante;
+	}
+
+	public Double getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Double cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Double getVariacion() {
+		return variacion;
+	}
+
+	public void setVariacion(Double variacion) {
+		this.variacion = variacion;
+	}
+
+	public Long getIdFaltanteTopPositivo() {
+		return idFaltanteTopPositivo;
+	}
+
+	public void setIdFaltanteTopPositivo(Long idFaltanteTopPositivo) {
+		this.idFaltanteTopPositivo = idFaltanteTopPositivo;
+	}
+
+	@Override
+	public <T> void audit(UsuarioEt user, ActionAuditedEnum act) {
+		super.audit(user, act);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof FaltanteTopPositivoEt) {
+			FaltanteTopPositivoEt other = (FaltanteTopPositivoEt) obj;
+			if (this.idFaltanteTopPositivo == null)
+				return this == other;
+
+			if (this.idFaltanteTopPositivo.equals(other.idFaltanteTopPositivo))
+				return true;
+		}
+		return false;
+
+	}
+
+}

@@ -16,6 +16,7 @@ import org.primefaces.model.TreeNode;
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.base.EntityBase;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.sec.MenuEt;
 import com.primax.jpa.sec.RolEt;
@@ -135,19 +136,21 @@ public class MenuRolBean extends BaseBean implements Serializable {
 		this.menuSeleccion = menuSeleccion;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public TreeNode[] getSelectedNodes() {
 		return selectedNodes;
 	}
 
-	public void setSelectedNodes(TreeNode[] selectedNodes) {
+	public void setSelectedNodes(@SuppressWarnings("rawtypes") TreeNode[] selectedNodes) {
 		this.selectedNodes = selectedNodes;
 	}
 
-	public TreeNode getNodoPrincipal() {
+	@SuppressWarnings("unchecked")
+	public TreeNode<EntityBase> getNodoPrincipal() {
 		return nodoPrincipal;
 	}
 
-	public void setNodoPrincipal(TreeNode nodoPrincipal) {
+	public void setNodoPrincipal(@SuppressWarnings("rawtypes") TreeNode nodoPrincipal) {
 		this.nodoPrincipal = nodoPrincipal;
 	}
 

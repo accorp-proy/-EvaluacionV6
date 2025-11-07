@@ -48,16 +48,9 @@ public class CategoriaFaltanteEt extends EntityBase implements Serializable {
 	@Column(name = "top")
 	private boolean top;
 
-	/**
-	 * Positivo true , Negativo false
-	 */
-	@Column(name = "condicion")
-	private boolean condicion;
-
 	public CategoriaFaltanteEt() {
 		this.orden = 0L;
 		this.top = false;
-		this.condicion = false;
 	}
 
 	public String getDescripcion() {
@@ -106,14 +99,6 @@ public class CategoriaFaltanteEt extends EntityBase implements Serializable {
 
 	public void setTop(boolean top) {
 		this.top = top;
-	}
-
-	public boolean isCondicion() {
-		return condicion;
-	}
-
-	public void setCondicion(boolean condicion) {
-		this.condicion = condicion;
 	}
 
 	@Override

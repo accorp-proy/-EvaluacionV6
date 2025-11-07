@@ -20,7 +20,7 @@ public class Planner {
 	@PostConstruct
 	public void init() {
 		/**
-		 * Actualizaci�n Estados CheckList
+		 * Actualización Estados CheckList
 		 */
 		JobDetail jobWorkerEstadoCheck = JobBuilder.newJob(WorkerEstadoCheck.class).withIdentity("JOB-ACL", "GRP-NIGHT")
 				.build();

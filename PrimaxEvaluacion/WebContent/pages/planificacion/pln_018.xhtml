@@ -10,10 +10,9 @@
 		<h:form id="frm_pln_018">
 			<p:panelGrid columns="2" styleClass="fullsize sinborde">
 				<p:outputLabel value="Subir Archivo" />
-				<p:fileUpload update=":frm_pln_017:dtbFaltanteR,:frm_pln_017:msg"
-					listener="#{InvFaltanteEjecucionBn.listenerInv}"
-					mode="advanced" label="Cargar" auto="true"
-					allowTypes="/(\.|\/)(xlsx|xls|csv)$/" />
+				<p:fileUpload update=":frm_pln_017,:frm_pln_017:msg"
+					listener="#{InvFaltanteEjecucionBn.listenerInv}" mode="advanced"
+					label="Cargar" auto="true" allowTypes="/(\.|\/)(XLSX|xls)$/" />
 			</p:panelGrid>
 		</h:form>
 	</p:dialog>

@@ -4,23 +4,29 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="agregar form"/>
 			<item value="guardar"/>
-			<item value="categoriaInventarioSeleccionado"/>
-			<item value="frm_par_024"/>
-			<item value="CategoriaInventarioBn"/>
-			<item value="dtbTipoInv"/>
-			<item value="CategoriaInventarioEt"/>
-			<item value="dtbFaltanteR"/>
-			<item value="totCantidadS"/>
-			<item value="totVariacion"/>
-			<item value="number"/>
+			<item value="modi"/>
+			<item value="preGuardar"/>
+			<item value="selectedNodes"/>
+			<item value="confi"/>
+			<item value="confirmar"/>
+			<item value="frm_pln_018"/>
+			<item value="InvFaltanteEjecucionBn"/>
+			<item value="iResponsableDao"/>
 			<item value="iFaltanteDetalleDao"/>
-			<item value="PrimaxEvaluacion"/>
-			<item value="FaltanteInventarioEt"/>
-			<item value="faltanteDet"/>
-			<item value="iCheckListEjecucionDao"/>
+			<item value="iCategoriaFaltanteDao"/>
+			<item value="retreo"/>
+			<item value="totVarPS"/>
+			<item value="frm_pln_017"/>
 		</list>
 		<list key="replacehistory">
+			<item value="frm_pln_020"/>
+			<item value="EjecucionPlanAccionFBn"/>
+			<item value="frm_pln_018"/>
+			<item value="dtbFalInv"/>
+			<item value="frm_ger_005"/>
+			<item value="ConsultaPlanAccionFBn"/>
 			<item value="catFaltanteSeleccionado"/>
 			<item value="frm_par_030"/>
 			<item value="CategoriaFaltanteBn"/>
@@ -30,7 +36,6 @@
 			<item value="dlg_pln_018"/>
 			<item value="frm_pln_017"/>
 			<item value="InvFaltanteEjecucionBn"/>
-			<item value="invFaltanteBn"/>
 		</list>
 	</section>
 </section>

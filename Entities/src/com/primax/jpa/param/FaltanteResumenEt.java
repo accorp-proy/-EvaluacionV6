@@ -44,12 +44,6 @@ public class FaltanteResumenEt extends EntityBase implements Serializable {
 	@Column(name = "variacion")
 	private Double variacion;
 
-	@Column(name = "comentario_control", length = 500)
-	private String comentarioControl;
-
-	@Column(name = "comentario_plan_accion", length = 500)
-	private String comentarioPlanAccion;
-
 	public FaltanteResumenEt() {
 		this.descripcion = "";
 		this.variacion = 0D;
@@ -94,22 +88,6 @@ public class FaltanteResumenEt extends EntityBase implements Serializable {
 
 	public void setVariacion(Double variacion) {
 		this.variacion = variacion;
-	}
-
-	public String getComentarioControl() {
-		return comentarioControl;
-	}
-
-	public void setComentarioControl(String comentarioControl) {
-		this.comentarioControl = comentarioControl;
-	}
-
-	public String getComentarioPlanAccion() {
-		return comentarioPlanAccion;
-	}
-
-	public void setComentarioPlanAccion(String comentarioPlanAccion) {
-		this.comentarioPlanAccion = comentarioPlanAccion;
 	}
 
 	@Override

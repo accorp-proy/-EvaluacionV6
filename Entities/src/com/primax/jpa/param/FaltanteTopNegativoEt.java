@@ -40,15 +40,27 @@ public class FaltanteTopNegativoEt extends EntityBase implements Serializable {
 	@JoinColumn(name = "id_categoria_faltante")
 	private CategoriaFaltanteEt categoriaFaltante;
 
+	@Column(name = "nombre_producto", length = 300)
+	private String nombreProducto;
+
 	@Column(name = "cantidad")
 	private Double cantidad;
 
 	@Column(name = "variacion")
 	private Double variacion;
+	
+	@Column(name = "comentario_control", length = 500)
+	private String comentarioControl;
+
+	@Column(name = "comentario_plan_accion", length = 500)
+	private String comentarioPlanAccion;
 
 	public FaltanteTopNegativoEt() {
 		this.cantidad = 0D;
 		this.variacion = 0D;
+		this.nombreProducto = "";
+		this.comentarioControl = "";
+		this.comentarioPlanAccion = "";
 	}
 
 	public FaltanteInventarioEt getFaltanteInventario() {
@@ -83,14 +95,36 @@ public class FaltanteTopNegativoEt extends EntityBase implements Serializable {
 		this.variacion = variacion;
 	}
 
-	
-
 	public Long getIdfaltanteTopNegativo() {
 		return idfaltanteTopNegativo;
 	}
 
 	public void setIdfaltanteTopNegativo(Long idfaltanteTopNegativo) {
 		this.idfaltanteTopNegativo = idfaltanteTopNegativo;
+	}
+
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
+	}
+
+	public String getComentarioControl() {
+		return comentarioControl;
+	}
+
+	public void setComentarioControl(String comentarioControl) {
+		this.comentarioControl = comentarioControl;
+	}
+
+	public String getComentarioPlanAccion() {
+		return comentarioPlanAccion;
+	}
+
+	public void setComentarioPlanAccion(String comentarioPlanAccion) {
+		this.comentarioPlanAccion = comentarioPlanAccion;
 	}
 
 	@Override

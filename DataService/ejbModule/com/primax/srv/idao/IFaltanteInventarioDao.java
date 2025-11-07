@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.TipoInventarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
@@ -25,6 +26,8 @@ public interface IFaltanteInventarioDao extends IGenericDao<FaltanteInventarioEt
 	public String getCodigoFaltanteInv() throws EntidadNoEncontradaException;
 
 	public FaltanteInventarioEt getFaltanteInvEjecucion(UsuarioEt usuario) throws EntidadNoEncontradaException;
+
+	public List<FaltanteInventarioEt> getCheckListPlanAccion(AgenciaEt agencia) throws EntidadNoEncontradaException;
 
 	public List<FaltanteInventarioEt> getFaltanteInveEjecutando(UsuarioEt usuario) throws EntidadNoEncontradaException;
 

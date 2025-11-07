@@ -20,13 +20,17 @@ import org.primefaces.event.FileUploadEvent;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
+import com.primax.jpa.enums.EstadoCheckListEnum;
+import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.param.FaltanteCategoriaEt;
+import com.primax.jpa.param.FaltanteCategoriaTopEt;
 import com.primax.jpa.param.FaltanteDetalleEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.FaltanteResumenEt;
-import com.primax.jpa.pla.CheckListProcesoEjecucionEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.ICategoriaFaltanteDao;
+import com.primax.srv.idao.IFaltanteCategoriaDao;
 import com.primax.srv.idao.IFaltanteDetalleDao;
 import com.primax.srv.idao.IFaltanteInventarioDao;
 import com.primax.srv.idao.IResponsableDao;
@@ -45,18 +49,32 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 	@EJB
 	private IResponsableDao iResponsableDao;
 	@EJB
+	private IFaltanteCategoriaDao iFaltanteCatDao;
+	@EJB
 	private IFaltanteInventarioDao iFaltanteInvDao;
 	@EJB
 	private IFaltanteDetalleDao iFaltanteDetalleDao;
 	@EJB
 	private ICategoriaFaltanteDao iCategoriaFaltanteDao;
 
+	private Double totVarN = 0D;
+	private Double totVarP = 0D;
+	private Double totCantN = 0D;
+	private Double totCantP = 0D;
+	private String totVarNS = "0";
+	private String totVarPS = "0";
+	private String totCantPS = "0";
+	private String totCantNS = "0";
 	private Double totCantidad = 0D;
 	private Double totVariacion = 0D;
 	private String totCantidadS = "0";
 	private String totVariacionS = "0";
+	private List<String> condiciones;
+	private String condicionSeleccionada;
 	private List<FaltanteDetalleEt> faltanteDet;
 	private FaltanteInventarioEt faltanteInvSelecc;
+	private FaltanteCategoriaTopEt faltanteCatTopSelecc;
+	private List<FaltanteCategoriaEt> faltanteCategorias;
 
 	@Inject
 	private AppMain appMain;
@@ -73,9 +91,12 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 			faltanteInvSelecc = iFaltanteInvDao.getFaltanteInvEjecucion(usuario);
 			if (faltanteInvSelecc != null) {
 				mostrarTotal(faltanteInvSelecc);
-				// mostrarTotalCalificacion(checkListEjecucion);
+				for (FaltanteCategoriaTopEt catTop : faltanteInvSelecc.getFaltanteCategoriaTop()) {
+					faltanteCatTopSelecc = catTop;
+					eventSeleccionCatTop();
+					break;
+				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método buscar " + " " + e.getMessage());
@@ -85,19 +106,17 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 
 	public void inicializarObj() {
 		faltanteDet = new ArrayList<>();
+		faltanteCategorias = new ArrayList<>();
+		condiciones = new ArrayList<String>();
+		condiciones.add("Top-Positivo");
+		condiciones.add("Top-Negativo");
+		condicionSeleccionada = "Top-Negativo";
 	}
 
 	public void listenerInv(FileUploadEvent event) {
 		FaltanteInventarioEt cab = null;
 		try {
 			String nombre = event.getFile().getFileName();
-			FaltanteInventarioEt cabExiste = new FaltanteInventarioEt();
-			// cabExiste = iCabeceraConsumoDao.getCabeceraByNombre(nombre);
-			if (cabExiste != null && cabExiste.getIdFaltanteInventario() != null) {
-				showInfo("El nombre del Archivo ya existe, por favor cambielo e intente nuevamente",
-						FacesMessage.SEVERITY_ERROR);
-				return;
-			}
 			UsuarioEt usuario = appMain.getUsuario();
 			cab = faltanteInvSelecc;
 			cab.setFechaCargaArchivo(new Date());
@@ -176,14 +195,17 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 						: Double.parseDouble(list.get(i).getCells().get(15).getValue().toString()));
 				det.setCostoVariacion(list.get(i).getCells().get(16).getValue() == null ? null
 						: Double.parseDouble(list.get(i).getCells().get(16).getValue().toString()));
-				det.setCategoria(list.get(i).getCells().get(17).getValue() == null ? null
+				det.setCodigoCategoria(list.get(i).getCells().get(17).getValue() == null ? null
 						: list.get(i).getCells().get(17).getValue().toString());
-				String descCat = det.getCategoria().toString();
-				CategoriaFaltanteEt catFaltante = iCategoriaFaltanteDao.getCatFaltanteExiste(descCat);
+				det.setCategoria(list.get(i).getCells().get(18).getValue() == null ? null
+						: list.get(i).getCells().get(18).getValue().toString());
+				String codCat = det.getCodigoCategoria().toString();
+				CategoriaFaltanteEt catFaltante = iCategoriaFaltanteDao.getCatFaltanteExiste(codCat);
 				if (catFaltante == null) {
 					catFaltante = new CategoriaFaltanteEt();
 					catFaltante.setTop(false);
-					catFaltante.setDescripcion(descCat);
+					catFaltante.setCodigo(codCat);
+					catFaltante.setDescripcion(det.getCategoria().toString());
 					catFaltante.setUsuarioRegistra(cab.getUsuarioRegistra());
 					iCategoriaFaltanteDao.guardarCatFaltante(catFaltante, cab.getUsuarioRegistra());
 				}
@@ -220,12 +242,12 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 				showInfo(mensaje, FacesMessage.SEVERITY_WARN);
 				return;
 			}
-			// UsuarioEt usuario = appMain.getUsuario();
+			UsuarioEt usuario = appMain.getUsuario();
 			FacesContext contex = FacesContext.getCurrentInstance();
-			// checkListEjecucion.setEstadoPlanAccion(EstadoPlanAccionEnum.INGRESADO);
-			// iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucion,
-			// usuario);
-			pagina = "/PrimaxEvaluacion/pages/main.jsf";
+			faltanteInvSelecc.setEstadoCheckList(EstadoCheckListEnum.EJECUTADO);
+			faltanteInvSelecc.setEstadoPlanAccion(EstadoPlanAccionEnum.PENDIENTE);
+			iFaltanteInvDao.guardarFaltanteInv(faltanteInvSelecc, usuario);
+			pagina = "/PrimaxEvaluacionPruebas/pages/planificacion/pln_015.xhtml";
 			contex.getExternalContext().redirect(pagina);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -252,11 +274,39 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 		return mensaje;
 	}
 
+	public void eventSeleccionCatTop() {
+		boolean variable = false;
+		CategoriaFaltanteEt catFaltante = null;
+		try {
+			if (condicionSeleccionada.equals("Top-Positivo")) {
+				variable = true;
+			}
+			catFaltante = faltanteCatTopSelecc.getCategoriaFaltante();
+			System.out.println("Categoria Seleccionada" + " " + catFaltante.getDescripcion());
+
+			faltanteCategorias = iFaltanteCatDao.getFaltanteCatByCat(catFaltante, variable);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método mensaje " + " " + e.getMessage());
+		}
+	}
+
+	public void guardarDet() {
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			iFaltanteInvDao.guardarFaltanteInv(faltanteInvSelecc, usuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método guardarDet " + " " + e.getMessage());
+		}
+
+	}
+
 	public void retroceder() {
 		String pagina = "";
 		try {
 			FacesContext contex = FacesContext.getCurrentInstance();
-			pagina = "/PrimaxEvaluacion/pages/main.jsf";
+			pagina = "/PrimaxEvaluacionPruebas/pages/main.jsf";
 			contex.getExternalContext().redirect(pagina);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -264,57 +314,31 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 		}
 	}
 
-	public Long sumarProceso(CheckListProcesoEjecucionEt checkListProcesoEjecucion) {
-		Long totalPuntajeD = 0L;
-		try {
-			for (int i = 0; i < checkListProcesoEjecucion.getCheckListKpiEjecucion().size(); i++) {
-				if (checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getkPICritico() == null) {
-					totalPuntajeD += checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getProcesoDetalle()
-							.getPuntaje();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error :Método sumarProceso " + " " + e.getMessage());
-		}
-		return totalPuntajeD;
-	}
-
-	public Long sumarProcesoCalificacion(CheckListProcesoEjecucionEt checkListProcesoEjecucion) {
-		Long totalPuntajeD = 0L;
-		try {
-			for (int i = 0; i < checkListProcesoEjecucion.getCheckListKpiEjecucion().size(); i++) {
-				if (checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getkPICritico() == null
-						&& checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).isSumar()) {
-					totalPuntajeD += checkListProcesoEjecucion.getCheckListKpiEjecucion().get(i).getPuntajeEjecucion();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error :Método sumarProceso " + " " + e.getMessage());
-		}
-		return totalPuntajeD;
-	}
-
 	public void mostrarTotal(FaltanteInventarioEt faltanteInv) {
 		DecimalFormat format = new DecimalFormat("###,###.##");
 		try {
+
+			totVarN = faltanteInv.getFaltanteTopNegativo().stream().mapToDouble(p -> p.getVariacion()).sum();
+			totVarP = faltanteInv.getFaltanteTopPositivo().stream().mapToDouble(p -> p.getVariacion()).sum();
+
+			totCantN = faltanteInv.getFaltanteTopNegativo().stream().mapToDouble(p -> p.getCantidad()).sum();
+			totCantP = faltanteInv.getFaltanteTopPositivo().stream().mapToDouble(p -> p.getCantidad()).sum();
 			totCantidad = faltanteInv.getFaltanteResumen().stream().mapToDouble(p -> p.getCantidad()).sum();
 			totVariacion = faltanteInv.getFaltanteResumen().stream().mapToDouble(p -> p.getVariacion()).sum();
+
+			totCantNS = format.format(totCantN);
+			totCantPS = format.format(totCantP);
+
+			totVarNS = format.format(totVarN);
+			totVarPS = format.format(totVarP);
+
 			totCantidadS = format.format(totCantidad);
 			totVariacionS = format.format(totVariacion);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método mostrarTotal " + " " + e.getMessage());
 		}
-	}
-
-	public AppMain getAppMain() {
-		return appMain;
-	}
-
-	public void setAppMain(AppMain appMain) {
-		this.appMain = appMain;
 	}
 
 	public FaltanteInventarioEt getFaltanteInvSelecc() {
@@ -365,8 +389,105 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 		this.totVariacionS = totVariacionS;
 	}
 
+	public Double getTotVarN() {
+		return totVarN;
+	}
+
+	public void setTotVarN(Double totVarN) {
+		this.totVarN = totVarN;
+	}
+
+	public Double getTotVarP() {
+		return totVarP;
+	}
+
+	public void setTotVarP(Double totVarP) {
+		this.totVarP = totVarP;
+	}
+
+	public Double getTotCantN() {
+		return totCantN;
+	}
+
+	public void setTotCantN(Double totCantN) {
+		this.totCantN = totCantN;
+	}
+
+	public Double getTotCantP() {
+		return totCantP;
+	}
+
+	public void setTotCantP(Double totCantP) {
+		this.totCantP = totCantP;
+	}
+
+	public String getTotCantNS() {
+		return totCantNS;
+	}
+
+	public void setTotCantNS(String totCantNS) {
+		this.totCantNS = totCantNS;
+	}
+
+	public String getTotCantPS() {
+		return totCantPS;
+	}
+
+	public void setTotCantPS(String totCantPS) {
+		this.totCantPS = totCantPS;
+	}
+
+	public String getTotVarNS() {
+		return totVarNS;
+	}
+
+	public void setTotVarNS(String totVarNS) {
+		this.totVarNS = totVarNS;
+	}
+
+	public String getTotVarPS() {
+		return totVarPS;
+	}
+
+	public void setTotVarPS(String totVarPS) {
+		this.totVarPS = totVarPS;
+	}
+
+	public FaltanteCategoriaTopEt getFaltanteCatTopSelecc() {
+		return faltanteCatTopSelecc;
+	}
+
+	public void setFaltanteCatTopSelecc(FaltanteCategoriaTopEt faltanteCatTopSelecc) {
+		this.faltanteCatTopSelecc = faltanteCatTopSelecc;
+	}
+
+	public List<FaltanteCategoriaEt> getFaltanteCategorias() {
+		return faltanteCategorias;
+	}
+
+	public void setFaltanteCategorias(List<FaltanteCategoriaEt> faltanteCategorias) {
+		this.faltanteCategorias = faltanteCategorias;
+	}
+
+	public List<String> getCondiciones() {
+		return condiciones;
+	}
+
+	public void setCondiciones(List<String> condiciones) {
+		this.condiciones = condiciones;
+	}
+
+	public String getCondicionSeleccionada() {
+		return condicionSeleccionada;
+	}
+
+	public void setCondicionSeleccionada(String condicionSeleccionada) {
+		this.condicionSeleccionada = condicionSeleccionada;
+	}
+
 	@Override
 	protected void onDestroy() {
+		iFaltanteCatDao.remove();
 		iResponsableDao.remove();
 		iFaltanteInvDao.remove();
 		iFaltanteDetalleDao.remove();
