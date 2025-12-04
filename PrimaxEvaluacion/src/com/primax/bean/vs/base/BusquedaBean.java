@@ -17,6 +17,7 @@ import com.primax.bean.ss.AppMain;
 import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.param.AgenciaEt;
+import com.primax.jpa.param.CategoriaFaltanteEt;
 import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.FrecuenciaVisitaEt;
@@ -27,9 +28,11 @@ import com.primax.jpa.param.TipoChecKListEt;
 import com.primax.jpa.param.TipoInventarioEt;
 import com.primax.jpa.param.ZonaEt;
 import com.primax.jpa.param.ZonaUsuarioEt;
+import com.primax.jpa.pla.ReporteSeleccionEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.idao.IAgenciaDao;
 import com.primax.srv.idao.ICantonDao;
+import com.primax.srv.idao.ICategoriaFaltanteDao;
 import com.primax.srv.idao.IEvaluacionDao;
 import com.primax.srv.idao.IFrecuenciaVisitaDao;
 import com.primax.srv.idao.IKPICriticoDao;
@@ -41,10 +44,13 @@ import com.primax.srv.idao.IProcesoDao;
 import com.primax.srv.idao.IProvinciaDao;
 import com.primax.srv.idao.IReporteEvaluacionConsolidadoDao;
 import com.primax.srv.idao.IReporteEvaluacionNivelRiesgoDao;
+import com.primax.srv.idao.IReporteEvaluacionPlanificacionAnioDao;
 import com.primax.srv.idao.IReporteEvaluacionPlanificacionDao;
 import com.primax.srv.idao.IReporteEvaluacionPuntajeDao;
 import com.primax.srv.idao.IReporteEvaluacionVariacionDao;
+import com.primax.srv.idao.IReporteFaltanteInventarioDao;
 import com.primax.srv.idao.IReportePlanificacionInventarioDao;
+import com.primax.srv.idao.IReporteSeleccionDao;
 import com.primax.srv.idao.IReporteTipoEvaluacionConsolidadoDao;
 import com.primax.srv.idao.IReporteTipoEvaluacionDao;
 import com.primax.srv.idao.IReporteTipoInventarioDao;
@@ -90,9 +96,13 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	@EJB
 	private INivelEvaluacionDao iNivelEvaluacionDao;
 	@EJB
+	private IReporteSeleccionDao iReporteSeleccionDao;
+	@EJB
 	private IFrecuenciaVisitaDao iFrecuenciaVisitaDao;
 	@EJB
 	private IParametrolGeneralDao iParametrolGeneralDao;
+	@EJB
+	private ICategoriaFaltanteDao iCategoriaFaltanteDao;
 	@EJB
 	private IReporteTipoInventarioDao iReporteTipoInventarioDao;
 	@EJB
@@ -101,6 +111,8 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	private IPlanificacionInventarioDao iPlanificacionInventarioDao;
 	@EJB
 	private IReporteEvaluacionPuntajeDao iReporteEvaluacionPuntajeDao;
+	@EJB
+	private IReporteFaltanteInventarioDao iReporteFaltanteInventarioDao;
 	@EJB
 	private IReporteEvaluacionVariacionDao iReporteEvaluacionVariacionDao;
 	@EJB
@@ -113,6 +125,8 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	private IReportePlanificacionInventarioDao iReportePlanificacionInventarioDao;
 	@EJB
 	private IReporteTipoEvaluacionConsolidadoDao iReporteTipoEvaluacionConsolidadoDao;
+	@EJB
+	private IReporteEvaluacionPlanificacionAnioDao iReporteEvaluacionPlanificacionAnioDao;
 
 	private ZonaEt zonaSeleccionada;
 	private AgenciaEt estacionSeleccionada;
@@ -124,6 +138,7 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	private List<ParametrosGeneralesEt> mesesSeleccionados;
 	private EstadoCheckListEnum estadoCheckListSeleccionado;
 	private FrecuenciaVisitaEt frecuenciaVisitaSeleccionado;
+	private List<CategoriaFaltanteEt> catFaltSeleccionados;
 	private NivelEvaluacionDetalleEt nivelEvaluacionDetalleSeleccionado;
 
 	private List<ParametrosGeneralesEt> anioVariacionSeleccionados;
@@ -136,6 +151,16 @@ public class BusquedaBean extends BaseBean implements Serializable {
 	@Override
 	public void init() {
 		limpiarReporte();
+		seleccDefault();
+	}
+
+	public void seleccDefault() {
+		try {
+			catFaltSeleccionados = iCategoriaFaltanteDao.getCategoriaFaltanteList(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método limpiarReporte " + " " + e.getMessage());
+		}
 	}
 
 	public void limpiarReporte() {
@@ -256,6 +281,51 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método generarReporte " + " " + e.getMessage());
+		}
+	}
+
+	public void generarReporte10() {
+		try {
+			if (anioSeleccionado != null) {
+				generar10(Integer.parseInt(anioSeleccionado.getValorLista()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generarReporte " + " " + e.getMessage());
+		}
+	}
+
+	public void generar10(int anio) {
+		Long idZona = 0L;
+		Long idEvaluacion = 0L;
+		ReporteSeleccionEt rptSelec = null;
+		try {
+			UsuarioEt usuario = appMain.getUsuario();
+			iCategoriaFaltanteDao.limpiarReporte(usuario.getIdUsuario());
+			if (!catFaltSeleccionados.isEmpty()) {
+				for (CategoriaFaltanteEt cat : catFaltSeleccionados) {
+					rptSelec = new ReporteSeleccionEt();
+					rptSelec.setUsuarioRegistra(usuario);
+					rptSelec.setIdGenerico(cat.getIdCategoriaFaltante());
+					iReporteSeleccionDao.guardaReporteS(rptSelec, usuario);
+				}
+			}
+			if (zonaSeleccionada != null) {
+				idZona = zonaSeleccionada.getIdZona();
+			}
+			if (evaluacionSeleccionada != null) {
+				idEvaluacion = evaluacionSeleccionada.getIdEvaluacion();
+			}
+			for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
+				int mes = Integer.parseInt(parametrosGenerales.getValorLista());
+				Date fechaDesde = getFechaDesde(mes, anio);
+				Date fechaHasta = getFechaHasta(mes, anio);
+				iReporteFaltanteInventarioDao.generar(fechaDesde, fechaHasta, idZona, idEvaluacion,
+						usuario.getIdUsuario());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método generar10 " + " " + e.getMessage());
 		}
 	}
 
@@ -401,9 +471,16 @@ public class BusquedaBean extends BaseBean implements Serializable {
 
 	public void generar05(int anio) {
 		Long idZona = 0L;
+		int anioActual = 0;
 		Long idEvaluacion = 0L;
+		Date fechaCierre = null;
 		Long idFrecuenciaVisita = 0L;
+		Date fechaActual = new Date();
 		try {
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(fechaActual);
+			anioActual = cal.get(Calendar.YEAR);
 			UsuarioEt usuario = appMain.getUsuario();
 			iTipoCargoDao.limpiarReporte(usuario.getIdUsuario());
 			if (zonaSeleccionada != null) {
@@ -415,11 +492,23 @@ public class BusquedaBean extends BaseBean implements Serializable {
 			if (frecuenciaVisitaSeleccionado != null) {
 				idFrecuenciaVisita = frecuenciaVisitaSeleccionado.getIdFrecuenciaVisita();
 			}
+			int anioA = anio - 1;
+			Date fechaActualA = sdf.parse("31/12/" + anioA);
+			Date fechaAnioA = sdf.parse("31/12/" + anio);
+			if (anioActual == anio) {
+				fechaCierre = fechaActual;
+			} else {
+				fechaCierre = fechaAnioA;
+			}
 			for (ParametrosGeneralesEt parametrosGenerales : mesesSeleccionados) {
 				int mes = Integer.parseInt(parametrosGenerales.getValorLista());
+				Date fechaDesdeA = getFechaDesde(mes, anioA);
+				Date fechaHastaA = getFechaHasta(mes, anioA);
 				Date fechaDesde = getFechaDesde(mes, anio);
 				Date fechaHasta = getFechaHasta(mes, anio);
-				iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, idZona, idEvaluacion,
+				iReporteEvaluacionPlanificacionAnioDao.generar(fechaDesdeA, fechaHastaA, idZona, idEvaluacion,
+						idFrecuenciaVisita, estadoCheckListSeleccionado, fechaActualA, usuario.getIdUsuario());
+				iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, fechaCierre, idZona, idEvaluacion,
 						idFrecuenciaVisita, estadoCheckListSeleccionado, usuario.getIdUsuario());
 			}
 		} catch (Exception e) {
@@ -451,8 +540,9 @@ public class BusquedaBean extends BaseBean implements Serializable {
 					int mes = Integer.parseInt(mesesVariacion.getValorLista());
 					Date fechaDesde = getFechaDesde(mes, anioV);
 					Date fechaHasta = getFechaHasta(mes, anioV);
-					iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, idZona, idEvaluacion, 0L,
-							EstadoCheckListEnum.EJECUTADO, idUsuario);
+					Date fechaAnioA = sdf.parse("31/12/" + anioV);
+					iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, fechaAnioA, idZona, idEvaluacion,
+							0L, EstadoCheckListEnum.EJECUTADO, idUsuario);
 					if (mes == 11) {
 						iReporteEvaluacionVariacionDao.generar(Long.valueOf(anioV), usuario.getIdUsuario());
 						iTipoCargoDao.limpiarReporte(idUsuario);
@@ -464,7 +554,8 @@ public class BusquedaBean extends BaseBean implements Serializable {
 				int mes = Integer.parseInt(parametrosGenerales.getValorLista());
 				Date fechaDesde = getFechaDesde(mes, anio);
 				Date fechaHasta = getFechaHasta(mes, anio);
-				iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, idZona, idEvaluacion, 0L,
+				Date fechaAnioA = sdf.parse("31/12/" + anio);
+				iReporteEvaluacionPlanificacionDao.generar(fechaDesde, fechaHasta, fechaAnioA, idZona, idEvaluacion, 0L,
 						EstadoCheckListEnum.EJECUTADO, idUsuario);
 			}
 			iReporteEvaluacionVariacionDao.generar(Long.valueOf(anio), usuario.getIdUsuario());
@@ -716,6 +807,17 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		return frecuenciaVisitas;
 	}
 
+	public List<CategoriaFaltanteEt> getCatFaltList() {
+		List<CategoriaFaltanteEt> categoriaFaltantes = new ArrayList<>();
+		try {
+			categoriaFaltantes = iCategoriaFaltanteDao.getCategoriaFaltanteList(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método getCatFaltList " + " " + e.getMessage());
+		}
+		return categoriaFaltantes;
+	}
+
 	public SelectItem[] getEstadoCheckList() {
 		SelectItem[] items = new SelectItem[4];
 		items[0] = new SelectItem(EstadoCheckListEnum.ESTADO_CHECK, EstadoCheckListEnum.ESTADO_CHECK.getDescripcion());
@@ -843,6 +945,14 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		this.tipoInventarioSeleccionado = tipoInventarioSeleccionado;
 	}
 
+	public List<CategoriaFaltanteEt> getCatFaltSeleccionados() {
+		return catFaltSeleccionados;
+	}
+
+	public void setCatFaltSeleccionados(List<CategoriaFaltanteEt> catFaltSeleccionados) {
+		this.catFaltSeleccionados = catFaltSeleccionados;
+	}
+
 	@Override
 	public void onDestroy() {
 		iCantonDao.remove();
@@ -856,16 +966,19 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		iTipoChecKListDao.remove();
 		iTipoInventarioDao.remove();
 		iParametrolGeneralDao.remove();
+		iReporteSeleccionDao.remove();
 		iReporteTipoInventarioDao.remove();
 		iReporteTipoEvaluacionDao.remove();
 		iPlanificacionInventarioDao.remove();
 		iReporteEvaluacionPuntajeDao.remove();
+		iReporteFaltanteInventarioDao.remove();
 		iReporteEvaluacionVariacionDao.remove();
 		iReporteEvaluacionNivelRiesgoDao.remove();
 		iReporteEvaluacionConsolidadoDao.remove();
 		iReporteEvaluacionPlanificacionDao.remove();
 		iReportePlanificacionInventarioDao.remove();
 		iReporteTipoEvaluacionConsolidadoDao.remove();
+		iReporteEvaluacionPlanificacionAnioDao.remove();
 
 	}
 

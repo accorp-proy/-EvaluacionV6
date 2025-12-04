@@ -94,6 +94,9 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 	@Column(name = "plan_accion")
 	private boolean planAccion;
 
+	@Column(name = "valor_total")
+	private Double valorTotal;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
 	@OrderBy("idFaltanteResumen ")
 	@Where(clause = "estado = 'ACT'")
@@ -118,13 +121,14 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 	@OrderBy("idFaltanteCategoria ")
 	@Where(clause = "estado = 'ACT'")
 	private List<FaltanteCategoriaEt> faltanteCategoria;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "faltanteInventario", fetch = FetchType.LAZY)
 	@OrderBy("idFaltanteCategoriaTop ")
 	@Where(clause = "estado = 'ACT'")
 	private List<FaltanteCategoriaTopEt> faltanteCategoriaTop;
 
 	public FaltanteInventarioEt() {
+		this.valorTotal = 0D;
 		this.planAccion = false;
 		this.ejecutando = false;
 		this.cantidadRegistro = 0L;
@@ -272,6 +276,14 @@ public class FaltanteInventarioEt extends EntityBase implements Serializable {
 
 	public void setFaltanteCategoriaTop(List<FaltanteCategoriaTopEt> faltanteCategoriaTop) {
 		this.faltanteCategoriaTop = faltanteCategoriaTop;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	@Override

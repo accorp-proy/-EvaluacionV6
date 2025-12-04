@@ -170,16 +170,15 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		sql.append(" WHERE o.estado  = :estado   ");
 		sql.append(" AND o.usuarioRegistra = :usuario ");
 		sql.append(" AND o.ejecutando      = :ejecutando ");
+		sql.append(" AND o.estadoCheckList = :estadoCheckList ");
 		sql.append(" ORDER BY  o.fechaRegistro desc ");
 		TypedQuery<FaltanteInventarioEt> query = em.createQuery(sql.toString(), FaltanteInventarioEt.class);
 		query.setParameter("usuario", usuario);
 		query.setParameter("ejecutando", true);
 		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EN_EJECUCION);
 		List<FaltanteInventarioEt> result = query.getResultList();
 		FaltanteInventarioEt consultado = getUnique(result);
-//		if (consultado != null) {
-//			consultado.getFaltanteDetalle().size();
-//		}
 		return consultado;
 	}
 
@@ -191,7 +190,7 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		String respuesta = (String) query.getOutputParameterValue("respuesta");
 		return respuesta;
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<FaltanteInventarioEt> getCheckListPlanAccion(AgenciaEt agencia) throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM FaltanteInventarioEt o ");
@@ -207,7 +206,7 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		List<FaltanteInventarioEt> result = query.getResultList();
 		return result;
 	}
-	
+
 	@Remove
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public void remove() {

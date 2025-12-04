@@ -12,12 +12,12 @@ public interface ICategoriaFaltanteDao extends IGenericDao<CategoriaFaltanteEt, 
 
 	public void remove();
 
+	public String limpiarReporte(Long idUsuario);
+
 	public CategoriaFaltanteEt getCatFaltante(long id);
 
-	
-
 	public CategoriaFaltanteEt getCatFaltanteExiste(String desc) throws EntidadNoEncontradaException;
-	
+
 	public List<CategoriaFaltanteEt> getCategoriaFaltanteList(String condicion) throws EntidadNoEncontradaException;
 
 	public void guardarCatFaltante(CategoriaFaltanteEt catFaltante, UsuarioEt usuario) throws EntidadNoGrabadaException;

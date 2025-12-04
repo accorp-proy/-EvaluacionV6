@@ -10,6 +10,6 @@ public interface IReporteEvaluacionPlanificacionDao extends IGenericDao<ReporteE
 
 	public void remove();
 
-	public String generar(Date fechaDesde, Date fechaHasta, Long idZona, Long idEvaluacion, Long idFrecuenciaVisita, EstadoCheckListEnum estadoCheckList, Long idUsuario);
+	public String generar(Date fechaDesde, Date fechaHasta, Date fechaCierre, Long idZona, Long idEvaluacion, Long idFrecuenciaVisita, EstadoCheckListEnum estadoCheckList, Long idUsuario);
 
 }

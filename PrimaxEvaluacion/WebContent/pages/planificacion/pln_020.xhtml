@@ -64,90 +64,9 @@
 					</p:column>
 				</p:row>
 			</p:panelGrid>
-			<p:panelGrid columns="2" styleClass="fullsize sinborde"
-				style="width:100%">
-				<p:dataTable id="dtbTopN" var="topN" scrollable="true"
-					scrollHeight="300"
-					value="#{EjecucionPlanAccionFBn.faltanteInvSelecc.faltanteTopNegativo}"
-					emptyMessage="No existen Procesos">
-					<f:facet name="header">
-						<div align="center">
-							<h:outputLabel value="Top Negativo" />
-						</div>
-					</f:facet>
-					<p:column headerText="Categoría ">
-						<h:outputText value="#{topN.categoriaFaltante.descripcion}"></h:outputText>
-					</p:column>
-					<p:column headerText="Cantidad Diferencia">
-						<h:outputText value="#{topN.cantidad}">
-							<f:convertNumber pattern="##0.00" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Variación Costo  ">
-						<h:outputText value="#{topN.variacion}">
-							<f:convertNumber pattern="##0.00" />
-						</h:outputText>
-					</p:column>
-					<p:columnGroup type="footer">
-						<p:row>
-							<p:column style="text-align:left" footerText="Total:" />
-							<p:column>
-								<f:facet name="footer">
-									<h:outputText value="#{EjecucionPlanAccionFBn.totCantNS}" />
-								</f:facet>
-							</p:column>
-							<p:column>
-								<f:facet name="footer">
-									<h:outputText value="#{EjecucionPlanAccionFBn.totVarNS}" />
-								</f:facet>
-							</p:column>
-						</p:row>
-					</p:columnGroup>
-				</p:dataTable>
-				<p:dataTable id="dtbTopP" var="topP" scrollable="true"
-					scrollHeight="300"
-					value="#{EjecucionPlanAccionFBn.faltanteInvSelecc.faltanteTopPositivo}"
-					emptyMessage="No existen Procesos">
-					<f:facet name="header">
-						<div align="center">
-							<h:outputLabel value="Top Positivo" />
-						</div>
-					</f:facet>
-					<p:column headerText="Categoría ">
-						<h:outputText value="#{topP.categoriaFaltante.descripcion}"></h:outputText>
-					</p:column>
-					<p:column headerText="Cantidad Diferencia">
-						<h:outputText value="#{topN.cantidad}">
-							<f:convertNumber pattern="##0.00" />
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Variación Costo  ">
-						<h:outputText value="#{topP.variacion}">
-							<f:convertNumber pattern="##0.00" />
-						</h:outputText>
-					</p:column>
-					<p:columnGroup type="footer">
-						<p:row>
-							<p:column style="text-align:left" footerText="Total:" />
-							<p:column>
-								<f:facet name="footer">
-									<h:outputText value="#{EjecucionPlanAccionFBn.totCantPS}" />
-								</f:facet>
-							</p:column>
-							<p:column>
-								<f:facet name="footer">
-									<h:outputText value="#{EjecucionPlanAccionFBn.totVarPS}" />
-								</f:facet>
-							</p:column>
-						</p:row>
-					</p:columnGroup>
-				</p:dataTable>
-
-			</p:panelGrid>
-
-
-			<p:dataTable id="dtbFaltanteR" var="resumen" scrollable="true"
-				scrollHeight="300"
+			
+				<p:dataTable id="dtbFaltanteR" var="resumen"  reflow="true"
+				scrollable="true" scrollHeight="400"
 				value="#{EjecucionPlanAccionFBn.faltanteInvSelecc.faltanteResumen}"
 				emptyMessage="No existen Procesos">
 				<f:facet name="header">
@@ -158,7 +77,7 @@
 				</p:column>
 				<p:column headerText="Cantidad Diferencia">
 					<h:outputText value="#{resumen.cantidad}">
-						<f:convertNumber pattern="##0.00" />
+						<f:convertNumber pattern="##000" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Variación Costo  ">
@@ -166,26 +85,32 @@
 						<f:convertNumber pattern="##0.00" />
 					</h:outputText>
 				</p:column>
+				<p:column headerText="Plan Acción">
+					<div align="left">
+						<p:inputTextarea id="inpTextArea0"
+							value="#{resumen.comentarioControl}" rows="4" styleClass="w100"
+							maxlength="300" placeholder="Ingresar Comentario"
+							title="Ingresar Comentario ">
+							<p:ajax event="change" process="@this dtbFaltanteR"
+								listener="#{EjecucionPlanAccionFBn.guardarDet()}" />
+						</p:inputTextarea>
+					</div>
+				</p:column>
 				<p:column headerText="Ver">
 					<p:commandButton icon="pi pi-eye" process="@this dtbFaltanteR"
 						update="frm_pln_020:dtbFaltanteD"
 						action="#{EjecucionPlanAccionFBn.verDetalle(resumen)}">
 					</p:commandButton>
 				</p:column>
-				<p:column headerText="Comentario Control">
-					<div align="left">
-						<h:outputText value="#{resumen.comentarioControl}"></h:outputText>
-					</div>
-				</p:column>
-				<p:column headerText="Comentario Control">
-					<div align="left">
-						<p:inputTextarea id="inpTextArea0"
-							value="#{resumen.comentarioPlanAccion}" rows="4"
-							styleClass="w100" maxlength="500">
-							<p:ajax event="change" process="@this dtbFaltanteR"
-								listener="#{EjecucionPlanAccionFBn.guardarDet()}" />
-						</p:inputTextarea>
-					</div>
+				<p:column headerText="Reincidente">
+					
+						<h:graphicImage value="/resources/images/iconos/positivo.jpg"
+							rendered="#{resumen.reincidente eq 'false'}" height="50px" 
+							width="50px" />
+						<h:graphicImage value="/resources/images/iconos/recurrente.jpg"
+							rendered="#{resumen.reincidente eq 'true'}" height="50px"
+							width="50px" />
+					
 				</p:column>
 				<p:columnGroup type="footer">
 					<p:row>
@@ -208,17 +133,17 @@
 				</p:column>
 				<p:column headerText="Cantidad teórica">
 					<p:outputLabel value="#{detalle.cantidadTeorica}">
-						<f:convertNumber pattern="##0.00" />
+						<f:convertNumber pattern="##000" />
 					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Cantidad contada">
 					<p:outputLabel value="#{detalle.cantidadContada}">
-						<f:convertNumber pattern="##0.00" />
+						<f:convertNumber pattern="##000" />
 					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Cantidad diferencia">
 					<p:outputLabel value="#{detalle.cantidadDiferencia}">
-						<f:convertNumber pattern="##0.00" />
+						<f:convertNumber pattern="##000" />
 					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Costo Unitario">
@@ -232,6 +157,54 @@
 					</p:outputLabel>
 				</p:column>
 			</p:dataTable>
+			
+			<p:fieldset legend="Top Por Categoría" toggleable="true"
+				toggleSpeed="500">
+				<p:panelGrid id="pnlFiltro" columns="4"
+					styleClass="fullsize sinborde" style="width:100%">
+					<p:selectOneRadio id="oneCondicion" layout="responsive" columns="2"
+						value="#{EjecucionPlanAccionFBn.condicionSeleccionada}">
+						<f:selectItems value="#{EjecucionPlanAccionFBn.condiciones}"
+							var="condicion" itemLabel="#{condicion}" itemValue="#{condicion}" />
+					</p:selectOneRadio>
+					<p:selectOneMenu id="cmbFaltTop"
+						value="#{EjecucionPlanAccionFBn.faltanteCatTopSelecc}"
+						converter="#{faltanteCatTopConverter}">
+						<f:selectItems
+							value="#{EjecucionPlanAccionFBn.faltanteInvSelecc.faltanteCategoriaTop}"
+							var="top" itemLabel="#{top.categoriaFaltante.descripcion}"
+							itemValue="#{top}">
+						</f:selectItems>
+						<p:ajax event="change" process="@this pnlFiltro"
+							listener="#{EjecucionPlanAccionFBn.eventSeleccionCatTop}"
+							update="dtbTopC" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				<p:dataTable id="dtbTopC" var="topC" scrollable="true"
+					scrollHeight="300"
+					value="#{EjecucionPlanAccionFBn.faltanteCategorias}"
+					emptyMessage="No existen Procesos">
+					<p:column headerText="Producto ">
+						<h:outputText value="#{topC.nombreProducto}"></h:outputText>
+					</p:column>
+					<p:column headerText="Categoría">
+						<h:outputText value="#{topC.categoriaFaltante.descripcion}"></h:outputText>
+					</p:column>
+					<p:column headerText="Cantidad Diferencia">
+						<h:outputText value="#{topC.cantidad}">
+							<f:convertNumber pattern="##000" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Variación Costo  ">
+						<h:outputText value="#{topC.variacion}">
+							<f:convertNumber pattern="##0.00" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+		
 
 		</h:form>
 		<p:confirmDialog widgetVar="dlg_conf_0" header="Confirmar"

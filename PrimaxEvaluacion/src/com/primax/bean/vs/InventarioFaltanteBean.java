@@ -26,6 +26,7 @@ import org.primefaces.model.ScheduleModel;
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
 import com.primax.exc.gen.EntidadNoEncontradaException;
+import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.param.AgenciaEt;
 import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
@@ -229,8 +230,10 @@ public class InventarioFaltanteBean extends BaseBean implements Serializable {
 				existeFaltanI = iFaltanteInventarioDao.getFaltanteInvByCheck(checkListEjecucionSeleccionado);
 				if (existeFaltanI == null) {
 					existeFaltanI = new FaltanteInventarioEt();
+					existeFaltanI.setPlanAccion(false);
 					existeFaltanI.setFechaEjecucion(new Date());
 					existeFaltanI.setUsuarioRegistra(appMain.getUsuario());
+					existeFaltanI.setEstadoCheckList(EstadoCheckListEnum.EN_EJECUCION);
 					existeFaltanI.setCheckListEjecucion(checkListEjecucionSeleccionado);
 					existeFaltanI.setAgencia(checkListEjecucionSeleccionado.getPlanificacion().getAgencia());
 				}

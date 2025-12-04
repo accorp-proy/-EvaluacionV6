@@ -472,7 +472,7 @@ public class CheckListEjecucionCtrlBean extends BaseBean implements Serializable
 			iCheckListEjecucionDao.guardarCheckListEjecucion(checkListEjecucion, usuario);
 			iCheckListEjecucionDao.generarActNivelRiesgo(checkListEjecucion.getNivelEvaluacion().getIdNivelEvaluacion(),
 					checkListEjecucion.getIdCheckListEjecucion());
-			pagina = "/PrimaxEvaluacion/pages/main.xhtml";
+			pagina = "/PrimaxEvaluacionPruebas/pages/main.xhtml";
 			contex.getExternalContext().redirect(pagina);
 			if (checkListEjecucion.isModificado()) {
 				enviarEmail(checkListEjecucion.getPlanificacion());

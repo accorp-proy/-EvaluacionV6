@@ -223,14 +223,14 @@
 					</p:dataTable>
 				</p:tab>
 				<p:tab id="tab01" title="Reporte">
-					<p:panelGrid styleClass="sinborde w20">
+					<p:panelGrid styleClass="sinborde w100">
 						<p:row>
 							<p:column>
 								<p:outputLabel value="CheckList"></p:outputLabel>
 							</p:column>
 							<p:column>
 								<p:commandButton title="Descargar en formato Excel"
-									icon="fa fa-file-excel-o" immediate="true" ajax="false"
+									icon="pi pi-file-excel" immediate="true" ajax="false"
 									actionListener="#{ReporteBn.imprimirExcel(7,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListEjecucion.idCheckListEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.descripcion,CheckListEjecucionCtrlBn.checkListEjecucion.codigo,CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),appMain.usuario.personaUsuario.nombreCompleto,null,null,null,null,true)}">
 									<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 								</p:commandButton>
@@ -242,7 +242,7 @@
 							</p:column>
 							<p:column>
 								<p:commandButton title="Descargar en formato Excel"
-									icon="fa fa-file-excel-o" immediate="true" ajax="false"
+									icon="pi pi-file-excel" immediate="true" ajax="false"
 									disabled="#{CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.generaMatriz == false}"
 									actionListener="#{ReporteBn.imprimirExcel(8,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListEjecucion.idCheckListEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.descripcion,CheckListEjecucionCtrlBn.checkListEjecucion.codigo,null,null,null,null,null,null,true)}">
 									<p:fileDownload value="#{appMain.download}"></p:fileDownload>
@@ -255,7 +255,7 @@
 							</p:column>
 							<p:column>
 								<p:commandButton title="Descargar en formato Excel"
-									icon="fa fa-file-excel-o" immediate="true" ajax="false"
+									icon="pi pi-file-excel" immediate="true" ajax="false"
 									actionListener="#{ReporteBn.imprimirExcel(10,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListEjecucion.idCheckListEjecucion.toString(),null,null,null,null,null,null,null,null,true)}">
 									<p:fileDownload value="#{appMain.download}"></p:fileDownload>
 								</p:commandButton>
@@ -267,7 +267,7 @@
 							</p:column>
 							<p:column>
 								<p:commandButton title="Descargar en formato Pdf"
-									icon="fa fa-file-pdf-o" immediate="true" ajax="false"
+									icon="pi pi-file-pdf" immediate="true" ajax="false"
 									disabled="#{CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.generaReporte == false}"
 									actionListener="#{ReporteBn.imprimirExcel(11,appMain.usuario.nombreUsuario,CheckListEjecucionCtrlBn.checkListEjecucion.idCheckListEjecucion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.planificacion.agencia.idAgencia.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.evaluacion.idEvaluacion.toString(),CheckListEjecucionCtrlBn.checkListEjecucion.tipoChecKList.idTipoCheckList.toString(),null,null,null,null,null,false)}">
 									<p:fileDownload value="#{appMain.download}"></p:fileDownload>

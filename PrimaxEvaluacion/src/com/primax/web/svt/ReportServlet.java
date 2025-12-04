@@ -17,6 +17,7 @@ import com.primax.bean.maker.ReporteGrupalEvaluacionNivelRiesgo;
 import com.primax.bean.maker.ReporteGrupalEvaluacionPlanificacion;
 import com.primax.bean.maker.ReporteGrupalEvaluacionPuntaje;
 import com.primax.bean.maker.ReporteGrupalEvaluacionVariacion;
+import com.primax.bean.maker.ReporteGrupalFaltanteInventario;
 import com.primax.bean.maker.ReporteGrupalPlanificacionInventario;
 import com.primax.bean.maker.ReporteGrupalProcesoConsolidado;
 import com.primax.bean.maker.ReporteGrupalTipoEvaluacion;
@@ -51,161 +52,165 @@ public class ReportServlet extends HttpServlet {
 		Map<String, String[]> params = request.getParameterMap();
 		String path = getServletContext().getRealPath(reportPath);
 		switch (reqRep) {
-			case "4":
-				try {
-					ReporteIndividualArqueoCajaPT reporteGrupalEjecutivo = new ReporteIndividualArqueoCajaPT();
-					exportIt(reporteGrupalEjecutivo.getReport(params, path, getServletContext(), false), response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
+		case "4":
+			try {
+				ReporteIndividualArqueoCajaPT reporteGrupalEjecutivo = new ReporteIndividualArqueoCajaPT();
+				exportIt(reporteGrupalEjecutivo.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
 
-			case "12":
-				try {
-					ReporteGrupalEvaluacionPuntaje reporteGrupalEvaluacionPuntaje = new ReporteGrupalEvaluacionPuntaje();
-					exportIt(reporteGrupalEvaluacionPuntaje.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "13":
-				try {
-					ReporteGrupalEvaluacionNivelRiesgo reporteGrupalEvaluacionNivelRiesgo = new ReporteGrupalEvaluacionNivelRiesgo();
-					exportIt(reporteGrupalEvaluacionNivelRiesgo.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "14":
-				try {
-					ReporteGrupalEvaluacionConsolidado reporteGrupalEvaluacionConsolidado = new ReporteGrupalEvaluacionConsolidado();
-					exportIt(reporteGrupalEvaluacionConsolidado.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
+		case "12":
+			try {
+				ReporteGrupalEvaluacionPuntaje reporteGrupalEvaluacionPuntaje = new ReporteGrupalEvaluacionPuntaje();
+				exportIt(reporteGrupalEvaluacionPuntaje.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "13":
+			try {
+				ReporteGrupalEvaluacionNivelRiesgo reporteGrupalEvaluacionNivelRiesgo = new ReporteGrupalEvaluacionNivelRiesgo();
+				exportIt(reporteGrupalEvaluacionNivelRiesgo.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "14":
+			try {
+				ReporteGrupalEvaluacionConsolidado reporteGrupalEvaluacionConsolidado = new ReporteGrupalEvaluacionConsolidado();
+				exportIt(reporteGrupalEvaluacionConsolidado.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
 
-			case "17":
-				try {
-					ReporteGrupalTipoEvaluacion reporteGrupalTipoEvaluacion = new ReporteGrupalTipoEvaluacion();
-					exportIt(reporteGrupalTipoEvaluacion.getReport(params, path, getServletContext(), false), response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
+		case "17":
+			try {
+				ReporteGrupalTipoEvaluacion reporteGrupalTipoEvaluacion = new ReporteGrupalTipoEvaluacion();
+				exportIt(reporteGrupalTipoEvaluacion.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
 
-			case "18":
-				try {
-					ReporteGrupalEvaluacionPlanificacion reporteGrupalEvaluacionPlanificacion = new ReporteGrupalEvaluacionPlanificacion();
-					exportIt(reporteGrupalEvaluacionPlanificacion.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
+		case "18":
+			try {
+				ReporteGrupalEvaluacionPlanificacion reporteGrupalEvaluacionPlanificacion = new ReporteGrupalEvaluacionPlanificacion();
+				exportIt(reporteGrupalEvaluacionPlanificacion.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
 
-			case "19":
-				try {
-					ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
-					exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "21":
-				try {
-					ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
-					exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "22":
-				try {
-					ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
-					exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "23":
-				try {
-					/* Reporte 011 Consolidado Proceso */
-					ReporteGrupalProcesoConsolidado reporteGrupalConsolidadoProceso = new ReporteGrupalProcesoConsolidado();
-					exportIt(reporteGrupalConsolidadoProceso.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "24":
-				try {
-					/* Reporte 24 Plantilla Informe Dinamico */
-					ReporteIndividualInformeDinamico reporteIndividualInformeDinamico = new ReporteIndividualInformeDinamico();
-					exportIt(reporteIndividualInformeDinamico.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "25":
-				try {
-					/* Reporte 24 Plantilla Informe Dinamico Ejecución */
-					ReporteIndividualInformeEjecucion reporteIndividualInformeEjecucion = new ReporteIndividualInformeEjecucion();
-					exportIt(reporteIndividualInformeEjecucion.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "26":
-				try {
-					ReporteGrupalPlanificacionInventario reporteGrupalPlanificacionInv = new ReporteGrupalPlanificacionInventario();
-					exportIt(reporteGrupalPlanificacionInv.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "27":
-				try {
-					ReporteGrupalTipoEvaluacionCons reporteGrupalTipoEvaluacionCons = new ReporteGrupalTipoEvaluacionCons();
-					exportIt(reporteGrupalTipoEvaluacionCons.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
-			case "28":
-				try {
-					ReporteGrupalTipoInventario reporteGrupalTipoInventario = new ReporteGrupalTipoInventario();
-					exportIt(reporteGrupalTipoInventario.getReport(params, path, getServletContext(), false),
-							response);
-				} catch (Exception e) {
-					response.sendError(HttpServletResponse.SC_NOT_FOUND);
-					e.printStackTrace();
-				}
-				break;
+		case "19":
+			try {
+				ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
+				exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "21":
+			try {
+				ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
+				exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "22":
+			try {
+				ReporteGrupalEvaluacionVariacion reporteGrupalEvaluacionVariacion = new ReporteGrupalEvaluacionVariacion();
+				exportIt(reporteGrupalEvaluacionVariacion.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "23":
+			try {
+				/* Reporte 011 Consolidado Proceso */
+				ReporteGrupalProcesoConsolidado reporteGrupalConsolidadoProceso = new ReporteGrupalProcesoConsolidado();
+				exportIt(reporteGrupalConsolidadoProceso.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "24":
+			try {
+				/* Reporte 24 Plantilla Informe Dinamico */
+				ReporteIndividualInformeDinamico reporteIndividualInformeDinamico = new ReporteIndividualInformeDinamico();
+				exportIt(reporteIndividualInformeDinamico.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "25":
+			try {
+				/* Reporte 24 Plantilla Informe Dinamico Ejecución */
+				ReporteIndividualInformeEjecucion reporteIndividualInformeEjecucion = new ReporteIndividualInformeEjecucion();
+				exportIt(reporteIndividualInformeEjecucion.getReport(params, path, getServletContext(), false),
+						response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "26":
+			try {
+				ReporteGrupalPlanificacionInventario reporteGrupalPlanificacionInv = new ReporteGrupalPlanificacionInventario();
+				exportIt(reporteGrupalPlanificacionInv.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "27":
+			try {
+				ReporteGrupalTipoEvaluacionCons reporteGrupalTipoEvaluacionCons = new ReporteGrupalTipoEvaluacionCons();
+				exportIt(reporteGrupalTipoEvaluacionCons.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "28":
+			try {
+				ReporteGrupalTipoInventario reporteGrupalTipoInventario = new ReporteGrupalTipoInventario();
+				exportIt(reporteGrupalTipoInventario.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
+		case "29":
+			try {
+				ReporteGrupalFaltanteInventario reporteGrupalFaltanteInv = new ReporteGrupalFaltanteInventario();
+				exportIt(reporteGrupalFaltanteInv.getReport(params, path, getServletContext(), false), response);
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 

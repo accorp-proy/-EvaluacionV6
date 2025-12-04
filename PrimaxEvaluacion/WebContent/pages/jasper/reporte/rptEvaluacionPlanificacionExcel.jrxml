@@ -409,7 +409,9 @@ rpt.mes_11_t as m11t,
 rpt.mes_12_t as m12t,
 rpt.nro_visita as cantidad,
 rpt.color as colorNivel,
-(select  now()::date - rpt.fecha_ejecucion::date ) as dias,
+(rpt.fecha_ejecucion - INTERVAL '1 YEAR') as anioA,
+rpt.dias as dias,
+rpt.dias_anio_a as diasA,
 (rpt.nro_visita||' - '||rpt.nro_visita_estacion) as numVisita
 from reporte_evaluacion_planificacion_et rpt
 where rpt.aud_usuario = $P{par_id_usuario}
@@ -461,6 +463,8 @@ order by rpt.zona ,rpt.codigo_agencia;]]>
 		<field name="colornivel" class="java.lang.String"/>
 		<field name="dias" class="java.lang.Integer"/>
 		<field name="numvisita" class="java.lang.String"/>
+		<field name="diasA" class="java.lang.Long"/>
+		<field name="anioA" class="java.sql.Timestamp"/>
 		<variable name="mes1" class="java.lang.Long" calculation="Sum">
 			<variableExpression><![CDATA[$F{m01t}]]></variableExpression>
 		</variable>
@@ -661,6 +665,31 @@ from reporte_evaluacion_planificacion_et rpt where aud_usuario=$P{par_id_usuario
 									<paragraph leftIndent="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3b7a976f-6fa9-490a-82e2-0a23418b9d66">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="15" rowSpan="1">
+							<textField pattern="yyyy" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="90" height="15" forecolor="#000000" backcolor="#BFE1FF" uuid="08c81228-313a-447b-86c6-51deb1538dca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{anioA}]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:columnFooter height="15" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="90" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="0851cb1e-9914-4e85-a3ea-98ba06c1b3c9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{diasA}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

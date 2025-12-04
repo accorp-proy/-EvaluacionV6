@@ -27,10 +27,11 @@ public class ReporteEvaluacionPlanificacionDao extends GenericDao<ReporteEvaluac
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public String generar(Date fechaDesde, Date fechaHasta, Long idZona, Long idEvaluacion, Long idFrecuenciaVisita, EstadoCheckListEnum estadoCheckList, Long idUsuario) {
+	public String generar(Date fechaDesde, Date fechaHasta, Date fechaCierre, Long idZona, Long idEvaluacion, Long idFrecuenciaVisita, EstadoCheckListEnum estadoCheckList, Long idUsuario) {
 		StoredProcedureQuery query = this.em.createNamedStoredProcedureQuery("getGenerarReportePlanificacion");
 		query.setParameter("fechaDesde", fechaDesde, TemporalType.DATE);
 		query.setParameter("fechaHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("fechaCierre", fechaCierre, TemporalType.DATE);
 		query.setParameter("idZona", idZona);
 		query.setParameter("idEvaluacion", idEvaluacion);
 		query.setParameter("idFrecuenciaVisita", idFrecuenciaVisita);

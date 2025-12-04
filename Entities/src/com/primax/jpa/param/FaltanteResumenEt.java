@@ -44,10 +44,30 @@ public class FaltanteResumenEt extends EntityBase implements Serializable {
 	@Column(name = "variacion")
 	private Double variacion;
 
+	@ManyToOne
+	@JoinColumn(name = "id_agencia")
+	private AgenciaEt agencia;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_categoria_faltante")
+	private CategoriaFaltanteEt categoriaFaltante;
+
+	@Column(name = "comentario_control", length = 500)
+	private String comentarioControl;
+
+	@Column(name = "comentario_plan_accion", length = 500)
+	private String comentarioPlanAccion;
+
+	@Column(name = "reincidente")
+	private boolean reincidente;
+
 	public FaltanteResumenEt() {
 		this.descripcion = "";
 		this.variacion = 0D;
 		this.cantidad = 0D;
+		this.reincidente = false;
+		this.comentarioControl = "";
+		this.comentarioPlanAccion = "";
 	}
 
 	public Long getIdFaltanteResumen() {
@@ -88,6 +108,46 @@ public class FaltanteResumenEt extends EntityBase implements Serializable {
 
 	public void setVariacion(Double variacion) {
 		this.variacion = variacion;
+	}
+
+	public String getComentarioControl() {
+		return comentarioControl;
+	}
+
+	public void setComentarioControl(String comentarioControl) {
+		this.comentarioControl = comentarioControl;
+	}
+
+	public String getComentarioPlanAccion() {
+		return comentarioPlanAccion;
+	}
+
+	public void setComentarioPlanAccion(String comentarioPlanAccion) {
+		this.comentarioPlanAccion = comentarioPlanAccion;
+	}
+
+	public AgenciaEt getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(AgenciaEt agencia) {
+		this.agencia = agencia;
+	}
+
+	public boolean isReincidente() {
+		return reincidente;
+	}
+
+	public void setReincidente(boolean reincidente) {
+		this.reincidente = reincidente;
+	}
+
+	public CategoriaFaltanteEt getCategoriaFaltante() {
+		return categoriaFaltante;
+	}
+
+	public void setCategoriaFaltante(CategoriaFaltanteEt categoriaFaltante) {
+		this.categoriaFaltante = categoriaFaltante;
 	}
 
 	@Override

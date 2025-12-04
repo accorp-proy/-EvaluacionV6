@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
-	<ui:define name="title">Plan de Acción Criterio General</ui:define>
+	<ui:define name="title">Ejecución Inventario Faltate</ui:define>
 	<ui:define name="content">
 		<h:form id="frm_pln_017">
 			<p:growl showDetail="false" id="msg">
@@ -68,6 +68,97 @@
 					</p:column>
 				</p:row>
 			</p:panelGrid>
+			<p:dataTable id="dtbFaltanteR" var="resumen" reflow="true"
+				scrollable="true" scrollHeight="400"
+				value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteResumen}"
+				emptyMessage="No existen Procesos">
+				<f:facet name="header">
+                      #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.evaluacion.descripcion} - #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.tipoChecKList.descripcion} - #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.codigo}
+                         </f:facet>
+				<p:column headerText="Categoría ">
+					<h:outputText value="#{resumen.descripcion}"></h:outputText>
+				</p:column>
+				<p:column headerText="Cantidad Diferencia">
+					<h:outputText value="#{resumen.cantidad}">
+						<f:convertNumber pattern="##000" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Variación Costo  ">
+					<h:outputText value="#{resumen.variacion}">
+						<f:convertNumber pattern="##0.00" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Comentario Control">
+					<div align="left">
+						<p:inputTextarea id="inpTextArea0"
+							value="#{resumen.comentarioControl}" rows="4" styleClass="w100"
+							maxlength="300" placeholder="Ingresar Comentario"
+							title="Ingresar Comentario ">
+							<p:ajax event="change" process="@this dtbFaltanteR"
+								listener="#{InvFaltanteEjecucionBn.guardarDet()}" />
+						</p:inputTextarea>
+					</div>
+				</p:column>
+				<p:column headerText="Ver">
+					<p:commandButton icon="pi pi-eye" process="@this dtbFaltanteR"
+						update="frm_pln_017:dtbFaltanteD"
+						action="#{InvFaltanteEjecucionBn.verDetalle(resumen)}">
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Reincidente">
+					<h:graphicImage value="/resources/images/iconos/positivo.jpg"
+						rendered="#{resumen.reincidente eq 'false'}" height="50px"
+						width="50px" />
+					<h:graphicImage value="/resources/images/iconos/recurrente.jpg"
+						rendered="#{resumen.reincidente eq 'true'}" height="50px"
+						width="50px" />
+				</p:column>
+				<p:columnGroup type="footer">
+					<p:row>
+						<p:column style="font-weight:bold" footerText="Total:" />
+						<p:column style="font-weight:bold"
+							footerText="#{InvFaltanteEjecucionBn.totCantidadS}" />
+						<p:column style="font-weight:bold"
+							footerText="#{InvFaltanteEjecucionBn.totVariacionS}" />
+					</p:row>
+				</p:columnGroup>
+			</p:dataTable>
+			<p:dataTable var="detalle"
+				value="#{InvFaltanteEjecucionBn.faltanteDet}" reflow="true"
+				id="dtbFaltanteD" emptyMessage="No existe información">
+				<f:facet name="header">
+                          DETALLE CONTEO DE PRODUCTOS
+                    </f:facet>
+				<p:column headerText="Nombres">
+					<p:outputLabel value="#{detalle.nombreProducto}" />
+				</p:column>
+				<p:column headerText="Cantidad teórica">
+					<p:outputLabel value="#{detalle.cantidadTeorica}">
+						<f:convertNumber pattern="##000" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Cantidad contada">
+					<p:outputLabel value="#{detalle.cantidadContada}">
+						<f:convertNumber pattern="##000" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Cantidad diferencia">
+					<p:outputLabel value="#{detalle.cantidadDiferencia}">
+						<f:convertNumber pattern="##000" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Costo Unitario">
+					<p:outputLabel value="#{detalle.costoUnitario}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Variación Costo">
+					<p:outputLabel value="#{detalle.costoVariacion}">
+						<f:convertNumber pattern="##0.00" />
+					</p:outputLabel>
+				</p:column>
+			</p:dataTable>
+
 			<p:fieldset legend="Consolidado Top" toggleable="true"
 				toggleSpeed="500">
 				<p:panelGrid columns="2" styleClass="fullsize sinborde"
@@ -89,23 +180,13 @@
 						</p:column>
 						<p:column headerText="Cantidad Diferencia">
 							<h:outputText value="#{topN.cantidad}">
-								<f:convertNumber pattern="##0.00" />
+								<f:convertNumber pattern="##000" />
 							</h:outputText>
 						</p:column>
 						<p:column headerText="Variación Costo  ">
 							<h:outputText value="#{topN.variacion}">
 								<f:convertNumber pattern="##0.00" />
 							</h:outputText>
-						</p:column>
-						<p:column headerText="Comentario Control">
-							<div align="left">
-								<p:inputTextarea id="inpTextArea0"
-									value="#{topN.comentarioControl}" rows="4" styleClass="w100"
-									maxlength="500">
-									<p:ajax event="change" process="@this dtbTopN"
-										listener="#{InvFaltanteEjecucionBn.guardarDet()}" />
-								</p:inputTextarea>
-							</div>
 						</p:column>
 						<p:columnGroup type="footer">
 							<p:row>
@@ -141,23 +222,13 @@
 						</p:column>
 						<p:column headerText="Cantidad Diferencia">
 							<h:outputText value="#{topP.cantidad}">
-								<f:convertNumber pattern="##0.00" />
+								<f:convertNumber pattern="##000" />
 							</h:outputText>
 						</p:column>
 						<p:column headerText="Variación Costo  ">
 							<h:outputText value="#{topP.variacion}">
 								<f:convertNumber pattern="##0.00" />
 							</h:outputText>
-						</p:column>
-						<p:column headerText="Comentario Control">
-							<div align="left">
-								<p:inputTextarea id="inpTextArea0"
-									value="#{topP.comentarioControl}" rows="4" styleClass="w100"
-									maxlength="500">
-									<p:ajax event="change" process="@this dtbTopP"
-										listener="#{InvFaltanteEjecucionBn.guardarDet()}" />
-								</p:inputTextarea>
-							</div>
 						</p:column>
 						<p:columnGroup type="footer">
 							<p:row>
@@ -206,11 +277,6 @@
 					scrollHeight="300"
 					value="#{InvFaltanteEjecucionBn.faltanteCategorias}"
 					emptyMessage="No existen Procesos">
-					<f:facet name="header">
-						<div align="center">
-							<h:outputLabel value="Top Categoría" />
-						</div>
-					</f:facet>
 					<p:column headerText="Producto ">
 						<h:outputText value="#{topC.nombreProducto}"></h:outputText>
 					</p:column>
@@ -219,7 +285,7 @@
 					</p:column>
 					<p:column headerText="Cantidad Diferencia">
 						<h:outputText value="#{topC.cantidad}">
-							<f:convertNumber pattern="##0.00" />
+							<f:convertNumber pattern="##000" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Variación Costo  ">
@@ -229,77 +295,7 @@
 					</p:column>
 				</p:dataTable>
 			</p:fieldset>
-			<p:dataTable id="dtbFaltanteR" var="resumen" scrollable="true"
-				scrollHeight="300"
-				value="#{InvFaltanteEjecucionBn.faltanteInvSelecc.faltanteResumen}"
-				emptyMessage="No existen Procesos">
-				<f:facet name="header">
-                      #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.evaluacion.descripcion} - #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.tipoChecKList.descripcion} - #{InvFaltanteEjecucionBn.faltanteInvSelecc.checkListEjecucion.codigo}
-                         </f:facet>
-				<p:column headerText="Categoría ">
-					<h:outputText value="#{resumen.descripcion}"></h:outputText>
-				</p:column>
-				<p:column headerText="Cantidad Diferencia">
-					<h:outputText value="#{resumen.cantidad}">
-						<f:convertNumber pattern="##0.00" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Variación Costo  ">
-					<h:outputText value="#{resumen.variacion}">
-						<f:convertNumber pattern="##0.00" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="Ver">
-					<p:commandButton icon="pi pi-eye" process="@this dtbFaltanteR"
-						update="frm_pln_017:dtbFaltanteD"
-						action="#{InvFaltanteEjecucionBn.verDetalle(resumen)}">
-					</p:commandButton>
-				</p:column>
-				<p:columnGroup type="footer">
-					<p:row>
-						<p:column style="font-weight:bold" footerText="Total:" />
-						<p:column style="font-weight:bold"
-							footerText="#{InvFaltanteEjecucionBn.totCantidadS}" />
-						<p:column style="font-weight:bold"
-							footerText="#{InvFaltanteEjecucionBn.totVariacionS}" />
-					</p:row>
-				</p:columnGroup>
-			</p:dataTable>
-			<p:dataTable var="detalle"
-				value="#{InvFaltanteEjecucionBn.faltanteDet}" reflow="true"
-				id="dtbFaltanteD" emptyMessage="No existe información">
-				<f:facet name="header">
-                          DETALLE CONTEO DE PRODUCTOS
-                    </f:facet>
-				<p:column headerText="Nombres">
-					<p:outputLabel value="#{detalle.nombreProducto}" />
-				</p:column>
-				<p:column headerText="Cantidad teórica">
-					<p:outputLabel value="#{detalle.cantidadTeorica}">
-						<f:convertNumber pattern="##0.00" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Cantidad contada">
-					<p:outputLabel value="#{detalle.cantidadContada}">
-						<f:convertNumber pattern="##0.00" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Cantidad diferencia">
-					<p:outputLabel value="#{detalle.cantidadDiferencia}">
-						<f:convertNumber pattern="##0.00" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Costo Unitario">
-					<p:outputLabel value="#{detalle.costoUnitario}">
-						<f:convertNumber pattern="##0.00" />
-					</p:outputLabel>
-				</p:column>
-				<p:column headerText="Variación Costo">
-					<p:outputLabel value="#{detalle.costoVariacion}">
-						<f:convertNumber pattern="##0.00" />
-					</p:outputLabel>
-				</p:column>
-			</p:dataTable>
+
 		</h:form>
 		<ui:include src="/pages/planificacion/pln_018.xhtml"></ui:include>
 		<p:confirmDialog widgetVar="dlg_conf_0" header="Confirmar"

@@ -29,6 +29,7 @@ import javax.persistence.NamedStoredProcedureQuery;
 @NamedStoredProcedureQuery(name = "getGenerarReportePlanificacion", procedureName = "fun_generar_rpt_evaluacion_planificacion", resultClasses = ReporteEvaluacionPlanificacionEt.class, parameters = {
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaDesde"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaHasta"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaCierre"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idZona"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idEvaluacion"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idFrecuenciaVisita"),
@@ -228,6 +229,9 @@ public class ReporteEvaluacionPlanificacionEt extends EntityBase implements Seri
 
 	@Column(name = "dias")
 	private Long dias;
+	
+	@Column(name = "dias_anio_a")
+	private Long diasAnioA;
 
 	@Column(name = "color", length = 20)
 	private String color;
@@ -236,6 +240,7 @@ public class ReporteEvaluacionPlanificacionEt extends EntityBase implements Seri
 		this.dias = 0L;
 		this.nroVisita = 0L;
 		this.idAgencia = 0L;
+		this.diasAnioA = 0L;
 		this.color = "#FFFFFF";
 		this.idCheckListEjecucion = 0L;
 	}
@@ -738,6 +743,14 @@ public class ReporteEvaluacionPlanificacionEt extends EntityBase implements Seri
 
 	public void setNroVisitaEstacion(Long nroVisitaEstacion) {
 		this.nroVisitaEstacion = nroVisitaEstacion;
+	}
+
+	public Long getDiasAnioA() {
+		return diasAnioA;
+	}
+
+	public void setDiasAnioA(Long diasAnioA) {
+		this.diasAnioA = diasAnioA;
 	}
 
 	@Override

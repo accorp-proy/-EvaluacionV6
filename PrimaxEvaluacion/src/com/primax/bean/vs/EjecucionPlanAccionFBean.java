@@ -14,12 +14,15 @@ import javax.inject.Named;
 
 import com.primax.bean.ss.AppMain;
 import com.primax.bean.vs.base.BaseBean;
-import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoPlanAccionEnum;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.param.FaltanteCategoriaEt;
+import com.primax.jpa.param.FaltanteCategoriaTopEt;
 import com.primax.jpa.param.FaltanteDetalleEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.FaltanteResumenEt;
 import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.IFaltanteCategoriaDao;
 import com.primax.srv.idao.IFaltanteDetalleDao;
 import com.primax.srv.idao.IFaltanteInventarioDao;
 
@@ -32,6 +35,8 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IFaltanteCategoriaDao iFaltanteCatDao;
 	@EJB
 	private IFaltanteInventarioDao iFaltanteInvDao;
 	@EJB
@@ -46,11 +51,16 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 	private String totCantPS = "0";
 	private String totCantNS = "0";
 	private Double totCantidad = 0D;
+	private List<String> condiciones;
 	private Double totVariacion = 0D;
 	private String totCantidadS = "0";
 	private String totVariacionS = "0";
+	private String condicionSeleccionada;
 	private List<FaltanteDetalleEt> faltanteDet;
 	private FaltanteInventarioEt faltanteInvSelecc;
+	private FaltanteCategoriaTopEt faltanteCatTopSelecc;
+	private List<FaltanteCategoriaEt> faltanteCategorias;
+	
 
 	@Inject
 	private AppMain appMain;
@@ -67,6 +77,11 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 			faltanteInvSelecc = iFaltanteInvDao.getFaltanteInvEjecucion(usuario);
 			if (faltanteInvSelecc != null) {
 				mostrarTotal(faltanteInvSelecc);
+				for (FaltanteCategoriaTopEt catTop : faltanteInvSelecc.getFaltanteCategoriaTop()) {
+					faltanteCatTopSelecc = catTop;
+					eventSeleccionCatTop();
+					break;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,6 +92,11 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 
 	public void inicializarObj() {
 		faltanteDet = new ArrayList<>();
+		faltanteCategorias = new ArrayList<>();
+		condiciones = new ArrayList<String>();
+		condiciones.add("Top-Positivo");
+		condiciones.add("Top-Negativo");
+		condicionSeleccionada = "Top-Negativo";
 	}
 
 	public void verDetalle(FaltanteResumenEt faltanteR) {
@@ -180,6 +200,22 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 		}
 	}
 
+	public void eventSeleccionCatTop() {
+		boolean variable = false;
+		CategoriaFaltanteEt catFaltante = null;
+		try {
+			if (condicionSeleccionada.equals("Top-Positivo")) {
+				variable = true;
+			}
+			catFaltante = faltanteCatTopSelecc.getCategoriaFaltante();
+			System.out.println("Categoria Seleccionada" + " " + catFaltante.getDescripcion());
+			faltanteCategorias = iFaltanteCatDao.getFaltanteCatByCat(catFaltante, variable);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método eventSeleccionCatTop " + " " + e.getMessage());
+		}
+	}
+	
 	public FaltanteInventarioEt getFaltanteInvSelecc() {
 		return faltanteInvSelecc;
 	}
@@ -292,8 +328,41 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 		this.totVarPS = totVarPS;
 	}
 
+	public List<String> getCondiciones() {
+		return condiciones;
+	}
+
+	public void setCondiciones(List<String> condiciones) {
+		this.condiciones = condiciones;
+	}
+
+	public String getCondicionSeleccionada() {
+		return condicionSeleccionada;
+	}
+
+	public void setCondicionSeleccionada(String condicionSeleccionada) {
+		this.condicionSeleccionada = condicionSeleccionada;
+	}
+
+	public FaltanteCategoriaTopEt getFaltanteCatTopSelecc() {
+		return faltanteCatTopSelecc;
+	}
+
+	public void setFaltanteCatTopSelecc(FaltanteCategoriaTopEt faltanteCatTopSelecc) {
+		this.faltanteCatTopSelecc = faltanteCatTopSelecc;
+	}
+
+	public List<FaltanteCategoriaEt> getFaltanteCategorias() {
+		return faltanteCategorias;
+	}
+
+	public void setFaltanteCategorias(List<FaltanteCategoriaEt> faltanteCategorias) {
+		this.faltanteCategorias = faltanteCategorias;
+	}
+
 	@Override
 	protected void onDestroy() {
+		iFaltanteCatDao.remove();
 		iFaltanteInvDao.remove();
 		iFaltanteDetalleDao.remove();
 	}

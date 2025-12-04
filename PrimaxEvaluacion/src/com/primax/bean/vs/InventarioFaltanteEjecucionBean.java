@@ -126,10 +126,10 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 			String tipo = nombre.substring(nombre.length() - 4).toUpperCase();
 			List<RowPoi> listCols;
 			if (tipo.equals("XLSX")) {
-				listCols = POIReader.getColumsFromXLSXFile(is, 0, false, "");
+				listCols = POIReader.getColumsFromXLSXFile(is, 1, false, "");
 				cab.setFaltanteDetalle(procesarRegistrosInv(listCols, cab));
 			} else if (tipo.equals("XLS")) {
-				listCols = POIReader.getColumsFromXLSFile(is, 0, false, "");
+				listCols = POIReader.getColumsFromXLSFile(is, 1, false, "");
 				cab.setFaltanteDetalle(procesarRegistrosInv(listCols, cab));
 			}
 			cab.setCantidadRegistro((long) cab.getFaltanteDetalle().size());
@@ -236,6 +236,7 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 	public void guardar() {
 		String pagina = "";
 		String mensaje = "";
+		Double valorTotal = 0D;
 		try {
 			mensaje = validarguardar();
 			if (!mensaje.equals("")) {
@@ -244,8 +245,11 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 			}
 			UsuarioEt usuario = appMain.getUsuario();
 			FacesContext contex = FacesContext.getCurrentInstance();
+			faltanteInvSelecc.setFechaFinalizacion(new Date());
 			faltanteInvSelecc.setEstadoCheckList(EstadoCheckListEnum.EJECUTADO);
 			faltanteInvSelecc.setEstadoPlanAccion(EstadoPlanAccionEnum.PENDIENTE);
+			valorTotal = faltanteInvSelecc.getFaltanteResumen().stream().mapToDouble(p -> p.getCantidad()).sum();
+			faltanteInvSelecc.setValorTotal(valorTotal);
 			iFaltanteInvDao.guardarFaltanteInv(faltanteInvSelecc, usuario);
 			pagina = "/PrimaxEvaluacionPruebas/pages/planificacion/pln_015.xhtml";
 			contex.getExternalContext().redirect(pagina);
@@ -283,11 +287,10 @@ public class InventarioFaltanteEjecucionBean extends BaseBean implements Seriali
 			}
 			catFaltante = faltanteCatTopSelecc.getCategoriaFaltante();
 			System.out.println("Categoria Seleccionada" + " " + catFaltante.getDescripcion());
-
 			faltanteCategorias = iFaltanteCatDao.getFaltanteCatByCat(catFaltante, variable);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error :Método mensaje " + " " + e.getMessage());
+			System.out.println("Error :Método eventSeleccionCatTop " + " " + e.getMessage());
 		}
 	}
 
