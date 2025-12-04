@@ -309,6 +309,7 @@ public class BusquedaBean extends BaseBean implements Serializable {
 					rptSelec.setIdGenerico(cat.getIdCategoriaFaltante());
 					iReporteSeleccionDao.guardaReporteS(rptSelec, usuario);
 				}
+				
 			}
 			if (zonaSeleccionada != null) {
 				idZona = zonaSeleccionada.getIdZona();
