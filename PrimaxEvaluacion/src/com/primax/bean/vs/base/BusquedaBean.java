@@ -309,8 +309,7 @@ public class BusquedaBean extends BaseBean implements Serializable {
 					rptSelec.setIdGenerico(cat.getIdCategoriaFaltante());
 					iReporteSeleccionDao.guardaReporteS(rptSelec, usuario);
 				}
-				
-				
+
 			}
 			if (zonaSeleccionada != null) {
 				idZona = zonaSeleccionada.getIdZona();
@@ -756,6 +755,26 @@ public class BusquedaBean extends BaseBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error :Método getEvaluacionList " + " " + e.getMessage());
+		}
+		return evaluaciones;
+	}
+
+	public List<EvaluacionEt> getEvaluacionFaltInvList() {
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		try {
+			UsuarioEt usuario = iUsuarioDao.getUsuarioId(appMain.getUsuario().getIdUsuario());
+			if (usuario.isAccesoEvaluacion() && !usuario.getEvaluacionUsuario().isEmpty()) {
+				for (EvaluacionUsuarioEt evaluacionUsuario : usuario.getEvaluacionUsuario()) {
+					if (evaluacionUsuario.getEvaluacion().isFaltanteInv()) {
+						evaluaciones.add(evaluacionUsuario.getEvaluacion());
+					}
+				}
+			} else {
+				evaluaciones = iEvaluacionDao.getEvaluacionFaltInvList(null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error :Método getEvaluacionFaltInvList " + " " + e.getMessage());
 		}
 		return evaluaciones;
 	}

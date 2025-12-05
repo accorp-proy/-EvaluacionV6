@@ -1,10 +1,13 @@
 package com.primax.srv.idao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.primax.exc.gen.EntidadNoEncontradaException;
 import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.param.AgenciaEt;
+import com.primax.jpa.param.EvaluacionEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.TipoInventarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
@@ -25,6 +28,8 @@ public interface IFaltanteInventarioDao extends IGenericDao<FaltanteInventarioEt
 
 	public String getCodigoFaltanteInv() throws EntidadNoEncontradaException;
 
+	public FaltanteInventarioEt getFaltanteInvPlanAccion(UsuarioEt usuario) throws EntidadNoEncontradaException;
+
 	public FaltanteInventarioEt getFaltanteInvEjecucion(UsuarioEt usuario) throws EntidadNoEncontradaException;
 
 	public List<FaltanteInventarioEt> getCheckListPlanAccion(AgenciaEt agencia) throws EntidadNoEncontradaException;
@@ -38,5 +43,11 @@ public interface IFaltanteInventarioDao extends IGenericDao<FaltanteInventarioEt
 	public void guardarFaltanteInv(FaltanteInventarioEt FaltanteInventario, UsuarioEt usuario) throws EntidadNoGrabadaException;
 
 	public List<FaltanteInventarioEt> getFaltanteInvByTipoInv(TipoInventarioEt tipoInventario) throws EntidadNoEncontradaException;
+
+	public List<FaltanteInventarioEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInv(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario, UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException;
+
+	public List<FaltanteInventarioEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInventario(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException;
 
 }

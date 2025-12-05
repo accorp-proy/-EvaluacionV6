@@ -4,8 +4,8 @@
   <project name="Enumerations"/>
  </depends-on-projects>
  <used-by-projects>
-  <project name="DataService"/>
   <project name="PrimaxEvaluacion"/>
+  <project name="DataService"/>
  </used-by-projects>
  <paths>
   <path value="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/resource/api/main/jboss-connector-api_1.7_spec-2.0.0.Final.jar"/>

@@ -20,6 +20,8 @@ public interface IEvaluacionDao extends IGenericDao<EvaluacionEt, Long> {
 
 	public List<EvaluacionEt> getEvaluacionByCriterio(boolean criterio) throws EntidadNoEncontradaException;
 
+	public List<EvaluacionEt> getEvaluacionFaltInvList(String condicion) throws EntidadNoEncontradaException;
+
 	public void guardarEvaluacion(EvaluacionEt evaluacion, UsuarioEt usuario) throws EntidadNoGrabadaException;
 
 	public List<EvaluacionEt> getEvaluacionList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException;

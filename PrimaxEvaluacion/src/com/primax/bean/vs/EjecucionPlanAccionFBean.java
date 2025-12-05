@@ -74,7 +74,7 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 	public void buscar() {
 		try {
 			UsuarioEt usuario = appMain.getUsuario();
-			faltanteInvSelecc = iFaltanteInvDao.getFaltanteInvEjecucion(usuario);
+			faltanteInvSelecc = iFaltanteInvDao.getFaltanteInvPlanAccion(usuario);
 			if (faltanteInvSelecc != null) {
 				mostrarTotal(faltanteInvSelecc);
 				for (FaltanteCategoriaTopEt catTop : faltanteInvSelecc.getFaltanteCategoriaTop()) {

@@ -1,5 +1,7 @@
 package com.primax.srv.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -10,6 +12,7 @@ import javax.ejb.StatefulTimeout;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import com.primax.enm.gen.ActionAuditedEnum;
@@ -19,8 +22,12 @@ import com.primax.jpa.enums.EstadoCheckListEnum;
 import com.primax.jpa.enums.EstadoEnum;
 import com.primax.jpa.enums.EstadoPlanAccionEnum;
 import com.primax.jpa.param.AgenciaEt;
+import com.primax.jpa.param.EvaluacionEt;
+import com.primax.jpa.param.EvaluacionUsuarioEt;
 import com.primax.jpa.param.FaltanteInventarioEt;
 import com.primax.jpa.param.TipoInventarioEt;
+import com.primax.jpa.param.ZonaEt;
+import com.primax.jpa.param.ZonaUsuarioEt;
 import com.primax.jpa.pla.CheckListEjecucionEt;
 import com.primax.jpa.sec.UsuarioEt;
 import com.primax.srv.dao.base.GenericDao;
@@ -181,6 +188,24 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		FaltanteInventarioEt consultado = getUnique(result);
 		return consultado;
 	}
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public FaltanteInventarioEt getFaltanteInvPlanAccion(UsuarioEt usuario) throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM FaltanteInventarioEt o ");
+		sql.append(" WHERE o.estado  = :estado   ");
+		sql.append(" AND o.usuarioRegistra = :usuario ");
+		sql.append(" AND o.ejecutando      = :ejecutando ");
+		sql.append(" AND o.estadoCheckList = :estadoCheckList ");
+		sql.append(" ORDER BY  o.fechaRegistro desc ");
+		TypedQuery<FaltanteInventarioEt> query = em.createQuery(sql.toString(), FaltanteInventarioEt.class);
+		query.setParameter("usuario", usuario);
+		query.setParameter("ejecutando", true);
+		query.setParameter("estado", EstadoEnum.ACT);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		List<FaltanteInventarioEt> result = query.getResultList();
+		FaltanteInventarioEt consultado = getUnique(result);
+		return consultado;
+	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public String generar(Long idFaltanteInv, Long idUsuario) {
@@ -206,6 +231,118 @@ public class FaltanteInventarioDao extends GenericDao<FaltanteInventarioEt, Long
 		List<FaltanteInventarioEt> result = query.getResultList();
 		return result;
 	}
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<FaltanteInventarioEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInv(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario, UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM FaltanteInventarioEt o  ");
+		sql.append(" WHERE o.estado        = :estado   ");
+		sql.append(" AND date_trunc('day',o.checkListEjecucion.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
+		sql.append(" AND o.checkListEjecucion.estadoCheckList = :estadoCheckList ");
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion in (:evaluaciones) ");
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
+		}
+		if (!usuario.getZonaUsuario().isEmpty()) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia.zona in (:zonas) ");
+		}
+		if (estacion != null) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia = :estacion ");
+		}
+		if (evaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion = :evaluacion ");
+		}
+
+		sql.append(" ORDER BY o.checkListEjecucion.planificacion.fechaPlanificacion ");
+		TypedQuery<FaltanteInventarioEt> query = em.createQuery(sql.toString(), FaltanteInventarioEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
+		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
+		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			query.setParameter("estadoPlanAccion", estadoPlanAccion);
+		}
+		if (!usuario.getZonaUsuario().isEmpty()) {
+			for (ZonaUsuarioEt zonaUsuario : usuario.getZonaUsuario()) {
+				zonas.add(zonaUsuario.getZona());
+			}
+			query.setParameter("zonas", zonas);
+		}
+		if (estacion != null) {
+			query.setParameter("estacion", estacion);
+		}
+		if (evaluacion != null) {
+			query.setParameter("evaluacion", evaluacion);
+		}
+		List<FaltanteInventarioEt> result = query.getResultList();
+		return result;
+	}
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<FaltanteInventarioEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInventario(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,  UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM FaltanteInventarioEt o  ");
+		sql.append(" WHERE o.estado        = :estado   ");
+		sql.append(" AND date_trunc('day',o.checkListEjecucion.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
+		sql.append(" AND o.checkListEjecucion.estadoCheckList = :estadoCheckList ");
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion in (:evaluaciones) ");
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
+		}
+		if (!usuarioEvaluacion.getZonaUsuario().isEmpty()) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia.zona in (:zonas) ");
+		}
+		if (estacion != null) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia = :estacion ");
+		}
+		if (evaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion = :evaluacion ");
+		}
+
+		sql.append(" ORDER BY o.checkListEjecucion.planificacion.fechaPlanificacion ");
+		TypedQuery<FaltanteInventarioEt> query = em.createQuery(sql.toString(), FaltanteInventarioEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
+		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
+		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			query.setParameter("estadoPlanAccion", estadoPlanAccion);
+		}
+		if (!usuarioEvaluacion.getZonaUsuario().isEmpty()) {
+			for (ZonaUsuarioEt zonaUsuario : usuarioEvaluacion.getZonaUsuario()) {
+				zonas.add(zonaUsuario.getZona());
+			}
+			query.setParameter("zonas", zonas);
+		}
+		if (estacion != null) {
+			query.setParameter("estacion", estacion);
+		}
+		if (evaluacion != null) {
+			query.setParameter("evaluacion", evaluacion);
+		}
+		List<FaltanteInventarioEt> result = query.getResultList();
+		return result;
+	}
+
 
 	@Remove
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

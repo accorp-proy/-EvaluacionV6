@@ -235,7 +235,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,UsuarioEt usuarioEvaluacion)
+	public List<CheckListEjecucionEt> getCheckListEjecucionListPlanAccion(ZonaEt zona, AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o     ");
 		sql.append(" WHERE o.estado        = :estado   ");
@@ -298,7 +298,7 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario,UsuarioEt usuarioEvaluacion)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccion(AgenciaEt estacion, EvaluacionEt evaluacion, TipoChecKListEt tipoChecKList, NivelEvaluacionEt nivelEvaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario, UsuarioEt usuarioEvaluacion)
 			throws EntidadNoEncontradaException {
 		sql = new StringBuilder("FROM CheckListEjecucionEt o  ");
 		sql.append(" WHERE o.estado        = :estado   ");
@@ -602,6 +602,117 @@ public class CheckListEjecucionDao extends GenericDao<CheckListEjecucionEt, Long
 				evaluaciones.add(evaluacionUsuario.getEvaluacion());
 			}
 			query.setParameter("evaluaciones", evaluaciones);
+		}
+		List<CheckListEjecucionEt> result = query.getResultList();
+		return result;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInv(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario, UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("SELECT o.checkListEjecucion FROM FaltanteInventarioEt o  ");
+		sql.append(" WHERE o.estado        = :estado   ");
+		sql.append(" AND date_trunc('day',o.checkListEjecucion.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
+		sql.append(" AND o.checkListEjecucion.estadoCheckList = :estadoCheckList ");
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion in (:evaluaciones) ");
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
+		}
+		if (!usuario.getZonaUsuario().isEmpty()) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia.zona in (:zonas) ");
+		}
+		if (estacion != null) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia = :estacion ");
+		}
+		if (evaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion = :evaluacion ");
+		}
+
+		sql.append(" ORDER BY o.checkListEjecucion.planificacion.fechaPlanificacion ");
+		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
+		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
+		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			query.setParameter("estadoPlanAccion", estadoPlanAccion);
+		}
+		if (!usuario.getZonaUsuario().isEmpty()) {
+			for (ZonaUsuarioEt zonaUsuario : usuario.getZonaUsuario()) {
+				zonas.add(zonaUsuario.getZona());
+			}
+			query.setParameter("zonas", zonas);
+		}
+		if (estacion != null) {
+			query.setParameter("estacion", estacion);
+		}
+		if (evaluacion != null) {
+			query.setParameter("evaluacion", evaluacion);
+		}
+		List<CheckListEjecucionEt> result = query.getResultList();
+		return result;
+	}
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInventario(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,  UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException {
+		sql = new StringBuilder("SELECT o.checkListEjecucion FROM FaltanteInventarioEt o  ");
+		sql.append(" WHERE o.estado        = :estado   ");
+		sql.append(" AND date_trunc('day',o.checkListEjecucion.planificacion.fechaPlanificacion) BETWEEN :fDesde AND :fHasta ");
+		sql.append(" AND o.checkListEjecucion.estadoCheckList = :estadoCheckList ");
+		if (usuarioEvaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion in (:evaluaciones) ");
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			sql.append(" AND o.estadoPlanAccion = :estadoPlanAccion ");
+		}
+		if (!usuarioEvaluacion.getZonaUsuario().isEmpty()) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia.zona in (:zonas) ");
+		}
+		if (estacion != null) {
+			sql.append(" AND o.checkListEjecucion.planificacion.agencia = :estacion ");
+		}
+		if (evaluacion != null) {
+			sql.append(" AND o.checkListEjecucion.evaluacion = :evaluacion ");
+		}
+
+		sql.append(" ORDER BY o.checkListEjecucion.planificacion.fechaPlanificacion ");
+		TypedQuery<CheckListEjecucionEt> query = em.createQuery(sql.toString(), CheckListEjecucionEt.class);
+		List<EvaluacionEt> evaluaciones = new ArrayList<EvaluacionEt>();
+		query.setParameter("estado", EstadoEnum.ACT);
+		List<ZonaEt> zonas = new ArrayList<ZonaEt>();
+		query.setParameter("fDesde", fechaDesde, TemporalType.DATE);
+		query.setParameter("fHasta", fechaHasta, TemporalType.DATE);
+		query.setParameter("estadoCheckList", EstadoCheckListEnum.EJECUTADO);
+		if (usuarioEvaluacion != null) {
+			for (EvaluacionUsuarioEt evaluacionUsuario : usuarioEvaluacion.getEvaluacionUsuario()) {
+				evaluaciones.add(evaluacionUsuario.getEvaluacion());
+			}
+			query.setParameter("evaluaciones", evaluaciones);
+		}
+		if (estadoPlanAccion != null && !estadoPlanAccion.getDescripcion().equals("Todos")) {
+			query.setParameter("estadoPlanAccion", estadoPlanAccion);
+		}
+		if (!usuarioEvaluacion.getZonaUsuario().isEmpty()) {
+			for (ZonaUsuarioEt zonaUsuario : usuarioEvaluacion.getZonaUsuario()) {
+				zonas.add(zonaUsuario.getZona());
+			}
+			query.setParameter("zonas", zonas);
+		}
+		if (estacion != null) {
+			query.setParameter("estacion", estacion);
+		}
+		if (evaluacion != null) {
+			query.setParameter("evaluacion", evaluacion);
 		}
 		List<CheckListEjecucionEt> result = query.getResultList();
 		return result;

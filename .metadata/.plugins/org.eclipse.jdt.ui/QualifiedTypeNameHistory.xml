@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.primax.jpa.pla.CheckListEjecucionEt"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="org.primefaces.PrimeFaces"/>
-    <fullyQualifiedTypeName name="java.lang.Double"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteResumenEt"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteDetalleEt"/>
     <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteDetalleDao"/>
@@ -11,12 +8,26 @@
     <fullyQualifiedTypeName name="com.primax.srv.dao.base.IGenericDao"/>
     <fullyQualifiedTypeName name="java.lang.Long"/>
     <fullyQualifiedTypeName name="java.lang.StrictMath"/>
-    <fullyQualifiedTypeName name="com.primax.jpa.param.CategoriaFaltanteEt"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteTopPositivoEt"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteTopNegativoEt"/>
-    <fullyQualifiedTypeName name="com.primax.jpa.enums.EstadoCheckListEnum"/>
-    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteInventarioEt"/>
     <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteInventarioDao"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteCategoriaTopDao"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteCategoriaTopEt"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IFaltanteCategoriaDao"/>
     <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteCategoriaEt"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.pla.ReporteEvaluacionPlanificacionAnioEt"/>
+    <fullyQualifiedTypeName name="java.util.Calendar"/>
+    <fullyQualifiedTypeName name="com.primax.bean.maker.ReporteGrupalFaltanteInventario"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.enums.EstadoCheckListEnum"/>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IReporteFaltanteInventarioDao"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.ICategoriaFaltanteDao"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.CategoriaFaltanteEt"/>
+    <fullyQualifiedTypeName name="com.primax.srv.idao.IReporteSeleccionDao"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.pla.ReporteSeleccionEt"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.param.FaltanteInventarioEt"/>
+    <fullyQualifiedTypeName name="com.primax.jpa.pla.CheckListEjecucionEt"/>
 </qualifiedTypeNameHistroy>

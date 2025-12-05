@@ -1,0 +1,45 @@
+package com.primax.bean.cnv;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.inject.Named;
+
+import com.primax.ejb.lkp.BaseNaming;
+import com.primax.ejb.lkp.EnumNaming;
+import com.primax.jpa.param.CategoriaFaltanteEt;
+import com.primax.jpa.param.CategoriaInventarioEt;
+import com.primax.jpa.param.FaltanteCategoriaTopEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.idao.ICategoriaFaltanteDao;
+import com.primax.srv.idao.ICategoriaInventarioDao;
+import com.primax.srv.idao.IFaltanteCategoriaTopDao;
+import com.primax.srv.idao.IUsuarioDao;
+
+@Named
+@ApplicationScoped
+public class CategoriaFaltanteConverter extends BaseNaming implements Converter {
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		ICategoriaFaltanteDao iCatFaltanteDao = EJB(EnumNaming.ICategoriaFaltanteDao);
+		if (value != null) {
+			Long id = Long.parseLong(value);
+			CategoriaFaltanteEt categoriaFalt = iCatFaltanteDao.getCatFaltante(id);
+			iCatFaltanteDao.remove();
+			return categoriaFalt;
+		}
+		return null;
+	}
+
+	@Override
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value != null && ((CategoriaFaltanteEt) value).getIdCategoriaFaltante() != null) {
+			return ((CategoriaFaltanteEt) value).getIdCategoriaFaltante().toString();
+		} else {
+			return "";
+		}
+	}
+
+}

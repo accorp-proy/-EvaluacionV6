@@ -117,7 +117,7 @@ public class InventarioFaltanteBean extends BaseBean implements Serializable {
 						for (PlanificacionEt planificacion : planificaciones) {
 							String leyenda0 = "";
 							String leyenda1 = "";
-							String tema = "schedule-agendada";
+							String backgroundColor = "#BFBFBF";
 							for (CheckListEjecucionEt checkListE : planificacion.getCheckListEjecucion()) {
 								codigo = "EVALUACIÓN:" + " " + checkListE.getCodigo() + "<br/>";
 								estado = "ESTADO:" + " " + checkListE.getEstadoCheckList().getDescripcion() + "<br/>";
@@ -133,19 +133,19 @@ public class InventarioFaltanteBean extends BaseBean implements Serializable {
 								}
 								switch (checkListE.getEstadoCheckList().getDescripcion()) {
 								case "AGENDADA":
-									tema = "schedule-agendada";
+									backgroundColor = "#BFBFBF";
 									break;
 								case "EN EJECUCION":
-									tema = "schedule-en-ejecucion";
+									backgroundColor = "#00B0F0";
 									break;
 								case "EJECUTADO":
-									tema = "schedule-ejecutado";
+									backgroundColor = "#70AD47";
 									break;
 								case "NO EJECUTADO":
-									tema = "schedule-no-ejecutado";
+									backgroundColor = "#FF0000";
 									break;
 								case "INCONCLUSO":
-									tema = "schedule-inconcluso";
+									backgroundColor = "#ED7D31";
 									break;
 								}
 							}
@@ -153,7 +153,7 @@ public class InventarioFaltanteBean extends BaseBean implements Serializable {
 							scheduleEventAllDay = new DefaultScheduleEvent<>();
 							scheduleEventAllDay.setStartDate(fechaD);
 							scheduleEventAllDay.setEndDate(fechaD);
-							scheduleEventAllDay.setStyleClass(tema);
+							scheduleEventAllDay.setBackgroundColor(backgroundColor);
 							scheduleEventAllDay.setTitle(planificacion.getAgencia().getNombreAgencia());
 							scheduleEventAllDay.setData(planificacion);
 							scheduleEventAllDay.setId(String.valueOf(planificacion.getIdPlanificacion()));

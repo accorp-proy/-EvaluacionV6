@@ -23,7 +23,6 @@ import com.primax.jpa.sec.UsuarioEt;
 @Table(name = "EVALUACION_ET")
 @Audited
 
-
 @NamedStoredProcedureQuery(name = "getReporteEvaluacionConsolidado", procedureName = "fun_limpiar_rpt_evaluacion_consolidado", resultClasses = ProcesoDetalleEt.class, parameters = {
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
 		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
@@ -51,8 +50,12 @@ public class EvaluacionEt extends EntityBase implements Serializable {
 	@Column(name = "criterio")
 	private boolean criterio;
 
+	@Column(name = "faltante_inv")
+	private boolean faltanteInv;
+
 	public EvaluacionEt() {
 		this.criterio = true;
+		this.faltanteInv = false;
 	}
 
 	public String getDescripcion() {
@@ -85,6 +88,14 @@ public class EvaluacionEt extends EntityBase implements Serializable {
 
 	public void setCriterio(boolean criterio) {
 		this.criterio = criterio;
+	}
+
+	public boolean isFaltanteInv() {
+		return faltanteInv;
+	}
+
+	public void setFaltanteInv(boolean faltanteInv) {
+		this.faltanteInv = faltanteInv;
 	}
 
 	@Override

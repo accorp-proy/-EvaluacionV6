@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteFaltanteInventario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="1364a67e-f9ee-42f8-a2ec-de8420e77aca">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="481"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{estacion} == 'true']]></conditionExpression>
+			<style backcolor="#458F32"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{estacion} == 'false']]></conditionExpression>
+			<style backcolor="#FFFFFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ConsultaReporte" uuid="8d39dd25-f2d8-4683-b73c-e909468dc0ab">
+		<parameter name="par_id_usuario" class="java.lang.Long">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="mes01c" class="java.lang.Double"/>
+		<parameter name="mes02c" class="java.lang.Double"/>
+		<parameter name="mes03c" class="java.lang.Double"/>
+		<parameter name="mes04c" class="java.lang.Double"/>
+		<parameter name="mes05c" class="java.lang.Double"/>
+		<parameter name="mes06c" class="java.lang.Double"/>
+		<parameter name="mes07c" class="java.lang.Double"/>
+		<parameter name="mes08c" class="java.lang.Double"/>
+		<parameter name="mes09c" class="java.lang.Double"/>
+		<parameter name="mes10c" class="java.lang.Double"/>
+		<parameter name="mes11c" class="java.lang.Double"/>
+		<parameter name="mes12c" class="java.lang.Double"/>
+		<parameter name="valorTotal" class="java.lang.Double"/>
+		<queryString>
+			<![CDATA[select
+rpt.codigo_agencia as bodega,
+rpt.nombre_agencia as nombre,
+rpt.mes_01 as m01,
+rpt.mes_02 as m02,
+rpt.mes_03 as m03,
+rpt.mes_04 as m04,
+rpt.mes_05 as m05,
+rpt.mes_06 as m06,
+rpt.mes_07 as m07,
+rpt.mes_08 as m08,
+rpt.mes_09 as m09,
+rpt.mes_10 as m10,
+rpt.mes_11 as m11,
+rpt.mes_12 as m12,
+rpt.valor_total as valorTotal,
+rpt.estacion::text as estacion
+from reporte_faltante_inventario_et rpt
+where rpt.aud_usuario = $P{par_id_usuario}
+order by rpt.id_reporte_faltante_inventario;]]>
+		</queryString>
+		<field name="bodega" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="m01" class="java.math.BigDecimal"/>
+		<field name="m02" class="java.math.BigDecimal"/>
+		<field name="m03" class="java.math.BigDecimal"/>
+		<field name="m04" class="java.math.BigDecimal"/>
+		<field name="m05" class="java.math.BigDecimal"/>
+		<field name="m06" class="java.math.BigDecimal"/>
+		<field name="m07" class="java.math.BigDecimal"/>
+		<field name="m08" class="java.math.BigDecimal"/>
+		<field name="m09" class="java.math.BigDecimal"/>
+		<field name="m10" class="java.math.BigDecimal"/>
+		<field name="m11" class="java.math.BigDecimal"/>
+		<field name="m12" class="java.math.BigDecimal"/>
+		<field name="estacion" class="java.lang.String"/>
+		<field name="valorTotal" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="par_id_usuario" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+(select sum(rpt.mes_01) as mes01 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_02) as mes02 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_03) as mes03 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_04) as mes04 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_05) as mes05 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_06) as mes06 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_07) as mes07 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_08) as mes08 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_09) as mes09 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_10) as mes10 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_11) as mes11 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.mes_12) as mes12 from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario =$P{par_id_usuario} limit(1)),
+(select sum(rpt.valor_total) as valorTotal from reporte_faltante_inventario_et rpt where estacion='false' and aud_usuario = $P{par_id_usuario} limit(1) )
+from reporte_faltante_inventario_et rpt where aud_usuario=$P{par_id_usuario} limit(1);]]>
+	</queryString>
+	<field name="mes01" class="java.math.BigDecimal"/>
+	<field name="mes02" class="java.math.BigDecimal"/>
+	<field name="mes03" class="java.math.BigDecimal"/>
+	<field name="mes04" class="java.math.BigDecimal"/>
+	<field name="mes05" class="java.math.BigDecimal"/>
+	<field name="mes06" class="java.math.BigDecimal"/>
+	<field name="mes07" class="java.math.BigDecimal"/>
+	<field name="mes08" class="java.math.BigDecimal"/>
+	<field name="mes09" class="java.math.BigDecimal"/>
+	<field name="mes10" class="java.math.BigDecimal"/>
+	<field name="mes11" class="java.math.BigDecimal"/>
+	<field name="mes12" class="java.math.BigDecimal"/>
+	<field name="valorTotal" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="82" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="82" uuid="f6487fd6-b26e-4f3b-9b50-e8f652ae8a3d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ConsultaReporte" uuid="d108da47-02f7-4798-980d-a5636555fcbc">
+						<datasetParameter name="par_id_usuario">
+							<datasetParameterExpression><![CDATA[$P{par_id_usuario}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes01c">
+							<datasetParameterExpression><![CDATA[$F{mes01}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes02c">
+							<datasetParameterExpression><![CDATA[$F{mes02}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes03c">
+							<datasetParameterExpression><![CDATA[$F{mes03}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes04c">
+							<datasetParameterExpression><![CDATA[$F{mes04}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes05c">
+							<datasetParameterExpression><![CDATA[$F{mes05}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes06c">
+							<datasetParameterExpression><![CDATA[$F{mes06}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes07c">
+							<datasetParameterExpression><![CDATA[$F{mes07}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes08c">
+							<datasetParameterExpression><![CDATA[$F{mes08}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes09c">
+							<datasetParameterExpression><![CDATA[$F{mes09}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes10c">
+							<datasetParameterExpression><![CDATA[$F{mes10}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes11c">
+							<datasetParameterExpression><![CDATA[$F{mes11}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="mes12c">
+							<datasetParameterExpression><![CDATA[$F{mes12}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="valorTotal">
+							<datasetParameterExpression><![CDATA[$F{valorTotal}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="150" uuid="1576415d-317f-40b2-9bc7-8c5f12c1fb07">
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="150" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="32e15b67-cbbc-48b1-a1c8-c7c430437f73"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[EESS ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="150" height="15" uuid="aed42f2f-8111-47a2-8162-c9574cdcbcc7"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="2"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="4db6826d-14cd-4558-8820-8dd162c7993e">
+						<printWhenExpression><![CDATA[$F{mes01} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="6025449e-e6f9-40f7-aa9a-25ab80080658"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M01]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnHeader height="0" rowSpan="1"/>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="4c95f346-2fea-4d5e-a4fc-a8069f50ad03"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes01c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="3844f219-a7de-49e9-ad03-a0ba0813dcce"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m01}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="c4da8a91-3e57-4119-9a8a-0adc841478e1">
+						<printWhenExpression><![CDATA[$F{mes02} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9ca44fc3-2aa9-4900-a11e-b43a5aa19e89"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M02]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="be4f796b-6754-4b23-ac1a-6623af85f363"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes02c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="77501a0c-08da-4ad7-9a73-5879fa66e32c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m02}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="066e5648-c474-4b4c-9722-d5c6d011392d">
+						<printWhenExpression><![CDATA[$F{mes03} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="6ee59945-2df3-41ba-af7f-fd21e4d99bb8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M03]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="2d67f3c0-78bb-48a7-8f94-f07fbff93cc8"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes03c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="8a924110-47ba-45df-b40f-9852ceaf133d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m03}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="79a183dd-e49d-420f-b491-f9a89056bdca">
+						<printWhenExpression><![CDATA[$F{mes04} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b9454872-1a1b-43ce-9176-b55cde17d882"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M04]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="810c81ee-6e0c-462d-b9e8-ca810f28f515"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes04c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="139fba47-cdcb-45e6-9352-eacb5b313ce7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m04}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="54f3021e-b9b2-4ebf-b4db-f323f00aabf3">
+						<printWhenExpression><![CDATA[$F{mes05} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="dfd76567-a007-4919-9cbe-dcf32d573258"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M05]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="7b9c284c-9178-411b-b220-33f99d87fe88"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes05c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="0281d04d-631d-480e-99cb-180c84a86769"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m05}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="84557ee1-9002-46aa-98c9-b9cc79f0e169">
+						<printWhenExpression><![CDATA[$F{mes06} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="812fff90-2998-474a-9f89-1718cf699d92"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M06]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="5d30c264-2136-4195-ac55-ad0718e3c88c"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes06c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="93106379-ef64-4d33-926f-36b5d6107f71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m06}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="d38dc1e9-f38f-4087-8c67-e91e7cb80ee2">
+						<printWhenExpression><![CDATA[$F{mes07} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4cdf46ef-8fed-4d41-88c8-515d78d3dd1e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M07]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="496436bd-6e42-4d8b-af0c-17aeebc6b1c0"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes07c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="c72ab76f-374b-43c6-bb92-84db2a66694e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m07}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="2028cb91-6719-434e-9fe0-7b23d89edc53">
+						<printWhenExpression><![CDATA[$F{mes08} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ef53d236-498d-4725-b4ca-e0448e1aa092"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M08]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="8a0b789c-4be5-4672-8723-0bcfb656a3f7"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes08c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="3068c150-db1a-4dcc-a795-b089e23af628"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m08}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="b249f12e-eea5-4945-a2f3-f13655c571be">
+						<printWhenExpression><![CDATA[$F{mes09} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="0c98b8ab-768f-46cf-b7c5-fd6aa5ae4020"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M09]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="d83c3a1e-8790-4aa7-87b4-90bc016f4132"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes09c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="675d42de-895f-4f39-aca4-b9c0d759a1ca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m09}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="1b52ebae-0917-4db5-b483-656b7c42c338">
+						<printWhenExpression><![CDATA[$F{mes10} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="c0ed9654-9390-4e98-b874-003aa8c9a9ca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M10]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="0f64e670-9c62-4871-b107-dedf921c23a3"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes10c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="9b149662-5c20-4fd6-a085-2fa2ff4acb7f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m10}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="1e6b4058-bfad-4c73-a47d-f41de79858c5">
+						<printWhenExpression><![CDATA[$F{mes11} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5b80a15f-01ad-4742-a5b8-47109f6df4b1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M11]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="6e7f9fcd-60bc-45d8-befa-7c81108ece45"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes11c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="8aadec68-fa56-46f5-b7c0-e4c19c1623c7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m11}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="35" uuid="18cd3daa-9d6e-49e4-b5c1-f8a3dfcd3fce">
+						<printWhenExpression><![CDATA[$F{mes12} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="35" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1fb5b327-074a-423f-8eb3-64fedc3ec69c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[M12]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="35" height="15" uuid="b4f18b96-3700-483c-a92c-31589a609a63"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{mes12c}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="35" height="15" uuid="7aa7a7a3-508a-41f0-bb43-d5cb48c4be5f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{m12}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="a65cada9-4345-42e8-9b8b-373ae38cdce5">
+						<printWhenExpression><![CDATA[$F{valorTotal} * -1 > 0L ? true : false]]></printWhenExpression>
+						<jr:tableHeader style="table 1_CH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="40" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="cf3eb910-b23b-4999-816b-878245ba238f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement mode="Opaque" x="0" y="0" width="40" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="89475d02-7ea2-4c98-9fe6-837abda5c7c2"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{valorTotal}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
+							<textField pattern="###0" isBlankWhenNull="true">
+								<reportElement style="style1" mode="Opaque" x="0" y="0" width="40" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="2bb7d7cb-b7d1-4ef4-8b45-62435f94dc88"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,5 +1,0 @@
-package com.primax.srv.idao;
-
-public interface ICategoriaFaltanteDao {
-
-}

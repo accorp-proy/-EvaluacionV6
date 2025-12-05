@@ -76,6 +76,24 @@ public class EvaluacionDao extends GenericDao<EvaluacionEt, Long> implements IEv
 		List<EvaluacionEt> result = query.getResultList();
 		return result;
 	}
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<EvaluacionEt> getEvaluacionFaltInvList(String condicion) throws EntidadNoEncontradaException {
+		sql = new StringBuilder("FROM EvaluacionEt o ");
+		sql.append(" WHERE o.estado  = :estado   ");
+		sql.append(" AND o.faltanteInv = :faltanteInv   ");
+		if (condicion != null && !condicion.isEmpty()) {
+			sql.append(" AND o.descripcion like :condicion ");
+		}
+		sql.append(" ORDER BY o.idEvaluacion ");
+		TypedQuery<EvaluacionEt> query = em.createQuery(sql.toString(), EvaluacionEt.class);
+		query.setParameter("faltanteInv", true);
+		query.setParameter("estado", EstadoEnum.ACT);
+		if (condicion != null && !condicion.isEmpty()) {
+			query.setParameter("condicion", "%" + QUL.getString(condicion) + "%");
+		}
+		List<EvaluacionEt> result = query.getResultList();
+		return result;
+	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<EvaluacionEt> getEvaluacionList(UsuarioEt usuario, String condicion) throws EntidadNoEncontradaException {

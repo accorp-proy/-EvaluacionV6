@@ -1,0 +1,14 @@
+package com.primax.srv.idao;
+
+import com.primax.exc.gen.EntidadNoGrabadaException;
+import com.primax.jpa.pla.ReporteSeleccionEt;
+import com.primax.jpa.sec.UsuarioEt;
+import com.primax.srv.dao.base.IGenericDao;
+
+public interface IReporteSeleccionDao extends IGenericDao<ReporteSeleccionEt, Long> {
+
+	public void remove();
+
+	public void guardaReporteS(ReporteSeleccionEt rptSeleccion, UsuarioEt usuario) throws EntidadNoGrabadaException;
+
+}

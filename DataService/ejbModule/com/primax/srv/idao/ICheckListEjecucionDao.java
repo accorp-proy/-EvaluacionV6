@@ -63,5 +63,11 @@ public interface ICheckListEjecucionDao extends IGenericDao<CheckListEjecucionEt
 
 	public List<CheckListEjecucionEt> getCheckEjecutandoByEvaluacion(UsuarioEt usuario, PlanificacionEt planificacion)
 			throws EntidadNoEncontradaException;
+	
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInv(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion, UsuarioEt usuario, UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException ;
+	
+	public List<CheckListEjecucionEt> getCheckListEjecucionAccesoZonaListPlanAccionFaltInventario(AgenciaEt estacion, EvaluacionEt evaluacion, Date fechaDesde, Date fechaHasta, EstadoPlanAccionEnum estadoPlanAccion,  UsuarioEt usuarioEvaluacion)
+			throws EntidadNoEncontradaException ;
 
 }

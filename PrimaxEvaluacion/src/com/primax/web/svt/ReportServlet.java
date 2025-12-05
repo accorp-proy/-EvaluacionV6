@@ -202,7 +202,7 @@ public class ReportServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-		case "29":
+		case "30":
 			try {
 				ReporteGrupalFaltanteInventario reporteGrupalFaltanteInv = new ReporteGrupalFaltanteInventario();
 				exportIt(reporteGrupalFaltanteInv.getReport(params, path, getServletContext(), false), response);

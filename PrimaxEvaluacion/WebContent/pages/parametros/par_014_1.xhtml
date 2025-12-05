@@ -30,8 +30,12 @@
 					<f:selectItems value="#{EvaluacionBn.criterios}" var="criterio"
 						itemLabel="#{criterio}" itemValue="#{criterio}" />
 				</p:selectOneRadio>
+				<p:outputLabel> Faltante.Inv </p:outputLabel>
+				<p:selectBooleanCheckbox
+					value="#{EvaluacionBn.evaluacionSeleccionado.faltanteInv}"></p:selectBooleanCheckbox>
+
 				<p:outputLabel> Estado </p:outputLabel>
-				<p:selectOneMenu  editable="false"
+				<p:selectOneMenu editable="false"
 					value="#{EvaluacionBn.evaluacionSeleccionado.estado}">
 					<f:selectItems value="#{EvaluacionBn.estadosActIna}" />
 				</p:selectOneMenu>

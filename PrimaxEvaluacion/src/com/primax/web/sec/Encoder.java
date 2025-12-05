@@ -63,7 +63,7 @@ public class Encoder {
 	public static void main(String... dat) {
 		String clave = encriptar(Encoder.strLlaveCifrado, "123456");
 		System.out.println(clave);
-		System.out.println(desencriptar(Encoder.strLlaveCifrado, "qkM8CB8MUpw="));
+		System.out.println(desencriptar(Encoder.strLlaveCifrado, "mMVi8NqbfthRb+cRLTuCJg=="));
 
 		Date fechaDesde = null;
 		Date fechaHasta = null;

@@ -1,0 +1,328 @@
+package com.primax.jpa.pla;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.envers.Audited;
+
+import com.primax.enm.gen.ActionAuditedEnum;
+import com.primax.jpa.base.EntityBase;
+import com.primax.jpa.sec.UsuarioEt;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
+import javax.persistence.NamedStoredProcedureQuery;
+
+@Entity
+@Table(name = "REPORTE_FALTANTE_INVENTARIO_ET")
+@Audited
+
+@NamedStoredProcedureQuery(name = "getGenerarReporteFaltanteInv", procedureName = "fun_generar_rpt_faltante_inventario", resultClasses = ReporteFaltanteInventarioEt.class, parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaDesde"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Date.class, name = "fechaHasta"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idZona"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idEvaluacion"),
+		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "idUsuario"),
+		@StoredProcedureParameter(mode = ParameterMode.OUT, type = String.class, name = "respuesta"), })
+
+public class ReporteFaltanteInventarioEt extends EntityBase implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@SequenceGenerator(name = "sec_reporte_faltante_inventario_et", sequenceName = "seq_reporte_faltante_inventario_et", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(generator = "sec_reporte_faltante_inventario_et", strategy = GenerationType.SEQUENCE)
+	@Column(name = "id_reporte_faltante_inventario")
+	private Long idReporteFaltanteInventario;
+
+	@Column(name = "fecha_ejecucion")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaEjecucion;
+
+	@Column(name = "id_check_list_ejecucion")
+	private Long idCheckListEjecucion;
+
+	@Column(name = "tipo", length = 100)
+	private String tipo;
+
+	@Column(name = "ciudad", length = 100)
+	private String ciudad;
+
+	@Column(name = "zona", length = 50)
+	private String zona;
+
+	@Column(name = "id_agencia")
+	private Long idAgencia;
+
+	@Column(name = "codigo_agencia", length = 20)
+	private String codigoAgencia;
+
+	@Column(name = "nombre_agencia", length = 100)
+	private String nombreAgencia;
+
+	@Column(name = "mes_01")
+	private Double mes01;
+
+	@Column(name = "mes_02")
+	private Double mes02;
+
+	@Column(name = "mes_03")
+	private Double mes03;
+
+	@Column(name = "mes_04")
+	private Double mes04;
+
+	@Column(name = "mes_05")
+	private Double mes05;
+
+	@Column(name = "mes_06")
+	private Double mes06;
+
+	@Column(name = "mes_07")
+	private Double mes07;
+
+	@Column(name = "mes_08")
+	private Double mes08;
+
+	@Column(name = "mes_09")
+	private Double mes09;
+
+	@Column(name = "mes_10")
+	private Double mes10;
+
+	@Column(name = "mes_11")
+	private Double mes11;
+
+	@Column(name = "mes_12")
+	private Double mes12;
+
+	@Column(name = "id_nivel_evaluacion")
+	private Long idNivelEvaluacion;
+
+	@Column(name = "id_nivel_evaluacion_detalle")
+	private Long idNivelEvaluacionDetalle;
+
+	public ReporteFaltanteInventarioEt() {
+		this.idAgencia = 0L;
+		this.idCheckListEjecucion = 0L;
+	}
+
+	public Long getIdReporteFaltanteInventario() {
+		return idReporteFaltanteInventario;
+	}
+
+	public void setIdReporteFaltanteInventario(Long idReporteFaltanteInventario) {
+		this.idReporteFaltanteInventario = idReporteFaltanteInventario;
+	}
+
+	public Double getMes01() {
+		return mes01;
+	}
+
+	public void setMes01(Double mes01) {
+		this.mes01 = mes01;
+	}
+
+	public Double getMes02() {
+		return mes02;
+	}
+
+	public void setMes02(Double mes02) {
+		this.mes02 = mes02;
+	}
+
+	public Double getMes03() {
+		return mes03;
+	}
+
+	public void setMes03(Double mes03) {
+		this.mes03 = mes03;
+	}
+
+	public Double getMes04() {
+		return mes04;
+	}
+
+	public void setMes04(Double mes04) {
+		this.mes04 = mes04;
+	}
+
+	public Double getMes05() {
+		return mes05;
+	}
+
+	public void setMes05(Double mes05) {
+		this.mes05 = mes05;
+	}
+
+	public Double getMes06() {
+		return mes06;
+	}
+
+	public void setMes06(Double mes06) {
+		this.mes06 = mes06;
+	}
+
+	public Double getMes07() {
+		return mes07;
+	}
+
+	public void setMes07(Double mes07) {
+		this.mes07 = mes07;
+	}
+
+	public Double getMes08() {
+		return mes08;
+	}
+
+	public void setMes08(Double mes08) {
+		this.mes08 = mes08;
+	}
+
+	public Double getMes09() {
+		return mes09;
+	}
+
+	public void setMes09(Double mes09) {
+		this.mes09 = mes09;
+	}
+
+	public Double getMes10() {
+		return mes10;
+	}
+
+	public void setMes10(Double mes10) {
+		this.mes10 = mes10;
+	}
+
+	public Double getMes11() {
+		return mes11;
+	}
+
+	public void setMes11(Double mes11) {
+		this.mes11 = mes11;
+	}
+
+	public Double getMes12() {
+		return mes12;
+	}
+
+	public void setMes12(Double mes12) {
+		this.mes12 = mes12;
+	}
+
+	public Date getFechaEjecucion() {
+		return fechaEjecucion;
+	}
+
+	public void setFechaEjecucion(Date fechaEjecucion) {
+		this.fechaEjecucion = fechaEjecucion;
+	}
+
+	public Long getIdCheckListEjecucion() {
+		return idCheckListEjecucion;
+	}
+
+	public void setIdCheckListEjecucion(Long idCheckListEjecucion) {
+		this.idCheckListEjecucion = idCheckListEjecucion;
+	}
+
+	public Long getIdAgencia() {
+		return idAgencia;
+	}
+
+	public void setIdAgencia(Long idAgencia) {
+		this.idAgencia = idAgencia;
+	}
+
+	public String getZona() {
+		return zona;
+	}
+
+	public void setZona(String zona) {
+		this.zona = zona;
+	}
+
+	public String getCodigoAgencia() {
+		return codigoAgencia;
+	}
+
+	public void setCodigoAgencia(String codigoAgencia) {
+		this.codigoAgencia = codigoAgencia;
+	}
+
+	public String getNombreAgencia() {
+		return nombreAgencia;
+	}
+
+	public void setNombreAgencia(String nombreAgencia) {
+		this.nombreAgencia = nombreAgencia;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Long getIdNivelEvaluacionDetalle() {
+		return idNivelEvaluacionDetalle;
+	}
+
+	public void setIdNivelEvaluacionDetalle(Long idNivelEvaluacionDetalle) {
+		this.idNivelEvaluacionDetalle = idNivelEvaluacionDetalle;
+	}
+
+	public Long getIdNivelEvaluacion() {
+		return idNivelEvaluacion;
+	}
+
+	public void setIdNivelEvaluacion(Long idNivelEvaluacion) {
+		this.idNivelEvaluacion = idNivelEvaluacion;
+	}
+
+	@Override
+	public <T> void audit(UsuarioEt user, ActionAuditedEnum act) {
+		super.audit(user, act);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj instanceof ReporteFaltanteInventarioEt) {
+
+			ReporteFaltanteInventarioEt other = (ReporteFaltanteInventarioEt) obj;
+			if (this.idReporteFaltanteInventario == null)
+				return this == other;
+
+			return this.idReporteFaltanteInventario.equals(other.idReporteFaltanteInventario);
+		}
+		return false;
+	}
+
+}
