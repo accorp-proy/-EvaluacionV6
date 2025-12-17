@@ -57,7 +57,7 @@ public class ConsultaPlanAccionFBean extends BaseBean implements Serializable {
 			if (faltanteInvSeleccionado != null) {
 				faltanteInvSeleccionado.setEjecutando(true);
 				FacesContext contex = FacesContext.getCurrentInstance();
-				pagina = "/PrimaxEvaluacionPruebas/pages/planificacion/pln_020.xhtml";
+				pagina = "/PrimaxEvaluacion/pages/planificacion/pln_020.xhtml";
 				iFaltanteInvDao.guardarFaltanteInv(faltanteInvSeleccionado, usuario);
 				contex.getExternalContext().redirect(pagina);
 			}

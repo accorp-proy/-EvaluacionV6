@@ -13,7 +13,7 @@ import com.primax.ejb.lkp.BaseNaming;
 public class BaseReport extends BaseNaming {
 
 	public InputStream getLogo(ServletContext ctx) {
-		String path = ctx.getRealPath("/resources/ultima-layout/images/logo.png");
+		String path = ctx.getRealPath("/resources/atlantis-layout/images/logo.png");
 		File arch = new File(path);
 		InputStream img = null;
 		try {
@@ -25,7 +25,7 @@ public class BaseReport extends BaseNaming {
 	}
 
 	public InputStream getLogoAtimasa(ServletContext ctx) {
-		String path = ctx.getRealPath("/resources/ultima-layout/images/atimasa.png");
+		String path = ctx.getRealPath("/resources/atlantis-layout/images/atimasa.png");
 		File arch = new File(path);
 		InputStream img = null;
 		try {
@@ -39,7 +39,7 @@ public class BaseReport extends BaseNaming {
 	public String rutaLogo(ServletContext ctx) {
 		String path = "";
 		try {
-			path = ctx.getRealPath("/resources/ultima-layout/images/atimasa.png");
+			path = ctx.getRealPath("/resources/atlantis-layout/images/atimasa.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +50,7 @@ public class BaseReport extends BaseNaming {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		// System.out.println(servletContext.getRealPath("/"));
-		String path = (servletContext.getRealPath("/") + "/resources/ultima-layout/images/logo.png");
+		String path = (servletContext.getRealPath("/") + "/resources/atlantis-layout/images/logo.png");
 		File arch = new File(path);
 		InputStream img = null;
 		try {
@@ -65,7 +65,7 @@ public class BaseReport extends BaseNaming {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		// System.out.println(servletContext.getRealPath("/"));
-		String path = (servletContext.getRealPath("/") + "/resources/ultima-layout/images/atimasa.png");
+		String path = (servletContext.getRealPath("/") + "/resources/atlantis-layout/images/atimasa.png");
 		File arch = new File(path);
 		InputStream img = null;
 		try {

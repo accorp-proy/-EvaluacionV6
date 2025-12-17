@@ -79,7 +79,7 @@ public class ReporteIndividualInformeDinamico extends BaseReport {
 	public String rutaLogoA(ServletContext ctx) {
 		String path = "";
 		try {
-			path = ctx.getRealPath("/resources/ultima-layout/images/atimasa.png");
+			path = ctx.getRealPath("/resources/atlantis-layout/images/atimasa.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +89,7 @@ public class ReporteIndividualInformeDinamico extends BaseReport {
 	public String rutaLogoP(ServletContext ctx) {
 		String path = "";
 		try {
-			path = ctx.getRealPath("/resources/ultima-layout/images/logo.png");
+			path = ctx.getRealPath("/resources/atlantis-layout/images/logo.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

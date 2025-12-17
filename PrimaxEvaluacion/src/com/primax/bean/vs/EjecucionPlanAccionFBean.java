@@ -123,7 +123,7 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 			FacesContext contex = FacesContext.getCurrentInstance();
 			faltanteInvSelecc.setEstadoPlanAccion(EstadoPlanAccionEnum.INGRESADO);
 			iFaltanteInvDao.guardarFaltanteInv(faltanteInvSelecc, usuario);
-			pagina = "/PrimaxEvaluacionPruebas/pages/gerencia/ger_005.xhtml";
+			pagina = "/PrimaxEvaluacion/pages/gerencia/ger_005.xhtml";
 			contex.getExternalContext().redirect(pagina);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,7 +165,7 @@ public class EjecucionPlanAccionFBean extends BaseBean implements Serializable {
 		String pagina = "";
 		try {
 			FacesContext contex = FacesContext.getCurrentInstance();
-			pagina = "/PrimaxEvaluacionPruebas/pages/gerencia/ger_005.xhtml";
+			pagina = "/PrimaxEvaluacion/pages/gerencia/ger_005.xhtml";
 			contex.getExternalContext().redirect(pagina);
 		} catch (Exception e) {
 			e.printStackTrace();

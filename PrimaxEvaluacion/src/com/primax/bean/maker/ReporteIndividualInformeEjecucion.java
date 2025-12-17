@@ -84,7 +84,7 @@ public class ReporteIndividualInformeEjecucion extends BaseReport {
 			paramRpt.put("SUBREPORT_DIR", localPath + File.separator + "ejecucionInforme" + File.separator);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error :Método getReport " + " " + e.getMessage());
+			System.out.println("Error :Mï¿½todo getReport " + " " + e.getMessage());
 		}
 		Connection cn = null;
 		try {
@@ -122,7 +122,7 @@ public class ReporteIndividualInformeEjecucion extends BaseReport {
 	public String rutaLogoA(ServletContext ctx) {
 		String path = "";
 		try {
-			path = ctx.getRealPath("/resources/ultima-layout/images/atimasa.png");
+			path = ctx.getRealPath("/resources/atlantis-layout/images/atimasa.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,7 +132,7 @@ public class ReporteIndividualInformeEjecucion extends BaseReport {
 	public String rutaLogoP(ServletContext ctx) {
 		String path = "";
 		try {
-			path = ctx.getRealPath("/resources/ultima-layout/images/logo.png");
+			path = ctx.getRealPath("/resources/atlantis-layout/images/logo.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -44,6 +44,7 @@ public class UsuarioEt extends EntityBase {
 
 	public UsuarioEt() {
 		this.accesoZona = false;
+		this.accesoEvaluacion = false;
 		rolesUsario = new ArrayList<>();
 	}
 
@@ -66,7 +67,7 @@ public class UsuarioEt extends EntityBase {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
 	@Where(clause = "estado='ACT'")
-	//@OrderBy(" evaluacion.idEvaluacion ")
+	// @OrderBy(" evaluacion.idEvaluacion ")
 	private List<EvaluacionUsuarioEt> evaluacionUsuario;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
@@ -90,7 +91,7 @@ public class UsuarioEt extends EntityBase {
 
 	@Column(name = "acceso_zona")
 	private boolean accesoZona;
-	
+
 	@Column(name = "acceso_evaluacion")
 	private boolean accesoEvaluacion;
 

@@ -29,13 +29,13 @@
 					</p:commandButton>
 				</p:column>
 				<p:column>
-					<p:commandButton id="btnFirmar" icon="fa fa-pencil-square-o"
+					<p:commandButton id="btnFirmar" icon="pi pi-pencil"
 						process="@this frm_eje_004" oncomplete="PF('dlg_eje_016').show()"
 						update=":frm_eje_016" title="Firma Responsables"></p:commandButton>
 				</p:column>
 				<p:column>
 					<div align="right">
-						<p:commandButton icon="ui-icon-check"
+						<p:commandButton icon="pi pi-save"
 							title="Permite guardar arqueo caja de fondo Suelto"
 							action="#{CheckListEjecucionCtrlBn.guardarArqueoCajaFondoSuelto()}" />
 					</div>
@@ -98,7 +98,7 @@
 			<p:dataTable id="dtbArqueoFondoSuelto" var="arqueoCaja"
 				value="#{CheckListEjecucionCtrlBn.checkListKpiEjecucionSeleccionado.arqueoFondoSuelto}"
 				sortBy="#{arqueoCaja.orden}" expandableRowGroups="true">
-				<p:headerRow id="headerR" groupBy="#{arqueoCaja.orden}" >
+				<p:headerRow id="headerR" groupBy="#{arqueoCaja.orden}">
 					<p:column colspan="5">
 						<h:outputText value="#{arqueoCaja.subDescripcion}" />
 					</p:column>
@@ -108,18 +108,18 @@
 				</p:column>
 				<p:column headerText="Caja 1">
 					<div align="center">
-						<p:inputNumber value="#{arqueoCaja.caja0}" symbolPosition=" "
-							decimalSeparator="" thousandSeparator=" " decimalPlaces="0">
-							<p:ajax event="change" process="@this dtbArqueoFondoSuelto"
+						<p:inputNumber id="inpCaj1" value="#{arqueoCaja.caja0}">
+							<p:ajax event="change"
+								process="@this inpCaj1,dtbArqueoFondoSuelto"
 								listener="#{CheckListEjecucionCtrlBn.sumarArqueoFondoSuelto(arqueoCaja)}" />
 						</p:inputNumber>
 					</div>
 				</p:column>
 				<p:column headerText="Caja 2">
 					<div align="center">
-						<p:inputNumber value="#{arqueoCaja.caja1}" symbolPosition=" "
-							decimalSeparator="" thousandSeparator=" " decimalPlaces="0">
-							<p:ajax event="change" process="@this dtbArqueoFondoSuelto"
+						<p:inputNumber id="inpCaj2" value="#{arqueoCaja.caja1}">
+							<p:ajax event="change"
+								process="@this inpCaj2,dtbArqueoFondoSuelto"
 								listener="#{CheckListEjecucionCtrlBn.sumarArqueoFondoSuelto(arqueoCaja)}" />
 						</p:inputNumber>
 
@@ -127,9 +127,11 @@
 				</p:column>
 				<p:column headerText="Caja 3">
 					<div align="center">
-						<p:inputNumber value="#{arqueoCaja.caja2}" symbolPosition=" "
-							decimalSeparator="" thousandSeparator=" " decimalPlaces="0">
-							<p:ajax event="change" process="@this dtbArqueoFondoSuelto"
+						<p:inputNumber id="inpCaj3" value="#{arqueoCaja.caja2}"
+							symbolPosition=" " decimalSeparator="" thousandSeparator=" "
+							decimalPlaces="0">
+							<p:ajax event="change"
+								process="@this inpCaj3,dtbArqueoFondoSuelto"
 								listener="#{CheckListEjecucionCtrlBn.sumarArqueoFondoSuelto(arqueoCaja)}" />
 						</p:inputNumber>
 					</div>

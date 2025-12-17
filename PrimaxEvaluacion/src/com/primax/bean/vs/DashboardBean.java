@@ -423,10 +423,10 @@ public class DashboardBean extends BaseBean implements Serializable {
 					String codigo = evaluacion.isCriterio() == true ? "1" : "2";
 					switch (codigo) {
 					case "1":
-						pagina = "/PrimaxEvaluacionPruebas/pages/ejecucion/eje_001.xhtml";
+						pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_001.xhtml";
 						break;
 					case "2":
-						pagina = "/PrimaxEvaluacionPruebas/pages/ejecucion/eje_002.xhtml";
+						pagina = "/PrimaxEvaluacion/pages/ejecucion/eje_002.xhtml";
 						break;
 					default:
 						break;
@@ -568,10 +568,10 @@ public class DashboardBean extends BaseBean implements Serializable {
 				String codigo = evaluacion.isCriterio() == true ? "1" : "2";
 				switch (codigo) {
 				case "1":
-					pagina = "/PrimaxEvaluacionPruebas/pages/gerencia/ger_002.xhtml";
+					pagina = "/PrimaxEvaluacion/pages/gerencia/ger_002.xhtml";
 					break;
 				case "2":
-					pagina = "/PrimaxEvaluacionPruebas/pages/gerencia/ger_003.xhtml";
+					pagina = "/PrimaxEvaluacion/pages/gerencia/ger_003.xhtml";
 					break;
 				default:
 					break;
